@@ -57,4 +57,7 @@ dependencies {
     // Permission
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     testCompile 'junit:junit:4.12'
+
+    //about dialog
+    compile 'com.github.daniel-stoneuk:material-about-library:2.2.1'
 }
