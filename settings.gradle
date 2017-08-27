@@ -1,1 +1,1 @@
-include ':app', ':mcerebrum', ':utilities'
+include ':commons', ':core'
