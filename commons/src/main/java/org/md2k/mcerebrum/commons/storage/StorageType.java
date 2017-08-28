@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.commons.storage;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,34 +26,21 @@ package org.md2k.mcerebrum.core;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
+public enum StorageType {
+    ASSET("ASSET"),
+    SDCARD_APPLICATION("SDCARD_APPLICATION"),
+    SDCARD_INTERNAL("SDCARD_INTERNAL"),
+    SDCARD_EXTERNAL("SDCARD_EXTERNAL"),
+    SDCARD_EXTERNAL_PREFERRED("SDCARD_EXTERNAL_PREFERRED");
 
-public class Access {
-    public static boolean isRunning(){
-        return true;
-    }
-    public static long runningTime(){
-        return 0;
-    }
-    public static void configure(){
+    private String stringValue;
 
+    StorageType(String toString) {
+        stringValue = toString;
     }
-    public boolean isConfigured(Context context){
-        return true;
-    }
-    public static void start(){
 
-    }
-    public static void stop(){
-
-    }
-    public static void report(){
-
-    }
-    public static void plot(){
-
-    }
-    public static void clear(){
-
+    @Override
+    public String toString() {
+        return stringValue;
     }
 }

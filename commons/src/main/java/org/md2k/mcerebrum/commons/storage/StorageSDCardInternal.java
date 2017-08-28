@@ -1,4 +1,8 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.commons.storage;
+
+import android.content.Context;
+import android.os.Environment;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,34 +30,17 @@ package org.md2k.mcerebrum.core;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
+public class StorageSDCardInternal extends StorageReadWrite {
+    public StorageSDCardInternal(Context context){
+        super(context);
+    }
 
-public class Access {
-    public static boolean isRunning(){
-        return true;
-    }
-    public static long runningTime(){
-        return 0;
-    }
-    public static void configure(){
-
-    }
-    public boolean isConfigured(Context context){
-        return true;
-    }
-    public static void start(){
-
-    }
-    public static void stop(){
-
-    }
-    public static void report(){
-
-    }
-    public static void plot(){
-
-    }
-    public static void clear(){
-
+    @Override
+    public String getRootDirectory() {
+        String directory = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            directory = Environment.getExternalStorageDirectory().getAbsolutePath();
+        }
+        return directory;
     }
 }

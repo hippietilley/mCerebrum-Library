@@ -1,4 +1,9 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.commons.storage;
+
+import android.content.Context;
+
+import java.io.File;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,34 +31,21 @@ package org.md2k.mcerebrum.core;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
+class StorageSDCardExternal extends StorageReadWrite {
+    StorageSDCardExternal(Context context){
+        super(context);
+    }
 
-public class Access {
-    public static boolean isRunning(){
-        return true;
-    }
-    public static long runningTime(){
-        return 0;
-    }
-    public static void configure(){
-
-    }
-    public boolean isConfigured(Context context){
-        return true;
-    }
-    public static void start(){
-
-    }
-    public static void stop(){
-
-    }
-    public static void report(){
-
-    }
-    public static void plot(){
-
-    }
-    public static void clear(){
-
+    @Override
+    public String getRootDirectory() {
+        String strSDCardPath = System.getenv("SECONDARY_STORAGE");
+        File[] externalFilesDirs = context.getExternalFilesDirs(null);
+        for (File externalFilesDir : externalFilesDirs) {
+            if (externalFilesDir == null) continue;
+            if (strSDCardPath == null) return null;
+            if (externalFilesDir.getAbsolutePath().contains(strSDCardPath))
+                return externalFilesDir.getAbsolutePath();
+        }
+        return null;
     }
 }
