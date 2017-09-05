@@ -1,10 +1,7 @@
-package org.md2k.mcerebrum.commons.storage;
+package org.md2k.mcerebrum.core.data_format;
 
-import android.content.Context;
-import android.os.Environment;
-
-/*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
+/**
+ * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
@@ -29,18 +26,13 @@ import android.os.Environment;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-public class StorageSDCardInternal extends StorageReadWrite {
-    public StorageSDCardInternal(Context context){
-        super(context);
-    }
-
-    @Override
-    public String getRootDirectory() {
-        String directory = null;
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            directory = Environment.getExternalStorageDirectory().getAbsolutePath();
-        }
-        return directory;
-    }
+public class DATA_QUALITY {
+    public static final int GOOD = 0;
+    public static final int NOISE = 1;
+    public static final int BAD = 2;
+    public static final int BAND_OFF = 3;
+    public static final int MISSING=4;
+    public static final int NOT_WORN = 5;
+    public static final int BAND_LOOSE = 6;
+    public static final String METADATA_STR =" GOOD(0), NOISE(1), BAD(2), BAND_OFF(3), MISSING(4), NOT_WORN(5), BAND_LOOSE(6)";
 }

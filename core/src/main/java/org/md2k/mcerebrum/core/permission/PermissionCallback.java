@@ -1,7 +1,4 @@
-package org.md2k.mcerebrum.commons.storage;
-
-import android.content.Context;
-
+package org.md2k.mcerebrum.core.permission;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -29,16 +26,6 @@ import android.content.Context;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class StorageSDCardExternalPreferred extends StorageReadWrite {
-    StorageSDCardExternalPreferred(Context context){
-        super(context);
-    }
-
-    @Override
-    public String getRootDirectory() {
-        String rootDirectory = new StorageSDCardExternal(context).getRootDirectory();
-        if(rootDirectory==null)
-            rootDirectory=new StorageSDCardInternal(context).getRootDirectory();
-        return rootDirectory;
-    }
+public interface PermissionCallback {
+    void OnResponse(boolean isGranted);
 }

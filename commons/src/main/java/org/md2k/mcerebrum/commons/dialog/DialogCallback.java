@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.commons.dialog;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,22 +26,6 @@ package org.md2k.mcerebrum.core;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
-
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
-
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_CONFIGURE = 2;
-
-    public static final int REQUEST_START = 4;
-    public static final int REQUEST_STOP = 7;
-
-    public static final int REQUEST_INFO = 8;
-    public static final int REQUEST_PLOT = 9;
-    public static final int REQUEST_CLEAR = 10;
-
-    public static final int RESPONSE_INVALID_REQUEST = -1;
-
+public interface DialogCallback {
+    void onSelected(String value);
 }

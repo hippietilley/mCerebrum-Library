@@ -1,6 +1,6 @@
-package org.md2k.mcerebrum.commons.permission;
+package org.md2k.mcerebrum.core.data_format;
 
-/*
+/**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
@@ -26,6 +26,30 @@ package org.md2k.mcerebrum.commons.permission;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface ResultCallback<R> {
-    void onResult(R result);
+public class Marker {
+    public static final String SMOKING = "SMOKING";
+    public static final String SLEEP = "SLEEP";
+    public static final String WAKEUP="WAKEUP";
+    String type;
+    long timestamp;
+    public Marker(String type){
+        this.type=type;
+        timestamp= System.currentTimeMillis();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

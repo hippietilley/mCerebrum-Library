@@ -1,6 +1,9 @@
-package org.md2k.mcerebrum.core;
-/*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
+package org.md2k.mcerebrum.core.data_format;
+
+import java.util.HashMap;
+
+/**
+ * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
@@ -25,23 +28,31 @@ package org.md2k.mcerebrum.core;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+public class Event {
+    String type;
+    String id;
+    String message;
+    HashMap<String, String> parameters;
 
-import android.content.Context;
+    public Event(String type, String id, String message) {
+        this.type = type;
+        this.id = id;
+        this.message = message;
+        parameters=new HashMap<>();
+    }
+    public void addParameters(String key, String value){
+        parameters.put(key, value);
+    }
 
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
+    public String getType() {
+        return type;
+    }
 
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_CONFIGURE = 2;
+    public String getId() {
+        return id;
+    }
 
-    public static final int REQUEST_START = 4;
-    public static final int REQUEST_STOP = 7;
-
-    public static final int REQUEST_INFO = 8;
-    public static final int REQUEST_PLOT = 9;
-    public static final int REQUEST_CLEAR = 10;
-
-    public static final int RESPONSE_INVALID_REQUEST = -1;
-
+    public String getMessage() {
+        return message;
+    }
 }

@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.commons.permission;
+package org.md2k.mcerebrum.core.data_format;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,30 +26,44 @@ package org.md2k.mcerebrum.commons.permission;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
+public class DataFormat{
+    public static final int Pressure=0;
+    public static final int AmbientLight=0;
+    public static final int AmbientTemperature =0;
+    public static final int Proximity=0;
 
-import rx.Observable;
-import rx.Subscriber;
+    public class Accelerometer{
+        public static final int X=0;
+        public static final int Y=1;
+        public static final int Z=2;
+    }
+    public class Gyroscope{
+        public static final int X=0;
+        public static final int Y=1;
+        public static final int Z=2;
+    }
+    public class Compass{
+        public static final int X=0;
+        public static final int Y=1;
+        public static final int Z=2;
+    }
+    public class ActivityType{
+        public static final int Type =0;
+        public static final int Confidence =1;
+    }
 
-public class ObservablePermission {
-    public static Observable<Boolean> get(final Context context) {
+    public class Battery {
+        public static final int Parcentage=0;
+        public static final int Voltage=1;
+        public static final int Temperature=2;
+    }
 
-        return Observable.create(new Observable.OnSubscribe<Boolean>() {
-            @Override
-            public void call(final Subscriber<? super Boolean> subscriber) {
-                PermissionInfo permissionInfo = new PermissionInfo();
-                permissionInfo.getPermissions(context, new ResultCallback<Boolean>() {
-                    @Override
-                    public void onResult(Boolean result) {
-                        if (!result)
-                            subscriber.onError(new Exception("!PERMISSION DENIED !!! Could not continue..."));
-                        else {
-                            subscriber.onNext(true);
-                            subscriber.onCompleted();
-                        }
-                    }
-                });
-            }
-        });
+    public class Location {
+        public static final int Latitude=0;
+        public static final int Longitude=1;
+        public static final int Altitude=2;
+        public static final int Speed=3;
+        public static final int Bearing=4;
+        public static final int Accuracy=5;
     }
 }

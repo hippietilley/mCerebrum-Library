@@ -1,5 +1,7 @@
-package org.md2k.mcerebrum.core;
-/*
+package org.md2k.mcerebrum.core.data_format;
+
+
+/**
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
@@ -25,23 +27,46 @@ package org.md2k.mcerebrum.core;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+public class StudyInfo {
+    private String id;
+    private String name;
+    private String version;
+    private String filename;
 
-import android.content.Context;
+    public StudyInfo(String id, String name, String version, String filename) {
+        this.id = id;
+        this.name = name;
+        this.version = version;
+        this.filename = filename;
+    }
 
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
+    public StudyInfo() {
+        id = "";
+        name = "";
+        version = "";
+        filename = "";
+    }
 
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_CONFIGURE = 2;
+    public String getId() {
+        return id;
+    }
 
-    public static final int REQUEST_START = 4;
-    public static final int REQUEST_STOP = 7;
+    public String getName() {
+        return name;
+    }
 
-    public static final int REQUEST_INFO = 8;
-    public static final int REQUEST_PLOT = 9;
-    public static final int REQUEST_CLEAR = 10;
+    public String getVersion() {
+        return version;
+    }
 
-    public static final int RESPONSE_INVALID_REQUEST = -1;
+    public String getFilename() {
+        return filename;
+    }
 
+    public boolean equals(StudyInfo studyInfo) {
+        if (!id.equals(studyInfo.id)) return false;
+        if (!name.equals(studyInfo.name)) return false;
+        if (!version.equals(studyInfo.version)) return false;
+        return filename.equals(studyInfo.filename);
+    }
 }

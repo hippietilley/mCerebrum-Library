@@ -1,7 +1,8 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.commons.debug;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * - Timothy Hnat <twhnat@memphis.edu>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,22 +27,43 @@ package org.md2k.mcerebrum.core;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.content.Context;
+import android.os.Environment;
 
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
+import java.io.File;
+import java.io.IOException;
 
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_CONFIGURE = 2;
+public class LogStorage {
+    private static final String logDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/logs/";
+    private static String logfile;
+    private static Process process;
 
-    public static final int REQUEST_START = 4;
-    public static final int REQUEST_STOP = 7;
+    public static void startLogFileStorageProcess(String applicationName) {
+        logfile = logDir + applicationName + ".log";
 
-    public static final int REQUEST_INFO = 8;
-    public static final int REQUEST_PLOT = 9;
-    public static final int REQUEST_CLEAR = 10;
+        if (logfile != null) {
+            File log = new File(logDir);
+            if (!log.exists()) {
+                log.mkdirs();
+            }
 
-    public static final int RESPONSE_INVALID_REQUEST = -1;
+            try {
+                if (process != null) {
+                    process.destroy();
+                }
+
+                ProcessBuilder pb = new ProcessBuilder("logcat", "-c");
+                process = pb.start();
+
+                //Log WARNING and ERROR messages to file for offline debugging support
+                pb = new ProcessBuilder("logcat", "-v", "time", "-n", "10", "-r", "1024", "-f", logfile, "*:W");
+                pb.redirectErrorStream(true);
+
+                process = pb.start();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

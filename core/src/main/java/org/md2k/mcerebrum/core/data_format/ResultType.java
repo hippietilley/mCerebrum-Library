@@ -1,9 +1,4 @@
-package org.md2k.mcerebrum.commons.storage;
-
-import android.content.Context;
-
-import java.io.File;
-
+package org.md2k.mcerebrum.core.data_format;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -31,21 +26,19 @@ import java.io.File;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-class StorageSDCardExternal extends StorageReadWrite {
-    StorageSDCardExternal(Context context){
-        super(context);
-    }
-
-    @Override
-    public String getRootDirectory() {
-        String strSDCardPath = System.getenv("SECONDARY_STORAGE");
-        File[] externalFilesDirs = context.getExternalFilesDirs(null);
-        for (File externalFilesDir : externalFilesDirs) {
-            if (externalFilesDir == null) continue;
-            if (strSDCardPath == null) return null;
-            if (externalFilesDir.getAbsolutePath().contains(strSDCardPath))
-                return externalFilesDir.getAbsolutePath();
+public class ResultType {
+    public class ActivityType{
+        public static final int STILL=0;
+        public static final int ON_FOOT=1;
+        public static final int TILTING=2;
+        public static final int WALKING=3;
+        public static final int RUNNING=4;
+        public static final int ON_BICYCLE=5;
+        public static final int IN_VEHICLE=6;
+        public static final int UNKNOWN=7;
+        int value;
+        ActivityType(int value){
+            this.value=value;
         }
-        return null;
     }
 }

@@ -1,6 +1,7 @@
-package org.md2k.mcerebrum.core;
-/*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
+package org.md2k.mcerebrum.core.data_format;
+
+/**
+ * Copyright (c) 2015, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
@@ -25,23 +26,28 @@ package org.md2k.mcerebrum.core;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+public class UserInfo {
+    String user_id;
+    String uuid;
 
-import android.content.Context;
+    public UserInfo() {
+        user_id = null;
+        uuid = null;
+    }
 
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
+    public String getUser_id() {
+        return user_id;
+    }
 
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_CONFIGURE = 2;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
-    public static final int REQUEST_START = 4;
-    public static final int REQUEST_STOP = 7;
+    public String getUuid() {
+        return uuid;
+    }
 
-    public static final int REQUEST_INFO = 8;
-    public static final int REQUEST_PLOT = 9;
-    public static final int REQUEST_CLEAR = 10;
-
-    public static final int RESPONSE_INVALID_REQUEST = -1;
-
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }
