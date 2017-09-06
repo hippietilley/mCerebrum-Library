@@ -38,8 +38,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Dialog {
-    public static void SingleChoice(Activity activity, String title, ArrayList<String> items, int selected, final DialogCallback dialogCallback) {
-        new MaterialDialog.Builder(activity)
+    public static MaterialDialog.Builder singleChoice(Activity activity, String title, ArrayList<String> items, int selected, final DialogCallback dialogCallback) {
+        return new MaterialDialog.Builder(activity)
                 .title(title)
                 .items(items)
                 .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
@@ -53,14 +53,13 @@ public class Dialog {
                         return true;
                     }
                 })
-                .autoDismiss(false)
-                .cancelable(false)
-                .show();
+                .autoDismiss(true)
+                .cancelable(false);
     }
-    public static void SingleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
+    public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
         ArrayList<String> tempItems=new ArrayList<>();
         Collections.addAll(tempItems, items);
-        SingleChoice(activity, title,tempItems, selected, dialogCallback);
+        return singleChoice(activity, title,tempItems, selected, dialogCallback);
     }
 
     public static void Simple(Activity activity, String title, String content, final String buttonPositive, final String buttonNegative, Object o, final DialogCallback dialogCallback) {

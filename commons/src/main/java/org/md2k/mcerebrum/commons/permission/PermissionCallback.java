@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core.permission;
+package org.md2k.mcerebrum.commons.permission;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>

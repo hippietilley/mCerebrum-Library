@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core;
+package org.md2k.mcerebrum.core.access;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -29,28 +29,49 @@ package org.md2k.mcerebrum.core;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class Info implements Parcelable{
-    boolean configurable;
-    boolean configured;
-    boolean permission;
-    boolean running;
-    long runningTime;
-    boolean runnable;
-    Info(){
-        configurable = false;
-        configured=true;
-        permission=true;
-        running=false;
-        runningTime=0;
-        runnable =false;
+public class Info implements Parcelable{
+    private String packageName;
+    private boolean configurable;
+    private boolean configured;
+    private boolean running;
+    private long runningTime;
+    private boolean runInBackground;
+    private boolean report;
+
+    public Info(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report) {
+        this.packageName = packageName;
+        this.configurable = configurable;
+        this.configured = configured;
+        this.running = running;
+        this.runningTime = runningTime;
+        this.runInBackground = runInBackground;
+        this.report = report;
     }
 
-    Info(Parcel in) {
+    protected Info(Parcel in) {
+        packageName = in.readString();
+        configurable = in.readByte() != 0;
         configured = in.readByte() != 0;
-        permission = in.readByte() != 0;
         running = in.readByte() != 0;
         runningTime = in.readLong();
-        runnable = in.readByte() != 0;
+        runInBackground = in.readByte() != 0;
+        report = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(packageName);
+        dest.writeByte((byte) (configurable ? 1 : 0));
+        dest.writeByte((byte) (configured ? 1 : 0));
+        dest.writeByte((byte) (running ? 1 : 0));
+        dest.writeLong(runningTime);
+        dest.writeByte((byte) (runInBackground ? 1 : 0));
+        dest.writeByte((byte) (report ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Info> CREATOR = new Creator<Info>() {
@@ -65,17 +86,31 @@ class Info implements Parcelable{
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getPackageName() {
+        return packageName;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte((byte) (configured ? 1 : 0));
-        dest.writeByte((byte) (permission ? 1 : 0));
-        dest.writeByte((byte) (running ? 1 : 0));
-        dest.writeLong(runningTime);
-        dest.writeByte((byte) (runnable ? 1 : 0));
+    public boolean isConfigurable() {
+        return configurable;
+    }
+
+    public boolean isConfigured() {
+        return configured;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public long getRunningTime() {
+        return runningTime;
+    }
+
+    public boolean isRunInBackground() {
+        return runInBackground;
+    }
+
+    public boolean isReport() {
+        return report;
     }
 }

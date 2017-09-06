@@ -67,11 +67,12 @@ public class AppInfo {
     }
     public static long serviceRunningTime(Context context, String serviceName) {
         ActivityManager manager = (ActivityManager) (context.getSystemService(Context.ACTIVITY_SERVICE));
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceName.equals(service.service.getClassName())) {
-                return android.os.SystemClock.elapsedRealtime()-service.activeSince;
+        List<ActivityManager.RunningServiceInfo> info = manager.getRunningServices(Integer.MAX_VALUE);
+        if (info == null || info.size() == 0) return -1;
+        for (ActivityManager.RunningServiceInfo aInfo : info)
+            if (serviceName.equals(aInfo.service.getClassName())) {
+                return android.os.SystemClock.elapsedRealtime() - aInfo.activeSince;
             }
-        }
         return -1;
     }
     public static int getVersionCode(Context context,String packageName){

@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core.permission;
+package org.md2k.mcerebrum.commons.permission;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -30,7 +30,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.v4.content.ContextCompat;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 
@@ -70,7 +69,7 @@ public class Permission {
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             for (int i = 0; i < info.requestedPermissions.length; i++) {
-                if(ContextCompat.checkSelfPermission(context,info.requestedPermissions[i])!=PERMISSION_GRANTED)
+                if(context.checkCallingOrSelfPermission(info.requestedPermissions[i])!=PERMISSION_GRANTED)
                     return false;
             }
             return true;
