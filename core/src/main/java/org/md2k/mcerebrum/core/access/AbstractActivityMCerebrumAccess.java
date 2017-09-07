@@ -91,14 +91,17 @@ public abstract class AbstractActivityMCerebrumAccess extends AppCompatActivity 
     }
 
     public Info getInfo() {
+        String p=this.getPackageName();
+        boolean ic=isConfigurable();
+        boolean icd=isConfigured();
         return new Info(this.getPackageName(), isConfigurable(), isConfigured(), isRunning(), runningTime(), IsRunInBackground(), hasReport());
     }
 
-    private boolean hasReport() {
+    public boolean hasReport() {
         return false;
     }
 
-    private boolean IsRunInBackground() {
+    public boolean IsRunInBackground() {
         return false;
     }
 

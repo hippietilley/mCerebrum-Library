@@ -58,22 +58,6 @@ public class Info implements Parcelable{
         report = in.readByte() != 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(packageName);
-        dest.writeByte((byte) (configurable ? 1 : 0));
-        dest.writeByte((byte) (configured ? 1 : 0));
-        dest.writeByte((byte) (running ? 1 : 0));
-        dest.writeLong(runningTime);
-        dest.writeByte((byte) (runInBackground ? 1 : 0));
-        dest.writeByte((byte) (report ? 1 : 0));
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     public static final Creator<Info> CREATOR = new Creator<Info>() {
         @Override
         public Info createFromParcel(Parcel in) {
@@ -110,7 +94,23 @@ public class Info implements Parcelable{
         return runInBackground;
     }
 
-    public boolean isReport() {
+    public boolean hasReport() {
         return report;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(packageName);
+        dest.writeByte((byte) (configurable ? 1 : 0));
+        dest.writeByte((byte) (configured ? 1 : 0));
+        dest.writeByte((byte) (running ? 1 : 0));
+        dest.writeLong(runningTime);
+        dest.writeByte((byte) (runInBackground ? 1 : 0));
+        dest.writeByte((byte) (report ? 1 : 0));
     }
 }

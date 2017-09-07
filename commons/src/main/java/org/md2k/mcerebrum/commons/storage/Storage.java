@@ -162,6 +162,46 @@ public class Storage {
         }
         return data;
     }
+    public static <T> T readJsonFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
+        T data = null;
+        BufferedReader reader = null;
+        try {
+            InputStream in = context.getAssets().open(assetFilePath);
+            reader = new BufferedReader(new InputStreamReader(in));
+            Gson gson = new Gson();
+            data = gson.fromJson(reader, classType);
+        } catch (IOException e) {
+            throw new FileNotFoundException();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+        return data;
+    }
+    public static <T> ArrayList<T> readJsonArrayFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
+        ArrayList<T> data = null;
+        BufferedReader reader = null;
+        try {
+            InputStream in = context.getAssets().open(assetFilePath);
+            reader = new BufferedReader(new InputStreamReader(in));
+            Gson gson = new Gson();
+            data = gson.fromJson(reader, new ListOfSomething<>(classType));
+        } catch (IOException e) {
+            throw new FileNotFoundException();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ignored) {
+                }
+            }
+        }
+        return data;
+    }
 
     public static <T> ArrayList<T> readJsonArrayList(String filePath, Class<T> classType) throws FileNotFoundException {
         ArrayList<T> data = null;
