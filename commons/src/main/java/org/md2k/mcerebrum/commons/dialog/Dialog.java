@@ -35,6 +35,8 @@ import android.widget.AdapterView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.md2k.mcerebrum.commons.R;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -89,7 +91,22 @@ public class Dialog {
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL)
+                .input("abc", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        dialogCallback.onSelected(input.toString());
+                        // Do something
+                    }
+                });
+    }
+
+
+    public static MaterialDialog.Builder editbox_numeric(Activity activity, String title, String content, final DialogCallback dialogCallback){
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .content(content)
+                .inputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL)
                 .input("abc", "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
