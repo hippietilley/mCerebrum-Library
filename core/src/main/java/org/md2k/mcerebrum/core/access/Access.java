@@ -33,12 +33,13 @@ public class Access {
     public static final int REQUEST_INITIALIZE = 0;
     public static final int REQUEST_INFO = 1;
     public static final int REQUEST_CONFIGURE = 2;
+    public static final int REQUEST_LAUNCH = 3;
 
-    public static final int REQUEST_START = 3;
-    public static final int REQUEST_STOP = 4;
+    public static final int REQUEST_STARTBACKGROUND = 4;
+    public static final int REQUEST_STOPBACKGROUND = 5;
 
-    public static final int REQUEST_REPORT = 5;
-    public static final int REQUEST_CLEAR = 6;
+    public static final int REQUEST_REPORT = 6;
+    public static final int REQUEST_CLEAR = 7;
 
     public static final int RESPONSE_INVALID_REQUEST = -1;
 

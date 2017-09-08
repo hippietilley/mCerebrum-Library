@@ -37,7 +37,7 @@ import rx.functions.Action1;
 
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
-public class Permission {
+public class Permission{
     public static void requestPermission(Activity activity, final PermissionCallback permissionCallback) {
         try {
             PackageInfo info = activity.getPackageManager().getPackageInfo(activity.getPackageName(), PackageManager.GET_PERMISSIONS);
