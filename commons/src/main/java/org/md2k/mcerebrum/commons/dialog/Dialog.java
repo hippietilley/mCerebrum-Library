@@ -28,6 +28,7 @@ package org.md2k.mcerebrum.commons.dialog;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -84,6 +85,20 @@ public class Dialog {
                 })
                 .show();
     }
+    public static MaterialDialog.Builder editbox(Activity activity, String title, String content, final DialogCallback dialogCallback){
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .content(content)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)
+                .input("abc", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        dialogCallback.onSelected(input.toString());
+                        // Do something
+                    }
+                });
+    }
+
     public static MaterialDialog.Builder simple(Activity activity, String title, String content, final String buttonPositive, final String buttonNegative, final DialogCallback dialogCallback) {
         return new MaterialDialog.Builder(activity)
                 .title(title)
