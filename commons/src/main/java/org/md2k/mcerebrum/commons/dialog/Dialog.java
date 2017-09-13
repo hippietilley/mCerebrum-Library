@@ -63,28 +63,6 @@ public class Dialog {
         return singleChoice(activity, title,tempItems, selected, dialogCallback);
     }
 
-    public static void Simple(Activity activity, String title, String content, final String buttonPositive, final String buttonNegative, Object o, final DialogCallback dialogCallback) {
-        new MaterialDialog.Builder(activity)
-                .title(title)
-                .content(content)
-                .positiveText(buttonPositive)
-                .negativeText(buttonNegative)
-                .autoDismiss(false)
-                .cancelable(false)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialogCallback.onSelected(buttonPositive);
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialogCallback.onSelected(buttonNegative);
-                    }
-                })
-                .show();
-    }
     public static MaterialDialog.Builder editbox(Activity activity, String title, String content, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)

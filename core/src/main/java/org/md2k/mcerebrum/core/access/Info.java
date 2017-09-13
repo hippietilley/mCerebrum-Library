@@ -37,8 +37,11 @@ public class Info implements Parcelable{
     private long runningTime;
     private boolean runInBackground;
     private boolean report;
+    private boolean clear;
+    private boolean initialize;
+    private boolean equalDefault;
 
-    public Info(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report) {
+    public Info(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report, boolean clear, boolean initialize, boolean isEqualDefault) {
         this.packageName = packageName;
         this.configurable = configurable;
         this.configured = configured;
@@ -46,6 +49,9 @@ public class Info implements Parcelable{
         this.runningTime = runningTime;
         this.runInBackground = runInBackground;
         this.report = report;
+        this.clear = clear;
+        this.initialize=initialize;
+        this.equalDefault=isEqualDefault;
     }
 
     protected Info(Parcel in) {
@@ -56,6 +62,9 @@ public class Info implements Parcelable{
         runningTime = in.readLong();
         runInBackground = in.readByte() != 0;
         report = in.readByte() != 0;
+        clear = in.readByte() != 0;
+        initialize = in.readByte() != 0;
+        equalDefault = in.readByte() != 0;
     }
 
     public static final Creator<Info> CREATOR = new Creator<Info>() {
@@ -97,7 +106,15 @@ public class Info implements Parcelable{
     public boolean hasReport() {
         return report;
     }
+    public boolean hasClear(){return clear;}
 
+    public boolean hasInitialize() {
+        return initialize;
+    }
+
+    public boolean isEqualDefault(){
+        return equalDefault;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -112,5 +129,8 @@ public class Info implements Parcelable{
         dest.writeLong(runningTime);
         dest.writeByte((byte) (runInBackground ? 1 : 0));
         dest.writeByte((byte) (report ? 1 : 0));
+        dest.writeByte((byte) (clear ? 1 : 0));
+        dest.writeByte((byte) (initialize ? 1 : 0));
+        dest.writeByte((byte) (equalDefault ? 1 : 0));
     }
 }

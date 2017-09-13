@@ -20,13 +20,11 @@ abstract public class AbstractServiceMCerebrum extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        log("Received start command.");
         return START_STICKY;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        log("Received binding.");
         return mBinder;
     }
 
@@ -37,7 +35,7 @@ abstract public class AbstractServiceMCerebrum extends Service {
         }
         @Override
         public Info GetInfo() throws RemoteException {
-            Info info=new Info(getPackageName(), isConfigurable(), isConfigured(), isRunning(), getRunningTime(), isRunInBackground(), hasReport());
+            Info info=new Info(getPackageName(), isConfigurable(), isConfigured(), isRunning(), getRunningTime(), isRunInBackground(), hasReport(), hasClear(), hasInitialize(), isEqualDefault());
             // Generates a list of 1000 objects that aren't sent back to the binding Activity
             return info;
         }
@@ -81,6 +79,9 @@ abstract public class AbstractServiceMCerebrum extends Service {
             stopSelf();
         }
     };
+
+    protected abstract boolean hasClear();
+
     abstract public void initialize();
     abstract public void launch();
     abstract public void startBackground();
@@ -100,5 +101,9 @@ abstract public class AbstractServiceMCerebrum extends Service {
 
     abstract public boolean isConfigurable();
 
+    abstract public boolean hasInitialize();
+
     abstract public void configure();
+
+    abstract public boolean isEqualDefault();
 }
