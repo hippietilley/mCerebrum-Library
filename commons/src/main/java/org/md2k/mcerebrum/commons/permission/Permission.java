@@ -40,6 +40,7 @@ import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 public class Permission{
     public static void requestPermission(Activity activity, final PermissionCallback permissionCallback) {
         try {
+
             PackageInfo info = activity.getPackageManager().getPackageInfo(activity.getPackageName(), PackageManager.GET_PERMISSIONS);
             RxPermissions rxPermissions = new RxPermissions(activity);
             rxPermissions.request(info.requestedPermissions).subscribe(new Action1<Boolean>() {
@@ -52,6 +53,7 @@ public class Permission{
             e.printStackTrace();
         }
     }
+
 /*    public static boolean hasPermission(Activity activity) {
         try {
             PackageInfo info = activity.getPackageManager().getPackageInfo(activity.getPackageName(), PackageManager.GET_PERMISSIONS);

@@ -29,7 +29,7 @@ package org.md2k.mcerebrum.core.access;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Info implements Parcelable{
+public class MCerebrumStatus implements Parcelable{
     private String packageName;
     private boolean configurable;
     private boolean configured;
@@ -37,18 +37,14 @@ public class Info implements Parcelable{
     private long runningTime;
     private boolean runInBackground;
     private boolean report;
-
-    public Info(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report) {
-        this.packageName = packageName;
-        this.configurable = configurable;
-        this.configured = configured;
-        this.running = running;
-        this.runningTime = runningTime;
-        this.runInBackground = runInBackground;
-        this.report = report;
+    private boolean clear;
+    private boolean initialize;
+    private boolean equalDefault;
+    public MCerebrumStatus(){
+        packageName=null;configurable=false;configured=false;running=false;runningTime=-1;runInBackground=false;report=false;clear=false;initialize=false;equalDefault=false;
     }
 
-    protected Info(Parcel in) {
+    protected MCerebrumStatus(Parcel in) {
         packageName = in.readString();
         configurable = in.readByte() != 0;
         configured = in.readByte() != 0;
@@ -56,22 +52,34 @@ public class Info implements Parcelable{
         runningTime = in.readLong();
         runInBackground = in.readByte() != 0;
         report = in.readByte() != 0;
+        clear = in.readByte() != 0;
+        initialize = in.readByte() != 0;
+        equalDefault = in.readByte() != 0;
     }
 
-    public static final Creator<Info> CREATOR = new Creator<Info>() {
+    public static final Creator<MCerebrumStatus> CREATOR = new Creator<MCerebrumStatus>() {
         @Override
-        public Info createFromParcel(Parcel in) {
-            return new Info(in);
+        public MCerebrumStatus createFromParcel(Parcel in) {
+            return new MCerebrumStatus(in);
         }
 
         @Override
-        public Info[] newArray(int size) {
-            return new Info[size];
+        public MCerebrumStatus[] newArray(int size) {
+            return new MCerebrumStatus[size];
         }
     };
 
-    public String getPackageName() {
-        return packageName;
+    public MCerebrumStatus(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report, boolean clear, boolean initialize, boolean equalDefault) {
+        this.packageName=packageName;
+        this.configurable=configurable;
+        this.configured=configured;
+        this.running=running;
+        this.runningTime=runningTime;
+        this.runInBackground=runInBackground;
+        this.report=report;
+        this.clear=clear;
+        this.initialize=initialize;
+        this.equalDefault=equalDefault;
     }
 
     public boolean isConfigurable() {
@@ -94,8 +102,20 @@ public class Info implements Parcelable{
         return runInBackground;
     }
 
-    public boolean hasReport() {
+    public boolean isReport() {
         return report;
+    }
+
+    public boolean hasClear() {
+        return clear;
+    }
+
+    public boolean isInitialize() {
+        return initialize;
+    }
+
+    public boolean isEqualDefault() {
+        return equalDefault;
     }
 
     @Override
@@ -112,5 +132,8 @@ public class Info implements Parcelable{
         dest.writeLong(runningTime);
         dest.writeByte((byte) (runInBackground ? 1 : 0));
         dest.writeByte((byte) (report ? 1 : 0));
+        dest.writeByte((byte) (clear ? 1 : 0));
+        dest.writeByte((byte) (initialize ? 1 : 0));
+        dest.writeByte((byte) (equalDefault ? 1 : 0));
     }
 }

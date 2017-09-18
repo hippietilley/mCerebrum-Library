@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.core.access;
+package org.md2k.md2k.system.user;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,21 +26,68 @@ package org.md2k.mcerebrum.core.access;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class Access {
-    public static final String REQUEST = "REQUEST";
-    public static final String RESPONSE = "RESPONSE";
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public static final int REQUEST_INITIALIZE = 0;
-    public static final int REQUEST_INFO = 1;
-    public static final int REQUEST_CONFIGURE = 2;
-    public static final int REQUEST_LAUNCH = 3;
+public class UserInfo implements Parcelable{
+    private String title;
+    private boolean loggedIn;
+    private String loginHash;
 
-    public static final int REQUEST_STARTBACKGROUND = 4;
-    public static final int REQUEST_STOPBACKGROUND = 5;
+    public UserInfo() {
+    }
 
-    public static final int REQUEST_REPORT = 6;
-    public static final int REQUEST_CLEAR = 7;
+    protected UserInfo(Parcel in) {
+        title = in.readString();
+        loggedIn = in.readByte() != 0;
+        loginHash = in.readString();
+    }
 
-    public static final int RESPONSE_INVALID_REQUEST = -1;
+    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
+        @Override
+        public UserInfo createFromParcel(Parcel in) {
+            return new UserInfo(in);
+        }
 
+        @Override
+        public UserInfo[] newArray(int size) {
+            return new UserInfo[size];
+        }
+    };
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public String getLoginHash() {
+        return loginHash;
+    }
+
+    public void setLoginHash(String loginHash) {
+        this.loginHash = loginHash;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeByte((byte) (loggedIn ? 1 : 0));
+        dest.writeString(loginHash);
+    }
 }
