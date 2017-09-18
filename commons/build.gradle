@@ -65,4 +65,8 @@ dependencies {
 
     //MPAndroidPlot
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+
+    //Notification
+    compile 'com.github.halysongoncalves:pugnotification:1.8.1'
+
 }

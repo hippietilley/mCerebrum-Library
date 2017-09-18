@@ -152,7 +152,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
 
-    public void addEntry(float[] value, String[] legend) {
+    public void addEntry(float[] value, String[] legend, int noPoints) {
 
         LineData data = mChart.getData();
 
@@ -186,7 +186,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
             mChart.notifyDataSetChanged();
 
             // limit the number of visible entries
-            mChart.setVisibleXRangeMaximum(120);
+            mChart.setVisibleXRangeMaximum(noPoints);
             // mChart.setVisibleYRange(30, AxisDependency.LEFT);
 
             // move to the latest entry

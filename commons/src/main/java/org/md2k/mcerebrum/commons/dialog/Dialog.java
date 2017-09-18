@@ -63,6 +63,19 @@ public class Dialog {
         return singleChoice(activity, title,tempItems, selected, dialogCallback);
     }
 
+    public static MaterialDialog.Builder editboxText(Activity activity, String title, String content, final DialogCallback dialogCallback){
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .content(content)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .input("", "", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        dialogCallback.onSelected(input.toString());
+                        // Do something
+                    }
+                });
+    }
     public static MaterialDialog.Builder editbox(Activity activity, String title, String content, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)

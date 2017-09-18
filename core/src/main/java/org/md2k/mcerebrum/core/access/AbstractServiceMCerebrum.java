@@ -2,13 +2,10 @@ package org.md2k.mcerebrum.core.access;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 
@@ -30,18 +27,18 @@ abstract public class AbstractServiceMCerebrum extends Service {
 
     private final IMCerebrumService.Stub mBinder = new IMCerebrumService.Stub() {
         @Override
-        public void Initialize() throws RemoteException{
-            initialize();
-        }
-        @Override
-        public Info GetInfo() throws RemoteException {
-            Info info=new Info(getPackageName(), isConfigurable(), isConfigured(), isRunning(), getRunningTime(), isRunInBackground(), hasReport(), hasClear(), hasInitialize(), isEqualDefault());
+        public MCerebrumStatus GetmCerebrumStatus() throws RemoteException {
+            MCerebrumStatus mC=new MCerebrumStatus(getPackageName(), isConfigurable(), isConfigured(), isRunning(), getRunningTime(), isRunInBackground(), hasReport(), hasClear(), hasInitialize(), isEqualDefault());
             // Generates a list of 1000 objects that aren't sent back to the binding Activity
-            return info;
+            return mC;
         }
         @Override
-        public void Launch() throws RemoteException{
-            launch();
+        public void Initialize(Bundle bundle) throws RemoteException{
+            initialize(bundle);
+        }
+        @Override
+        public void Launch(Bundle bundle) throws RemoteException{
+            launch(bundle);
         }
 
 /*
@@ -53,28 +50,28 @@ abstract public class AbstractServiceMCerebrum extends Service {
 */
 
         @Override
-        public void StartBackground() throws RemoteException {
-            startBackground();
+        public void StartBackground(Bundle bundle) throws RemoteException {
+            startBackground(bundle);
         }
         @Override
-        public void StopBackground() throws RemoteException {
-            stopBackground();
+        public void StopBackground(Bundle bundle) throws RemoteException {
+            stopBackground(bundle);
         }
         @Override
-        public void Report()throws RemoteException{
-            report();
+        public void Report(Bundle bundle)throws RemoteException{
+            report(bundle);
         }
         @Override
-        public void Clear() throws RemoteException {
-            clear();
+        public void Clear(Bundle bundle) throws RemoteException {
+            clear(bundle);
         }
         @Override
-        public void Configure() throws RemoteException {
-            configure();
+        public void Configure(Bundle bundle) throws RemoteException {
+            configure(bundle);
         }
 
         @Override
-        public void Exit() throws RemoteException {
+        public void Exit(Bundle bundle) throws RemoteException {
             log("Received exit command.");
             stopSelf();
         }
@@ -82,12 +79,13 @@ abstract public class AbstractServiceMCerebrum extends Service {
 
     protected abstract boolean hasClear();
 
-    abstract public void initialize();
-    abstract public void launch();
-    abstract public void startBackground();
-    abstract public void stopBackground();
-    abstract public void report();
-    abstract public void clear();
+    abstract public void initialize(Bundle bundle);
+    abstract public void launch(Bundle bundle);
+    abstract public void startBackground(Bundle bundle);
+    abstract public void stopBackground(Bundle bundle);
+    abstract public void report(Bundle bundle);
+    abstract public void clear(Bundle bundle);
+    abstract public void configure(Bundle bundle);
 
     abstract public boolean hasReport();
 
@@ -102,8 +100,6 @@ abstract public class AbstractServiceMCerebrum extends Service {
     abstract public boolean isConfigurable();
 
     abstract public boolean hasInitialize();
-
-    abstract public void configure();
 
     abstract public boolean isEqualDefault();
 }
