@@ -1,1 +1,2 @@
-include ':commons', ':core', ':system'
+include ':commons', ':core', ':system', ':datakitapi'
+project(':datakitapi').projectDir=new File('../mCerebrum-DataKitAPI/datakitapi')

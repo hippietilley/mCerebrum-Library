@@ -51,6 +51,8 @@ public class AppInfo implements Parcelable{
     }
 
     protected AppInfo(Parcel in) {
+        appBasicInfo = in.readParcelable(AppBasicInfo.class.getClassLoader());
+        installInfo = in.readParcelable(InstallInfo.class.getClassLoader());
         mCerebrumStatus = in.readParcelable(MCerebrumStatus.class.getClassLoader());
     }
 
@@ -85,6 +87,8 @@ public class AppInfo implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(appBasicInfo, flags);
+        dest.writeParcelable(installInfo, flags);
         dest.writeParcelable(mCerebrumStatus, flags);
     }
 }

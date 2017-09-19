@@ -33,6 +33,7 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     //permission
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
+    compile project(':datakitapi')
 
     testCompile 'junit:junit:4.12'
 }

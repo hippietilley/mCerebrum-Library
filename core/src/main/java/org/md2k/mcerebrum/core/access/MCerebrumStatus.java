@@ -44,6 +44,19 @@ public class MCerebrumStatus implements Parcelable{
         packageName=null;configurable=false;configured=false;running=false;runningTime=-1;runInBackground=false;report=false;clear=false;initialize=false;equalDefault=false;
     }
 
+    public MCerebrumStatus(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report, boolean clear, boolean initialize, boolean equalDefault) {
+        this.packageName=packageName;
+        this.configurable=configurable;
+        this.configured=configured;
+        this.running=running;
+        this.runningTime=runningTime;
+        this.runInBackground=runInBackground;
+        this.report=report;
+        this.clear=clear;
+        this.initialize=initialize;
+        this.equalDefault=equalDefault;
+    }
+
     protected MCerebrumStatus(Parcel in) {
         packageName = in.readString();
         configurable = in.readByte() != 0;
@@ -68,19 +81,6 @@ public class MCerebrumStatus implements Parcelable{
             return new MCerebrumStatus[size];
         }
     };
-
-    public MCerebrumStatus(String packageName, boolean configurable, boolean configured, boolean running, long runningTime, boolean runInBackground, boolean report, boolean clear, boolean initialize, boolean equalDefault) {
-        this.packageName=packageName;
-        this.configurable=configurable;
-        this.configured=configured;
-        this.running=running;
-        this.runningTime=runningTime;
-        this.runInBackground=runInBackground;
-        this.report=report;
-        this.clear=clear;
-        this.initialize=initialize;
-        this.equalDefault=equalDefault;
-    }
 
     public boolean isConfigurable() {
         return configurable;

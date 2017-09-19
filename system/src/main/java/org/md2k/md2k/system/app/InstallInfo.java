@@ -30,6 +30,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class InstallInfo implements Parcelable{
+    private String downloadLink;
+    private String expectedVersion;
+    private String updateOption;
+    private String updateVersionName;
+    private String currentVersionName;
+    private int currentVersionCode;
+    private boolean installed;
+    public InstallInfo(){
+        downloadLink=null;downloadLink=null;expectedVersion=null;updateOption=null;updateVersionName=null;currentVersionCode=-1;currentVersionName=null;
+    }
+
+
     protected InstallInfo(Parcel in) {
         downloadLink = in.readString();
         expectedVersion = in.readString();
@@ -71,17 +83,6 @@ public class InstallInfo implements Parcelable{
     public enum TYPE_DOWNLOAD {
         GITHUB, PLAYSTORE, URL, JSON, UNKNOWN
     };
-    private String downloadLink;
-    private String expectedVersion;
-    private String updateOption;
-    private String updateVersionName;
-    private String currentVersionName;
-    private int currentVersionCode;
-    private boolean installed;
-    public InstallInfo(){
-        downloadLink=null;downloadLink=null;expectedVersion=null;updateOption=null;updateVersionName=null;currentVersionCode=-1;currentVersionName=null;
-    }
-
     public TYPE_DOWNLOAD getDownloadType(){
         if(downloadLink==null) return TYPE_DOWNLOAD.UNKNOWN;
         if(downloadLink.toLowerCase().startsWith("market://"))

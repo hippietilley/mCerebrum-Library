@@ -31,9 +31,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class AppBasicInfo implements Parcelable{
-    public static final String USE_AS_REQUIRED = "REQUIRED";
-    public static final String USE_AS_OPTIONAL = "OPTIONAL";
-    public static final String USE_AS_NOT_IN_USE = "NOT_IN_USE";
     private String id;
     private String type;
     private String title;
@@ -133,7 +130,7 @@ public class AppBasicInfo implements Parcelable{
         this.useAs = useAs;
     }
     public boolean isUseAs(String u){
-        if(useAs==null) useAs=USE_AS_OPTIONAL;
+        if(useAs==null) useAs=AppInfo.USE_AS_OPTIONAL;
         return u.equalsIgnoreCase(useAs);
     }
 

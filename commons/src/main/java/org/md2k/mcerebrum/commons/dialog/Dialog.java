@@ -98,7 +98,7 @@ public class Dialog {
                 .title(title)
                 .content(content)
                 .inputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL)
-                .input("abc", "", new MaterialDialog.InputCallback() {
+                .input("10000", "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
