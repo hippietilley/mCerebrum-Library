@@ -57,7 +57,7 @@ public interface CerebralCortexWebApi {
     @PUT("/api/v1/stream/zip/")
     Call<ResponseBody> putArchiveWithMetadata(
             @Header("Authorization") String authorization,
-            @Part("metadata") RequestBody description,
+            @Part("metadata") RequestBody jsonMetadata,
             @Part MultipartBody.Part file);
 
     /*@PUT("/api/v1/stream/zip/")
