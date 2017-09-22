@@ -12,6 +12,11 @@ public class AuthRequest {
     @Expose
     private Object password;
 
+    public AuthRequest(Object userName, Object userPassword) {
+        this.emailId = userName;
+        this.password = userPassword;
+    }
+
     public Object getEmailId() {
         return emailId;
     }

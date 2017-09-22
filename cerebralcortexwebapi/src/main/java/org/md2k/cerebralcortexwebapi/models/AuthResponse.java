@@ -12,6 +12,15 @@ public class AuthResponse {
     @Expose
     private Object message;
 
+    public AuthResponse(Object accessToken, Object message) {
+        this.accessToken = accessToken;
+        this.message = message;
+    }
+
+    public AuthResponse(Object message) {
+        this.message = message;
+    }
+
     public Object getAccessToken() {
         return accessToken;
     }

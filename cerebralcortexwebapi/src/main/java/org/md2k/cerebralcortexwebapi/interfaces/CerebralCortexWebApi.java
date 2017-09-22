@@ -1,24 +1,23 @@
 package org.md2k.cerebralcortexwebapi.interfaces;
 
-import org.md2k.cerebralcortexwebapi.models.AuthResponse;
 import org.md2k.cerebralcortexwebapi.models.AuthRequest;
+import org.md2k.cerebralcortexwebapi.models.AuthResponse;
 import org.md2k.cerebralcortexwebapi.models.MinioBucketsList;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectStats;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectsListInBucket;
 import org.md2k.cerebralcortexwebapi.models.stream.DataStream;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Body;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Header;
 
 public interface CerebralCortexWebApi {
 
@@ -54,8 +53,8 @@ public interface CerebralCortexWebApi {
             @Part("metadata") DataStream jsonMetadata,
             @Part MultipartBody.Part file);
 
-    @PUT("/api/v1/stream/")
-    Call<ResponseBody> putRawDataStreamWithMetadata(@Header("Authorization") String authorization,
-                                                    @Body DataStream dataStream);
+//    @PUT("/api/v1/stream/")
+//    Call<ResponseBody> putRawDataStreamWithMetadata(@Header("Authorization") String authorization,
+//                                                    @Body DataStream dataStream);
 
 }

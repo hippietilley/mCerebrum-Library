@@ -18,15 +18,12 @@ import okhttp3.ResponseBody;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "http://172.17.0.1:8088";
-
-    public static CerebralCortexWebApi getCCService() {
-        return RetrofitClient.getClient(BASE_URL).create(CerebralCortexWebApi.class);
+    public static CerebralCortexWebApi getCCService(String baseUrl) {
+        return RetrofitClient.getClient(baseUrl).create(CerebralCortexWebApi.class);
     }
 
 
-
-    public static final String writeResponseToDisk(ResponseBody body, String fileName){
+    public static final Boolean writeResponseToDisk(ResponseBody body, String fileName) {
 
         try{
             File minioObject = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
@@ -52,9 +49,9 @@ public class ApiUtils {
                 }
                 outputStream.flush();
 
-                return "Download Successful";
+                return true;
             }catch (IOException e){
-                return e.getMessage();
+                return false;
             }finally {
                 if(inputStream !=null){
                     inputStream.close();
@@ -65,7 +62,7 @@ public class ApiUtils {
             }
         }catch (IOException e){
             Log.d("abc","error...");
-            return e.getMessage();
+            return false;
         }
     }
 
