@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import org.md2k.cerebralcortexwebapi.interfaces.CerebralCortexWebApi;
-import org.md2k.cerebralcortexwebapi.metadata.JsonMetadataBuilder;
+import org.md2k.cerebralcortexwebapi.metadata.MetadataBuilder;
 import org.md2k.cerebralcortexwebapi.models.AuthRequest;
 import org.md2k.cerebralcortexwebapi.models.AuthResponse;
 import org.md2k.cerebralcortexwebapi.models.CCApiErrorMessage;
@@ -14,13 +14,12 @@ import org.md2k.cerebralcortexwebapi.models.MinioBucket;
 import org.md2k.cerebralcortexwebapi.models.MinioBucketsList;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectStats;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectsListInBucket;
+import org.md2k.cerebralcortexwebapi.models.stream.DataStream;
 import org.md2k.cerebralcortexwebapi.utils.ApiUtils;
 
 import java.util.List;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -173,23 +172,46 @@ public class CCWebAPICalls {
     }
 
 
-    public void putArchiveDataAndMetadata(String accessToken, final String objectName, String filePath) {
+    public void putArchiveDataAndMetadata(String accessToken, String filePath) {
 
         MultipartBody.Part fileMultiBodyPart = ApiUtils.getUploadFileMultipart(filePath);
 
-        String jsonMetadata = JsonMetadataBuilder.buildJsonMetadata();
+        MetadataBuilder metadataBuilder = new MetadataBuilder();
 
-        RequestBody jsonMetadataMultipart = RequestBody.create(
-                MediaType.parse("multipart/form-data"), jsonMetadata);
+        DataStream dataStreamMetadata = metadataBuilder.buildDataStreamMetadata("datastream","123", "999", "sampleStream","zip");
 
-        ccService.putArchiveWithMetadata(accessToken, jsonMetadataMultipart, fileMultiBodyPart).enqueue(new Callback<ResponseBody>() {
+        ccService.putArchiveDataStreamWithMetadata(accessToken, dataStreamMetadata, fileMultiBodyPart).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
-                    output.append("Upload Started -> "+response.body());
-                    String fileName = objectName;
-                    String downloadStatus = ApiUtils.writeResponseToDisk(response.body(), fileName);
                     output.append("\n\nUpload Completed ");
+                }else {
+                    Gson gson = new Gson();
+                    CCApiErrorMessage errorBody =gson.fromJson(response.errorBody().charStream(),CCApiErrorMessage.class);
+                    output.append("Not successful "+errorBody.getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                output.append("Failed "+t.getMessage());
+                Log.d("Failed", "On Failure "+t.getMessage());
+
+            }
+        });
+    }
+
+    public void putRawStream(String accessToken) {
+
+        MetadataBuilder metadataBuilder = new MetadataBuilder();
+
+        DataStream rawDataStreamMetadata = metadataBuilder.buildDataStreamMetadata("datastream","33", "88", "sampleStream","raw");
+
+        ccService.putRawDataStreamWithMetadata(accessToken, rawDataStreamMetadata).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    output.append("\n\nUpload Raw Stream Completed ");
                 }else {
                     Gson gson = new Gson();
                     CCApiErrorMessage errorBody =gson.fromJson(response.errorBody().charStream(),CCApiErrorMessage.class);

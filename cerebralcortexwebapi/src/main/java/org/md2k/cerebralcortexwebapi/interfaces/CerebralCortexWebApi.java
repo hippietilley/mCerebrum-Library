@@ -5,6 +5,7 @@ import org.md2k.cerebralcortexwebapi.models.AuthRequest;
 import org.md2k.cerebralcortexwebapi.models.MinioBucketsList;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectStats;
 import org.md2k.cerebralcortexwebapi.models.MinioObjectsListInBucket;
+import org.md2k.cerebralcortexwebapi.models.stream.DataStream;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -46,22 +47,15 @@ public interface CerebralCortexWebApi {
                                            @Path("bucket") String bucket,
                                            @Path("resource") String resource);
 
-
-    /*@Multipart
-    @PUT("/api/v1/stream/zip/")
-    Call<ResponseBody> putArchiveWithMetadata(@Header("Authorization") String authorization,
-                             @Part("metadata") RequestBody dataStreamMetadata,
-                             @Part MultipartBody.Part file);*/
-
     @Multipart
     @PUT("/api/v1/stream/zip/")
-    Call<ResponseBody> putArchiveWithMetadata(
+    Call<ResponseBody> putArchiveDataStreamWithMetadata(
             @Header("Authorization") String authorization,
-            @Part("metadata") RequestBody jsonMetadata,
+            @Part("metadata") DataStream jsonMetadata,
             @Part MultipartBody.Part file);
 
-    /*@PUT("/api/v1/stream/zip/")
-    Call<CCMessage> putZipFile(@Header("Authorization") String authorization,
-                               MetadataHeader header,
-                               String filepath);*/
+    @PUT("/api/v1/stream/")
+    Call<ResponseBody> putRawDataStreamWithMetadata(@Header("Authorization") String authorization,
+                                                    @Body DataStream dataStream);
+
 }

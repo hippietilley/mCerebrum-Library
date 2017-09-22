@@ -18,7 +18,7 @@ import okhttp3.ResponseBody;
 
 public class ApiUtils {
 
-    public static final String BASE_URL = "http://141.225.42.72:8088";
+    public static final String BASE_URL = "http://172.17.0.1:8088";
 
     public static CerebralCortexWebApi getCCService() {
         return RetrofitClient.getClient(BASE_URL).create(CerebralCortexWebApi.class);
