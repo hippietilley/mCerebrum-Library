@@ -3,6 +3,7 @@ package org.md2k.cerebralcortexwebapi.models.stream;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class DataStream {
@@ -21,7 +22,7 @@ public class DataStream {
     private String name;
     @SerializedName("data_descriptor")
     @Expose
-    private List<DataDescriptor> dataDescriptor = null;
+    private List<HashMap<String, String>> dataDescriptor = null;
     @SerializedName("execution_context")
     @Expose
     private ExecutionContext executionContext;
@@ -47,7 +48,7 @@ public class DataStream {
      * @param executionContext
      * @param identifier
      */
-    public DataStream(String type, String identifier, String owner, String name, List<DataDescriptor> dataDescriptor, ExecutionContext executionContext, List<Annotation> annotations) {
+    public DataStream(String type, String identifier, String owner, String name, List<HashMap<String, String>> dataDescriptor, ExecutionContext executionContext, List<Annotation> annotations) {
         super();
         this.type = type;
         this.identifier = identifier;
@@ -58,7 +59,7 @@ public class DataStream {
         this.annotations = annotations;
     }
 
-    public DataStream(String type, String identifier, String owner, String name, List<DataDescriptor> dataDescriptor, ExecutionContext executionContext, List<Annotation> annotations, List<DataPoints> dataPoints) {
+    public DataStream(String type, String identifier, String owner, String name, List<HashMap<String, String>> dataDescriptor, ExecutionContext executionContext, List<Annotation> annotations, List<DataPoints> dataPoints) {
         super();
         this.type = type;
         this.identifier = identifier;
@@ -94,11 +95,11 @@ public class DataStream {
         this.name = name;
     }
 
-    public List<DataDescriptor> getDataDescriptor() {
+    public List<HashMap<String, String>> getDataDescriptor() {
         return dataDescriptor;
     }
 
-    public void setDataDescriptor(List<DataDescriptor> dataDescriptor) {
+    public void setDataDescriptor(List<HashMap<String, String>> dataDescriptor) {
         this.dataDescriptor = dataDescriptor;
     }
 
