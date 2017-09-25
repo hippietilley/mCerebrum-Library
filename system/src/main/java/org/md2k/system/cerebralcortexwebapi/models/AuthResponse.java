@@ -5,36 +5,45 @@ import com.google.gson.annotations.SerializedName;
 
 public class AuthResponse {
 
+    @SerializedName("user_uuid")
+    @Expose
+    private String userUuid;
     @SerializedName("access_token")
     @Expose
-    private Object accessToken;
-    @SerializedName("message")
-    @Expose
-    private Object message;
+    private String accessToken;
 
-    public AuthResponse(Object accessToken, Object message) {
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public AuthResponse() {
+    }
+
+    /**
+     *
+     * @param accessToken
+     * @param userUuid
+     */
+    public AuthResponse(String userUuid, String accessToken) {
+        super();
+        this.userUuid = userUuid;
         this.accessToken = accessToken;
-        this.message = message;
     }
 
-    public AuthResponse(Object message) {
-        this.message = message;
+    public String getUserUuid() {
+        return userUuid;
     }
 
-    public Object getAccessToken() {
+    public void setUserUuid(String userUuid) {
+        this.userUuid = userUuid;
+    }
+
+    public String getAccessToken() {
         return accessToken;
     }
 
-    public void setAccessToken(Object accessToken) {
+    public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
-    }
-
-    public Object getMessage() {
-        return message;
-    }
-
-    public void setMessage(Object message) {
-        this.message = message;
     }
 
 }
