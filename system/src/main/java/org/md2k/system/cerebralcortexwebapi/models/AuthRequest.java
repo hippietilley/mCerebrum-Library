@@ -5,31 +5,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class AuthRequest {
 
-    @SerializedName("email_id")
+    @SerializedName("username")
     @Expose
-    private Object emailId;
+    private String username;
     @SerializedName("password")
     @Expose
-    private Object password;
+    private String password;
 
-    public AuthRequest(Object userName, Object userPassword) {
-        this.emailId = userName;
+    public AuthRequest(String userName, String userPassword) {
+        this.username = userName;
         this.password = userPassword;
     }
 
-    public Object getEmailId() {
-        return emailId;
+    public Object getUsername() {
+        return username;
     }
 
-    public void setEmailId(Object emailId) {
-        this.emailId = emailId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Object getPassword() {
         return password;
     }
 
-    public void setPassword(Object password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
