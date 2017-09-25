@@ -29,7 +29,6 @@ abstract public class AbstractServiceMCerebrum extends Service {
         @Override
         public MCerebrumStatus GetmCerebrumStatus() throws RemoteException {
             MCerebrumStatus mC=new MCerebrumStatus(getPackageName(), isConfigurable(), isConfigured(), isRunning(), getRunningTime(), isRunInBackground(), hasReport(), hasClear(), hasInitialize(), isEqualDefault());
-            // Generates a list of 1000 objects that aren't sent back to the binding Activity
             return mC;
         }
         @Override
@@ -68,12 +67,6 @@ abstract public class AbstractServiceMCerebrum extends Service {
         @Override
         public void Configure(Bundle bundle) throws RemoteException {
             configure(bundle);
-        }
-
-        @Override
-        public void Exit(Bundle bundle) throws RemoteException {
-            log("Received exit command.");
-            stopSelf();
         }
     };
 

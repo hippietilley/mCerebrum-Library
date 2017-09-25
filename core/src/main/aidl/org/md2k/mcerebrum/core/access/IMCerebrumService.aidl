@@ -10,5 +10,4 @@ interface IMCerebrumService {
     void StopBackground(in Bundle bundle);
     void Report(in Bundle bundle);
     void Clear(in Bundle bundle);
-    void Exit(in Bundle bundle);
 }

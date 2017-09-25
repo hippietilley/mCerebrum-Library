@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$/../mCerebrum-DataKitAPI/datakitapi" />
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/cerebralcortexwebapi" />
             <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/system" />
