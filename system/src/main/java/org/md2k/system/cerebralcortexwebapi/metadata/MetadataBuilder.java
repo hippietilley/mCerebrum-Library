@@ -1,5 +1,6 @@
 package org.md2k.system.cerebralcortexwebapi.metadata;
 
+import org.md2k.datakitapi.source.datasource.DataSourceClient;
 import org.md2k.system.cerebralcortexwebapi.models.stream.Algorithm;
 import org.md2k.system.cerebralcortexwebapi.models.stream.Annotation;
 import org.md2k.system.cerebralcortexwebapi.models.stream.DataStream;
@@ -9,7 +10,6 @@ import org.md2k.system.cerebralcortexwebapi.models.stream.InputStream;
 import org.md2k.system.cerebralcortexwebapi.models.stream.OutputStream;
 import org.md2k.system.cerebralcortexwebapi.models.stream.ProcessingModule;
 import org.md2k.system.cerebralcortexwebapi.models.stream.Reference;
-import org.md2k.datakitapi.source.datasource.DataSourceClient;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,12 +21,16 @@ import java.util.UUID;
 
 public class MetadataBuilder {
 
-    public DataStream buildDataStreamMetadata(String username, DataSourceClient dsc) {
+    public DataStream buildDataStreamMetadata(String userUUID, DataSourceClient dsc) {
 
         //From DataKit
         int datasource_identifier = dsc.getDs_id();
 
         List<HashMap<String, String>> datasource_dataDescriptors = dsc.getDataSource().getDataDescriptors();
+        if (datasource_dataDescriptors == null) {
+            datasource_dataDescriptors = new ArrayList<HashMap<String, String>>();
+        }
+
 
         String datasource_id = dsc.getDataSource().getId();
         String datasource_type = dsc.getDataSource().getType();
@@ -50,8 +54,8 @@ public class MetadataBuilder {
         }
 
 
-        UUID ownerUUID = UUID.nameUUIDFromBytes(username.getBytes());
-        String stream = username + generateDSCString(dsc);
+        UUID ownerUUID = UUID.fromString(userUUID);
+        String stream = userUUID.toString() + generateDSCString(dsc);
         UUID streamUUID = UUID.nameUUIDFromBytes(stream.getBytes());
 
         String streamName = "";
