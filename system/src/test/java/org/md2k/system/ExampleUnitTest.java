@@ -1,4 +1,4 @@
-package org.md2k.md2k.system;
+package org.md2k.system;
 
 import org.junit.Test;
 

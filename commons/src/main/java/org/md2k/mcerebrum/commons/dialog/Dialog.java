@@ -127,7 +127,7 @@ public class Dialog {
                     }
                 });
     }
-    public static MaterialDialog.Builder progress(Activity activity, String content){
+    public static MaterialDialog.Builder progressWithBar(Activity activity, String content){
         return new MaterialDialog.Builder(activity)
                 .content(content)
                 .progress(false, 100, true)
@@ -135,4 +135,13 @@ public class Dialog {
                 .autoDismiss(false);
 
     }
+    public static MaterialDialog.Builder progressIndeterminate(Activity activity, String content){
+        return new MaterialDialog.Builder(activity)
+                .content(content)
+                .progress(true, 100)
+                .cancelable(false)
+                .autoDismiss(false);
+
+    }
+
 }

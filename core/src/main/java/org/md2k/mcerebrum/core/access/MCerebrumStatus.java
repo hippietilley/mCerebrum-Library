@@ -123,6 +123,10 @@ public class MCerebrumStatus implements Parcelable{
         return 0;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(packageName);

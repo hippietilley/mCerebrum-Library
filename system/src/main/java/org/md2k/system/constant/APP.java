@@ -1,4 +1,4 @@
-package org.md2k.md2k.system.user;
+package org.md2k.system.constant;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,68 +26,32 @@ package org.md2k.md2k.system.user;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.os.Parcel;
-import android.os.Parcelable;
+public class APP {
+    public static final String USE_AS_REQUIRED="REQUIRED";
+    public static final String USE_AS_OPTIONAL="OPTIONAL";
+    public static final String USE_AS_NOT_IN_USE="NOT_IN_USE";
 
-public class UserInfo implements Parcelable{
-    private String title;
-    private boolean loggedIn;
-    private String loginHash;
+    public static final String TYPE_STUDY="STUDY";
+    public static final String TYPE_MCEREBRUM="MCEREBRUM";
+    public static final String TYPE_DATAKIT="DATAKIT";
+    public static final String UPDATE_TYPE_NEVER = "NEVER";
+    public static final String UPDATE_TYPE_NOTIFY = "NOTIFY";
+    public static final String UPDATE_TYPE_AUTOMATIC="AUTO";
+    public static final String UPDATE_TYPE_MANUAL="MANUAL";
 
-    public UserInfo() {
-    }
-
-    protected UserInfo(Parcel in) {
-        title = in.readString();
-        loggedIn = in.readByte() != 0;
-        loginHash = in.readString();
-    }
-
-    public static final Creator<UserInfo> CREATOR = new Creator<UserInfo>() {
-        @Override
-        public UserInfo createFromParcel(Parcel in) {
-            return new UserInfo(in);
-        }
-
-        @Override
-        public UserInfo[] newArray(int size) {
-            return new UserInfo[size];
-        }
+    public enum TYPE_DOWNLOAD {
+        GITHUB, PLAYSTORE, URL, JSON, UNKNOWN
     };
-
-    public String getTitle() {
-        return title;
+    public static TYPE_DOWNLOAD getDownloadType(String downloadLink){
+        if(downloadLink==null) return TYPE_DOWNLOAD.UNKNOWN;
+        if(downloadLink.toLowerCase().startsWith("market://"))
+            return TYPE_DOWNLOAD.PLAYSTORE;
+        if(downloadLink.toLowerCase().endsWith(".json"))
+            return TYPE_DOWNLOAD.JSON;
+        if(downloadLink.toLowerCase().endsWith(".apk"))
+            return TYPE_DOWNLOAD.URL;
+        if(downloadLink.split("/").length==2) return TYPE_DOWNLOAD.GITHUB;
+        return TYPE_DOWNLOAD.UNKNOWN;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public boolean isLoggedIn() {
-        return loggedIn;
-    }
-
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    public String getLoginHash() {
-        return loginHash;
-    }
-
-    public void setLoginHash(String loginHash) {
-        this.loginHash = loginHash;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeByte((byte) (loggedIn ? 1 : 0));
-        dest.writeString(loginHash);
-    }
 }
