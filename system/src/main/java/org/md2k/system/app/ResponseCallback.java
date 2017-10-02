@@ -1,4 +1,4 @@
-package org.md2k.system.constant;
+package org.md2k.system.app;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,5 +26,6 @@ package org.md2k.system.constant;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class CONFIG {
+public interface ResponseCallback {
+    public void onResponse(boolean isConnected);
 }

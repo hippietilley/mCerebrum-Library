@@ -120,8 +120,7 @@ public class Storage {
 
     public static boolean copyFromAsset(Context context, String assetFilePath, String destinationFilePath) throws IOException {
         InputStream in = context.getAssets().open(assetFilePath);
-        if (!FileUtils.createOrExistsFile(destinationFilePath))
-            throw new IOException("Failed to create file");
+        FileUtils.createOrExistsFile(destinationFilePath);
         FileOutputStream out = new FileOutputStream(destinationFilePath);
         if (in == null) return false;
         byte[] buffer = new byte[1024];

@@ -1,4 +1,4 @@
-package org.md2k.system.constant;
+package org.md2k.system.internet.download;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,32 +26,18 @@ package org.md2k.system.constant;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class APP {
-    public static final String USE_AS_REQUIRED="REQUIRED";
-    public static final String USE_AS_OPTIONAL="OPTIONAL";
-    public static final String USE_AS_NOT_IN_USE="NOT_IN_USE";
+import okhttp3.ResponseBody;
+import retrofit2.Response;
+import retrofit2.http.GET;
+import retrofit2.http.Streaming;
+import retrofit2.http.Url;
+import rx.Observable;
 
-    public static final String TYPE_STUDY="STUDY";
-    public static final String TYPE_MCEREBRUM="MCEREBRUM";
-    public static final String TYPE_DATAKIT="DATAKIT";
-    public static final String UPDATE_TYPE_NEVER = "NEVER";
-    public static final String UPDATE_TYPE_NOTIFY = "NOTIFY";
-    public static final String UPDATE_TYPE_AUTOMATIC="AUTO";
-    public static final String UPDATE_TYPE_MANUAL="MANUAL";
+public interface RetrofitInterface {
 
-    public enum TYPE_DOWNLOAD {
-        GITHUB, PLAYSTORE, URL, JSON, UNKNOWN
-    };
-    public static TYPE_DOWNLOAD getDownloadType(String downloadLink){
-        if(downloadLink==null) return TYPE_DOWNLOAD.UNKNOWN;
-        if(downloadLink.toLowerCase().startsWith("market://"))
-            return TYPE_DOWNLOAD.PLAYSTORE;
-        if(downloadLink.toLowerCase().endsWith(".json"))
-            return TYPE_DOWNLOAD.JSON;
-        if(downloadLink.toLowerCase().endsWith(".apk"))
-            return TYPE_DOWNLOAD.URL;
-        if(downloadLink.split("/").length==2) return TYPE_DOWNLOAD.GITHUB;
-        return TYPE_DOWNLOAD.UNKNOWN;
-    }
-
+    // Retrofit 2 GET request for rxjava
+    @Streaming
+    @GET
+    Observable<Response<ResponseBody>> downloadFileByUrlRx(@Url String fileUrl);
 }
+

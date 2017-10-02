@@ -1,4 +1,4 @@
-package org.md2k.system.constant;
+package org.md2k.system.internet.github.model;
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -26,9 +26,40 @@ package org.md2k.system.constant;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class STUDY {
-    public static final String FREEBIE="FREEBIE";
-    public static final String SERVER="SERVER";
-    public static final String CONFIGURED="CONFIGURED";
+public class ReleaseInfo {
+    private String tag_name;
+    private String name;
+    private String body;
+    private boolean prerelease;
+    private String created_at;
+    private String published_at;
+    private AssetInfo[] assets;
 
+    public String getTag_name() {
+        return tag_name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public boolean isPrerelease() {
+        return prerelease;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public String getPublished_at() {
+        return published_at;
+    }
+
+    public AssetInfo[] getAssets() {
+        return assets;
+    }
 }

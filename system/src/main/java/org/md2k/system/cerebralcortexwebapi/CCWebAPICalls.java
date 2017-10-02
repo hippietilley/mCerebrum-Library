@@ -157,8 +157,9 @@ public class CCWebAPICalls {
 
         try {
             Response response = call.execute();
+
             if (response.isSuccessful()) {
-                return ApiUtils.writeResponseToDisk(call.execute().body(), outputFileName);
+                return ApiUtils.writeResponseToDisk((ResponseBody) response.body(), outputFileName);
             } else {
                 Gson gson = new Gson();
                 CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(), CCApiErrorMessage.class);

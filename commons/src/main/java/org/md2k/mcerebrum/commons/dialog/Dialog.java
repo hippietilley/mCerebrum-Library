@@ -41,7 +41,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Dialog {
-    public static MaterialDialog.Builder singleChoice(Activity activity, String title, ArrayList<String> items, int selected, final DialogCallback dialogCallback) {
+    public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
+        ArrayList<String> tempItems=new ArrayList<>();
+        Collections.addAll(tempItems, items);
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .items(items)
@@ -57,14 +59,40 @@ public class Dialog {
                     }
                 })
                 .autoDismiss(true)
-                .cancelable(false);
+                .cancelable(true);
     }
-    public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
-        ArrayList<String> tempItems=new ArrayList<>();
-        Collections.addAll(tempItems, items);
-        return singleChoice(activity, title,tempItems, selected, dialogCallback);
+/*
+    public static MaterialDialog.Builder singleChoiceOkCancel(Activity activity, String title, final String[] items, int selected, String positiveButton, String negativeButton, final DialogCallback dialogCallback) {
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .items(items)
+                .positiveText(positiveButton)
+                .negativeText(negativeButton)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                        dialogCallback.onSelected(items[which]);
+                    }
+                })
+                .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        */
+/**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **//*
+
+                        dialogCallback.onSelected(text.toString());
+                        return true;
+                    }
+                })
+                .autoDismiss(true)
+                .cancelable(true);
     }
 
+*/
     public static MaterialDialog.Builder editboxText(Activity activity, String title, String content, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
