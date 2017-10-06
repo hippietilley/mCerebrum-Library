@@ -205,4 +205,7 @@ public class MCerebrumController {
         appCP.setInitialized(context, false);
         appCP.setMCerebrumSupported(context, checkMCerebrumSupport(appCP.getPackageName()));
     }
+    public boolean isRunning(){
+        return appCP.getMCerebrumSupported() && mCerebrumStatus!=null && mCerebrumStatus.isRunning();
+    }
 }

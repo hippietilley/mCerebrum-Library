@@ -35,24 +35,26 @@ import org.md2k.system.provider.appinfo.AppInfoSelection;
 import java.util.ArrayList;
 
 public class DataCPManager {
-    Context context;
+    private Context context;
     private ConfigCP configCP;
     private StudyCP studyCP;
     private UserCP userCP;
+    private ServerCP serverCP;
     private ArrayList<AppCP> appCPs;
     public DataCPManager(Context context){
         this.context = context;
         configCP =new ConfigCP();
         studyCP =new StudyCP();
         userCP=new UserCP();
+        serverCP=new ServerCP();
         appCPs=new ArrayList<>();
         read();
-        Log.d("abc","here");
     }
     private void read(){
         configCP.read(context);
         studyCP.read(context);
         userCP.read(context);
+        serverCP.read(context);
         readApp();
     }
     private void deleteConfigCP(){
@@ -67,16 +69,21 @@ public class DataCPManager {
         userCP.delete(context);
         userCP=new UserCP();
     }
+    private void deleteServerCP(){
+        serverCP.delete(context);
+        serverCP=new ServerCP();
+    }
     private void deleteAppCP(){
         for(int i=0;i<appCPs.size();i++)
             appCPs.get(i).delete(context);
         appCPs.clear();
     }
-    public void deleteForNew(){
+    public void deleteAll(){
         deleteConfigCP();
         deleteStudyCP();
         deleteAppCP();
         deleteUserCP();
+        deleteServerCP();
     }
     public void deleteForUpdate(){
         deleteConfigCP();
@@ -92,19 +99,20 @@ public class DataCPManager {
         return false;
     }
 
-    public void setConfigCP(String cid, String type, String title, String summary, String description, String version, String update, String expectedVersion, String latestVersion, String downloadLink, long lastUpdated){
-        configCP.set(context, cid,  type,  title,  summary,  description,  version,  update,  expectedVersion,  latestVersion,  downloadLink,lastUpdated);
+    public void setConfigCP(String cid, String type, String title, String summary, String description, String version, String update, String expectedVersion, String downloadLink, String fileName){
+        configCP.set(context, cid,  type,  title,  summary,  description,  version,  update,  expectedVersion,  downloadLink, fileName);
     }
-    public void setStudyCP(String sid, String type, String title, String summary, String description, String version,String icon, String coverImage, boolean startAtBoot, boolean started){
-        studyCP.set( context, sid,  type,  title,  summary,  description,  version,  icon,  coverImage,  startAtBoot,  started);
+    public void setStudyCP(String sid, String type, String title, String summary, String description, String version,String icon, String coverImage, boolean startAtBoot){
+        studyCP.set( context, sid,  type,  title,  summary,  description,  version,  icon,  coverImage,  startAtBoot);
     }
-    public void setAppCPs(String aid, String type, String title, String summary, String description, String packageName, String downloadLink, String update, String useAs, String expectedVersion, String icon, String currentVersion, String latestVersion, boolean installed, boolean mCerebrumSupported, boolean initialized){
+
+    public void setAppCPs(String aid, String type, String title, String summary, String description, String packageName, String downloadLink, String update, String useAs, String expectedVersion, String icon){
         AppCP appCP = getApp(packageName);
         if(appCP==null) {
             appCP = new AppCP();
             appCPs.add(appCP);
         }
-        appCP.set(context, aid, type, title, summary, description, packageName, downloadLink, update, useAs, expectedVersion, icon, currentVersion, latestVersion, installed, mCerebrumSupported, initialized);
+        appCP.set(context, aid, type, title, summary, description, packageName, downloadLink, update, useAs, expectedVersion, icon);
     }
 
 
@@ -118,6 +126,9 @@ public class DataCPManager {
 
     public UserCP getUserCP() {
         return userCP;
+    }
+    public ServerCP getServerCP() {
+        return serverCP;
     }
 
     public ArrayList<AppCP> getAppCPs() {

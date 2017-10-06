@@ -25,12 +25,9 @@
 package org.md2k.system.provider.base;
 
 // @formatter:off
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-
-import android.util.Log;
-
-import org.md2k.system.BuildConfig;
 
 /**
  * Override this class to implement your custom database opening, creation or upgrade.
@@ -43,7 +40,6 @@ public class BaseSQLiteOpenHelperCallbacks {
      * @see android.database.sqlite.SQLiteOpenHelper#onOpen(SQLiteDatabase) onOpen
      */
     public void onOpen(Context context, SQLiteDatabase db) {
-//        if (BuildConfig.LOG_DEBUG_PROVIDER) Log.d(TAG, "onOpen");
     }
 
     /**
@@ -51,7 +47,6 @@ public class BaseSQLiteOpenHelperCallbacks {
      * @see android.database.sqlite.SQLiteOpenHelper#onCreate(SQLiteDatabase) onCreate
      */
     public void onPreCreate(Context context, SQLiteDatabase db) {
-//        if (BuildConfig.LOG_DEBUG_PROVIDER) Log.d(TAG, "onPreCreate");
     }
 
     /**
@@ -59,14 +54,11 @@ public class BaseSQLiteOpenHelperCallbacks {
      * @see android.database.sqlite.SQLiteOpenHelper#onCreate(SQLiteDatabase) onCreate
      */
     public void onPostCreate(Context context, SQLiteDatabase db) {
-//        if (BuildConfig.LOG_DEBUG_PROVIDER) Log.d(TAG, "onPostCreate");
     }
 
     /**
      * Called when the database needs to be upgraded.
-     * @see android.database.sqlite.SQLiteOpenHelper#(Context, SQLiteDatabase, int, int) onUpgrade
      */
     public void onUpgrade(final Context context, final SQLiteDatabase db, final int oldVersion, final int newVersion) {
-//        if (BuildConfig.LOG_DEBUG_PROVIDER) Log.d(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion);
     }
 }

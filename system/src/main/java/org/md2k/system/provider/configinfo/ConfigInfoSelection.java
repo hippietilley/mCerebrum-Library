@@ -519,33 +519,33 @@ public class ConfigInfoSelection extends AbstractSelection<ConfigInfoSelection> 
         return this;
     }
 
-    public ConfigInfoSelection lastUpdated(Long... value) {
+    public ConfigInfoSelection lastUpdated(String... value) {
         addEquals(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
-    public ConfigInfoSelection lastUpdatedNot(Long... value) {
+    public ConfigInfoSelection lastUpdatedNot(String... value) {
         addNotEquals(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
-    public ConfigInfoSelection lastUpdatedGt(long value) {
-        addGreaterThan(ConfigInfoColumns.LAST_UPDATED, value);
+    public ConfigInfoSelection lastUpdatedLike(String... value) {
+        addLike(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
-    public ConfigInfoSelection lastUpdatedGtEq(long value) {
-        addGreaterThanOrEquals(ConfigInfoColumns.LAST_UPDATED, value);
+    public ConfigInfoSelection lastUpdatedContains(String... value) {
+        addContains(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
-    public ConfigInfoSelection lastUpdatedLt(long value) {
-        addLessThan(ConfigInfoColumns.LAST_UPDATED, value);
+    public ConfigInfoSelection lastUpdatedStartsWith(String... value) {
+        addStartsWith(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
-    public ConfigInfoSelection lastUpdatedLtEq(long value) {
-        addLessThanOrEquals(ConfigInfoColumns.LAST_UPDATED, value);
+    public ConfigInfoSelection lastUpdatedEndsWith(String... value) {
+        addEndsWith(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
@@ -556,6 +556,46 @@ public class ConfigInfoSelection extends AbstractSelection<ConfigInfoSelection> 
 
     public ConfigInfoSelection orderByLastUpdated() {
         orderBy(ConfigInfoColumns.LAST_UPDATED, false);
+        return this;
+    }
+
+    public ConfigInfoSelection fileName(String... value) {
+        addEquals(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection fileNameNot(String... value) {
+        addNotEquals(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection fileNameLike(String... value) {
+        addLike(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection fileNameContains(String... value) {
+        addContains(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection fileNameStartsWith(String... value) {
+        addStartsWith(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection fileNameEndsWith(String... value) {
+        addEndsWith(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoSelection orderByFileName(boolean desc) {
+        orderBy(ConfigInfoColumns.FILE_NAME, desc);
+        return this;
+    }
+
+    public ConfigInfoSelection orderByFileName() {
+        orderBy(ConfigInfoColumns.FILE_NAME, false);
         return this;
     }
 }

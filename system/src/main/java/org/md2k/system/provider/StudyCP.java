@@ -47,7 +47,7 @@ public class StudyCP{
         studyInfoBean = new StudyInfoBean();
     }
 
-    public void set(Context context, String sid, String type, String title, String summary, String description, String version,String icon, String coverImage, boolean startAtBoot, boolean started) {
+    public void set(Context context, String sid, String type, String title, String summary, String description, String version,String icon, String coverImage, boolean startAtBoot) {
         studyInfoBean.setSid(sid);
         studyInfoBean.setType(type);
         studyInfoBean.setTitle(title);
@@ -57,7 +57,6 @@ public class StudyCP{
         studyInfoBean.setIcon(icon);
         studyInfoBean.setCoverImage(coverImage);
         studyInfoBean.setStartAtBoot(startAtBoot);
-        studyInfoBean.setStarted(started);
         insertOrUpdate(context);
     }
 
@@ -133,51 +132,23 @@ public class StudyCP{
         return studyInfoBean.getTitle();
     }
 
-/*
-    public Drawable getIcon(Context context) {
-        String filePath = Constants.CONFIG_MCEREBRUM_DIR()+ studyInfoBean.getIcon();
-        try {
-            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-            if(bitmap!=null)
-                return new BitmapDrawable(context.getResources(), bitmap);
-        } catch (Exception ignored) {
-
-        }
-        AssetManager am = context.getAssets();
-        try {
-            return new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(am.open("mcerebrum.png")));
-        } catch (IOException ignored) {
-        }
-        return null;
-    }
-
-    public Drawable getCoverImage(Context context) {
-        String filePath = Constants.CONFIG_MCEREBRUM_DIR()+ studyInfoBean.getCoverImage();
-        try {
-            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-            if(bitmap!=null)
-                return new BitmapDrawable(context.getResources(), bitmap);
-        } catch (Exception ignored) {
-
-        }
-        AssetManager am = context.getAssets();
-        try {
-            return new BitmapDrawable(context.getResources(), BitmapFactory.decodeStream(am.open("header.jpg")));
-        } catch (IOException ignored) {
-        }
-        return null;
-    }
-*/
-
     public String getType() {
         return studyInfoBean.getType();
     }
 
     public boolean getStartAtBoot() {
-        return studyInfoBean.getStartAtBoot();
+        try{
+            return studyInfoBean.getStartAtBoot();
+        }catch (Exception e){
+            return false;
+        }
     }
     public boolean getStarted(){
-        return studyInfoBean.getStarted();
+        try {
+            return studyInfoBean.getStarted();
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public String getIcon() {

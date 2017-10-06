@@ -40,7 +40,7 @@ public class AppCP{
         appInfoBean = new AppInfoBean();
     }
 
-    public void set(Context context, String aid, String type, String title, String summary, String description, String packageName, String downloadLink, String update, String use_as, String expectedVersion, String icon, String currentVersion, String latestVersion, boolean installed, boolean mCerebrumSupported, boolean initialized) {
+    public void set(Context context, String aid, String type, String title, String summary, String description, String packageName, String downloadLink, String update, String use_as, String expectedVersion, String icon) {
         appInfoBean.setAid(aid);
         appInfoBean.setType(type);
         appInfoBean.setTitle(title);
@@ -52,11 +52,6 @@ public class AppCP{
         appInfoBean.setUseAs(use_as);
         appInfoBean.setExpectedVersion(expectedVersion);
         appInfoBean.setIcon(icon);
-        appInfoBean.setCurrentVersion(currentVersion);
-        appInfoBean.setLatestVersion(latestVersion);
-        appInfoBean.setInstalled(installed);
-        appInfoBean.setMcerebrumSupported(mCerebrumSupported);
-        appInfoBean.setInitialized(initialized);
         insertOrUpdate(context);
     }
 
@@ -193,10 +188,18 @@ public class AppCP{
         insertOrUpdate(context);
     }
     public boolean getMCerebrumSupported(){
-        return appInfoBean.getMcerebrumSupported();
+        try {
+            return appInfoBean.getMcerebrumSupported();
+        }catch (Exception e){
+            return false;
+        }
     }
     public boolean getInitialized(){
-        return appInfoBean.getInitialized();
+        try{
+            return appInfoBean.getInitialized();
+        }catch (Exception e){
+            return false;
+        }
     }
     public void setInitialized(Context context, boolean initialized) {
         appInfoBean.setInitialized(initialized);

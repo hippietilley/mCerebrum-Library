@@ -38,10 +38,10 @@ import java.util.ArrayList;
 import es.dmoral.toasty.Toasty;
 import rx.Observable;
 
-public abstract class AbstractApplicationManager {
+public class ApplicationManager {
     protected ArrayList<AppInfoController> appInfoControllers;
     protected Context context;
-    public AbstractApplicationManager(Context context, ArrayList<AppCP> appCPs){
+    public ApplicationManager(Context context, ArrayList<AppCP> appCPs){
         this.context = context;
         appInfoControllers = new ArrayList<>();
         for(int i=0;i<appCPs.size();i++) {
@@ -59,6 +59,15 @@ public abstract class AbstractApplicationManager {
     }
     public void stopMCerebrumService(AppInfoController appInfoController){
         appInfoController.getmCerebrumController().stopService();
+    }
+    public void stopBackground(){
+        for(int i=0;i<appInfoControllers.size();i++) {
+            try {
+                appInfoControllers.get(i).getmCerebrumController().stopBackground(null);
+            }catch (Exception e){
+
+            }
+        }
     }
 
     public void stopMCerebrumService() {
@@ -191,14 +200,14 @@ public abstract class AbstractApplicationManager {
         }
     }
 
-    Observable checkUpdate(String packageName) {
+    Observable hasUpdate(String packageName) {
         AppInfoController appInfoController = getAppInfoController(packageName);
         if (appInfoController == null) return Observable.just(false);
         return appInfoController.getInstallInfoController().checkUpdate();
     }
 
 
-    public Observable<Boolean> checkUpdate() {
+    public Observable<Boolean> hasUpdate() {
         if (appInfoControllers == null || appInfoControllers.size() == 0)
             return Observable.just(false);
         ArrayList<Observable<Boolean>> observables=new ArrayList<>();

@@ -32,6 +32,7 @@ import org.md2k.system.provider.SampleProvider;
 import org.md2k.system.provider.base.AbstractSelection;
 import org.md2k.system.provider.appinfo.AppInfoColumns;
 import org.md2k.system.provider.configinfo.ConfigInfoColumns;
+import org.md2k.system.provider.serverinfo.ServerInfoColumns;
 import org.md2k.system.provider.studyinfo.StudyInfoColumns;
 import org.md2k.system.provider.userinfo.UserInfoColumns;
 

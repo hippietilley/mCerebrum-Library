@@ -25,6 +25,7 @@
 package org.md2k.system.provider;
 
 // @formatter:off
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -32,12 +33,11 @@ import android.database.DefaultDatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
-import android.util.Log;
 
-import org.md2k.system.provider.base.BaseSQLiteOpenHelperCallbacks;
-import org.md2k.system.provider.SampleSQLiteOpenHelperCallbacks;
 import org.md2k.system.provider.appinfo.AppInfoColumns;
+import org.md2k.system.provider.base.BaseSQLiteOpenHelperCallbacks;
 import org.md2k.system.provider.configinfo.ConfigInfoColumns;
+import org.md2k.system.provider.serverinfo.ServerInfoColumns;
 import org.md2k.system.provider.studyinfo.StudyInfoColumns;
 import org.md2k.system.provider.userinfo.UserInfoColumns;
 
@@ -85,8 +85,23 @@ public class SampleProviderSQLiteOpenHelper extends SQLiteOpenHelper {
             + ConfigInfoColumns.EXPECTED_VERSION + " TEXT, "
             + ConfigInfoColumns.LATEST_VERSION + " TEXT, "
             + ConfigInfoColumns.DOWNLOAD_LINK + " TEXT, "
-            + ConfigInfoColumns.LAST_UPDATED + " INTEGER "
+            + ConfigInfoColumns.LAST_UPDATED + " TEXT, "
+            + ConfigInfoColumns.FILE_NAME + " TEXT "
             + ", CONSTRAINT unique_name UNIQUE (cid, type) ON CONFLICT REPLACE"
+            + " );";
+
+    public static final String SQL_CREATE_TABLE_SERVER_INFO = "CREATE TABLE IF NOT EXISTS "
+            + ServerInfoColumns.TABLE_NAME + " ( "
+            + ServerInfoColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + ServerInfoColumns.SERVER_ADDRESS + " TEXT, "
+            + ServerInfoColumns.USERNAME + " TEXT, "
+            + ServerInfoColumns.UUID + " TEXT, "
+            + ServerInfoColumns.PASSWORD_HASH + " TEXT, "
+            + ServerInfoColumns.TOKEN + " TEXT, "
+            + ServerInfoColumns.FILE_NAME + " TEXT, "
+            + ServerInfoColumns.CURRENT_VERSION + " TEXT, "
+            + ServerInfoColumns.LATEST_VERSION + " TEXT "
+            + ", CONSTRAINT unique_name UNIQUE (username) ON CONFLICT REPLACE"
             + " );";
 
     public static final String SQL_CREATE_TABLE_STUDY_INFO = "CREATE TABLE IF NOT EXISTS "
@@ -168,10 +183,10 @@ public class SampleProviderSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        if (BuildConfig.LOG_DEBUG_PROVIDER) Log.d(TAG, "onCreate");
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_APP_INFO);
         db.execSQL(SQL_CREATE_TABLE_CONFIG_INFO);
+        db.execSQL(SQL_CREATE_TABLE_SERVER_INFO);
         db.execSQL(SQL_CREATE_TABLE_STUDY_INFO);
         db.execSQL(SQL_CREATE_TABLE_USER_INFO);
         mOpenHelperCallbacks.onPostCreate(mContext, db);

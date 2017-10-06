@@ -32,6 +32,7 @@ import org.md2k.system.provider.SampleProvider;
 import org.md2k.system.provider.base.AbstractSelection;
 import org.md2k.system.provider.appinfo.AppInfoColumns;
 import org.md2k.system.provider.configinfo.ConfigInfoColumns;
+import org.md2k.system.provider.serverinfo.ServerInfoColumns;
 import org.md2k.system.provider.studyinfo.StudyInfoColumns;
 import org.md2k.system.provider.userinfo.UserInfoColumns;
 
@@ -70,6 +71,8 @@ public class ConfigInfoColumns implements BaseColumns {
 
     public static final String LAST_UPDATED = "last_updated";
 
+    public static final String FILE_NAME = "file_name";
+
 
     public static final String DEFAULT_ORDER = null;
 
@@ -85,7 +88,8 @@ public class ConfigInfoColumns implements BaseColumns {
             EXPECTED_VERSION,
             LATEST_VERSION,
             DOWNLOAD_LINK,
-            LAST_UPDATED
+            LAST_UPDATED,
+            FILE_NAME
     };
 
     public static boolean hasColumns(String[] projection) {
@@ -102,6 +106,7 @@ public class ConfigInfoColumns implements BaseColumns {
             if (c.equals(LATEST_VERSION) || c.contains("." + LATEST_VERSION)) return true;
             if (c.equals(DOWNLOAD_LINK) || c.contains("." + DOWNLOAD_LINK)) return true;
             if (c.equals(LAST_UPDATED) || c.contains("." + LAST_UPDATED)) return true;
+            if (c.equals(FILE_NAME) || c.contains("." + FILE_NAME)) return true;
         }
         return false;
     }

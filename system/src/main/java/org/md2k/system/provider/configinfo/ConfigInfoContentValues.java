@@ -165,13 +165,23 @@ public class ConfigInfoContentValues extends AbstractContentValues<ConfigInfoCon
         return this;
     }
 
-    public ConfigInfoContentValues putLastUpdated(@Nullable Long value) {
+    public ConfigInfoContentValues putLastUpdated(@Nullable String value) {
         mContentValues.put(ConfigInfoColumns.LAST_UPDATED, value);
         return this;
     }
 
     public ConfigInfoContentValues putLastUpdatedNull() {
         mContentValues.putNull(ConfigInfoColumns.LAST_UPDATED);
+        return this;
+    }
+
+    public ConfigInfoContentValues putFileName(@Nullable String value) {
+        mContentValues.put(ConfigInfoColumns.FILE_NAME, value);
+        return this;
+    }
+
+    public ConfigInfoContentValues putFileNameNull() {
+        mContentValues.putNull(ConfigInfoColumns.FILE_NAME);
         return this;
     }
 }

@@ -169,8 +169,19 @@ public class ConfigInfoCursor extends AbstractCursor implements ConfigInfoModel 
      */
     @Nullable
     @Override
-    public Long getLastUpdated() {
-        Long res = getLongOrNull(ConfigInfoColumns.LAST_UPDATED);
+    public String getLastUpdated() {
+        String res = getStringOrNull(ConfigInfoColumns.LAST_UPDATED);
+        return res;
+    }
+
+    /**
+     * Get the {@code file_name} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getFileName() {
+        String res = getStringOrNull(ConfigInfoColumns.FILE_NAME);
         return res;
     }
 }

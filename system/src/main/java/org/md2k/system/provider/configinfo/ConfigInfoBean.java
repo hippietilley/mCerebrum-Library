@@ -48,7 +48,8 @@ public class ConfigInfoBean implements ConfigInfoModel {
     private String mExpectedVersion;
     private String mLatestVersion;
     private String mDownloadLink;
-    private Long mLastUpdated;
+    private String mLastUpdated;
+    private String mFileName;
 
     /**
      * Primary key.
@@ -251,7 +252,7 @@ public class ConfigInfoBean implements ConfigInfoModel {
      */
     @Nullable
     @Override
-    public Long getLastUpdated() {
+    public String getLastUpdated() {
         return mLastUpdated;
     }
 
@@ -259,8 +260,26 @@ public class ConfigInfoBean implements ConfigInfoModel {
      * Set the {@code last_updated} value.
      * Can be {@code null}.
      */
-    public void setLastUpdated(@Nullable Long lastUpdated) {
+    public void setLastUpdated(@Nullable String lastUpdated) {
         mLastUpdated = lastUpdated;
+    }
+
+    /**
+     * Get the {@code file_name} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getFileName() {
+        return mFileName;
+    }
+
+    /**
+     * Set the {@code file_name} value.
+     * Can be {@code null}.
+     */
+    public void setFileName(@Nullable String fileName) {
+        mFileName = fileName;
     }
 
     @Override
@@ -280,7 +299,7 @@ public class ConfigInfoBean implements ConfigInfoModel {
      * Instantiate a new ConfigInfoBean with specified values.
      */
     @NonNull
-    public static ConfigInfoBean newInstance(long id, @Nullable String cid, @Nullable String type, @Nullable String title, @Nullable String summary, @Nullable String description, @Nullable String versions, @Nullable String updates, @Nullable String expectedVersion, @Nullable String latestVersion, @Nullable String downloadLink, @Nullable Long lastUpdated) {
+    public static ConfigInfoBean newInstance(long id, @Nullable String cid, @Nullable String type, @Nullable String title, @Nullable String summary, @Nullable String description, @Nullable String versions, @Nullable String updates, @Nullable String expectedVersion, @Nullable String latestVersion, @Nullable String downloadLink, @Nullable String lastUpdated, @Nullable String fileName) {
         ConfigInfoBean res = new ConfigInfoBean();
         res.mId = id;
         res.mCid = cid;
@@ -294,6 +313,7 @@ public class ConfigInfoBean implements ConfigInfoModel {
         res.mLatestVersion = latestVersion;
         res.mDownloadLink = downloadLink;
         res.mLastUpdated = lastUpdated;
+        res.mFileName = fileName;
         return res;
     }
 
@@ -315,6 +335,7 @@ public class ConfigInfoBean implements ConfigInfoModel {
         res.mLatestVersion = from.getLatestVersion();
         res.mDownloadLink = from.getDownloadLink();
         res.mLastUpdated = from.getLastUpdated();
+        res.mFileName = from.getFileName();
         return res;
     }
 
@@ -423,8 +444,17 @@ public class ConfigInfoBean implements ConfigInfoModel {
          * Set the {@code last_updated} value.
          * Can be {@code null}.
          */
-        public Builder lastUpdated(@Nullable Long lastUpdated) {
+        public Builder lastUpdated(@Nullable String lastUpdated) {
             mRes.mLastUpdated = lastUpdated;
+            return this;
+        }
+
+        /**
+         * Set the {@code file_name} value.
+         * Can be {@code null}.
+         */
+        public Builder fileName(@Nullable String fileName) {
+            mRes.mFileName = fileName;
             return this;
         }
 

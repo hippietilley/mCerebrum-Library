@@ -40,6 +40,7 @@ public class UserCP {
         userInfoBean = new UserInfoBean();
     }
 
+/*
     public void set(Context context, String title, String uuid, String token, boolean isLoggedIn, String hashPassword) {
         userInfoBean.setUid(uuid);
         userInfoBean.setUsername(title);
@@ -48,6 +49,7 @@ public class UserCP {
         userInfoBean.setPasswordHash(hashPassword);
         insertOrUpdate(context);
     }
+*/
 
     public void delete(Context context) {
         UserInfoSelection userInfoSelection = new UserInfoSelection();
@@ -111,30 +113,13 @@ public class UserCP {
         return values;
     }
 
-    public String getTitle() {
-        return userInfoBean.getUsername();
-    }
-
-    public boolean isLoggedIn() {
-        return userInfoBean.getLoggedIn();
-    }
-
-    public void setLoggedIn(Context context,boolean loggedIn) {
-        userInfoBean.setLoggedIn(loggedIn);
-        insertOrUpdate(context);
-    }
-
-    public void setTitle(Context context,String userName) {
+    public void set(Context context, String type, String userName) {
+        userInfoBean.setType(type);
         userInfoBean.setUsername(userName);
         insertOrUpdate(context);
     }
 
-    public String getPasswordHash() {
-        return userInfoBean.getPasswordHash();
-    }
-
-
-    public String getToken() {
-        return userInfoBean.getToken();
+    public String getUserName() {
+        return userInfoBean.getUsername();
     }
 }

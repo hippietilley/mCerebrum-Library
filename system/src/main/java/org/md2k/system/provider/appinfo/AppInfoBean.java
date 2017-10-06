@@ -25,6 +25,7 @@
 package org.md2k.system.provider.appinfo;
 
 // @formatter:off
+import org.md2k.system.provider.base.BaseModel;
 
 import java.util.Date;
 

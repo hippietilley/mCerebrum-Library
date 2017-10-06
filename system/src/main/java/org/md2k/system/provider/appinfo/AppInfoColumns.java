@@ -32,6 +32,7 @@ import org.md2k.system.provider.SampleProvider;
 import org.md2k.system.provider.base.AbstractSelection;
 import org.md2k.system.provider.appinfo.AppInfoColumns;
 import org.md2k.system.provider.configinfo.ConfigInfoColumns;
+import org.md2k.system.provider.serverinfo.ServerInfoColumns;
 import org.md2k.system.provider.studyinfo.StudyInfoColumns;
 import org.md2k.system.provider.userinfo.UserInfoColumns;
 
@@ -84,7 +85,7 @@ public class AppInfoColumns implements BaseColumns {
     public static final String INITIALIZED = "initialized";
 
 
-    public static final String DEFAULT_ORDER = TABLE_NAME + "." + PACKAGE_NAME;
+    public static final String DEFAULT_ORDER = TABLE_NAME + "." + _ID;
 
     public static final String[] ALL_COLUMNS = new String[] {
             _ID,

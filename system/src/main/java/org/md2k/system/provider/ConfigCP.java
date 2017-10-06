@@ -27,8 +27,11 @@ package org.md2k.system.provider;
  */
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import org.md2k.system.constant.MCEREBRUM;
 import org.md2k.system.provider.configinfo.ConfigInfoBean;
+import org.md2k.system.provider.configinfo.ConfigInfoColumns;
 import org.md2k.system.provider.configinfo.ConfigInfoContentValues;
 import org.md2k.system.provider.configinfo.ConfigInfoCursor;
 import org.md2k.system.provider.configinfo.ConfigInfoSelection;
@@ -40,7 +43,7 @@ public class ConfigCP {
         configInfoBean = new ConfigInfoBean();
     }
 
-    public void set(Context context, String cid, String type, String title, String summary, String description, String version, String update, String expectedVersion, String latestVersion, String downloadLink, long lastUpdated) {
+    public void set(Context context, String cid, String type, String title, String summary, String description, String version, String update, String expectedVersion, String downloadLink, String fileName) {
         configInfoBean.setCid(cid);
         configInfoBean.setType(type);
         configInfoBean.setTitle(title);
@@ -49,13 +52,16 @@ public class ConfigCP {
         configInfoBean.setVersions(version);
         configInfoBean.setUpdates(update);
         configInfoBean.setExpectedVersion(expectedVersion);
-        configInfoBean.setLatestVersion(latestVersion);
         configInfoBean.setDownloadLink(downloadLink);
-        configInfoBean.setLastUpdated(lastUpdated);
+        configInfoBean.setFileName(fileName);
         insertOrUpdate(context);
     }
 
     public void delete(Context context) {
+        SampleProviderSQLiteOpenHelper s= SampleProviderSQLiteOpenHelper.getInstance(context);
+        SQLiteDatabase db=s.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS "+ ConfigInfoColumns.TABLE_NAME);
+        db.execSQL(s.SQL_CREATE_TABLE_CONFIG_INFO);
         ConfigInfoSelection configInfoSelection = new ConfigInfoSelection();
         configInfoSelection.delete(context);
     }
@@ -123,6 +129,7 @@ public class ConfigCP {
         values.putLatestVersion(configInfoBean.getLatestVersion());
         values.putDownloadLink(configInfoBean.getDownloadLink());
         values.putLastUpdated(configInfoBean.getLastUpdated());
+        values.putFileName(configInfoBean.getFileName());
         return values;
     }
 
@@ -161,5 +168,29 @@ public class ConfigCP {
         configInfoBean.setLatestVersion(c.getLatestVersion());
         configInfoBean.setDownloadLink(c.getDownloadLink());
         configInfoBean.setLastUpdated(c.getLastUpdated());
+        configInfoBean.setFileName(c.getFileName());
+    }
+
+    public String getFileName() {
+        return configInfoBean.getFileName();
+    }
+
+    public String getLastUpdated() {
+        return configInfoBean.getLastUpdated();
+    }
+
+    public void setFileName(Context context, String fileName) {
+        configInfoBean.setFileName(fileName);
+        insertOrUpdate(context);
+    }
+
+    public void setLastUpdated(Context context, String lastModified) {
+        configInfoBean.setLastUpdated(lastModified);
+        insertOrUpdate(context);
+    }
+
+    public void setVersions(Context context, String lastModified) {
+        configInfoBean.setVersions(lastModified);
+        insertOrUpdate(context);
     }
 }

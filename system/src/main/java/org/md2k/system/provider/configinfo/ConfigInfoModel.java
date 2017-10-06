@@ -118,5 +118,12 @@ public interface ConfigInfoModel extends BaseModel {
      * Can be {@code null}.
      */
     @Nullable
-    Long getLastUpdated();
+    String getLastUpdated();
+
+    /**
+     * Get the {@code file_name} value.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getFileName();
 }
