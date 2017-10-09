@@ -27,8 +27,12 @@ package org.md2k.system.provider;
  */
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
+import org.md2k.system.provider.configinfo.ConfigInfoColumns;
+import org.md2k.system.provider.configinfo.ConfigInfoSelection;
 import org.md2k.system.provider.userinfo.UserInfoBean;
+import org.md2k.system.provider.userinfo.UserInfoColumns;
 import org.md2k.system.provider.userinfo.UserInfoContentValues;
 import org.md2k.system.provider.userinfo.UserInfoCursor;
 import org.md2k.system.provider.userinfo.UserInfoSelection;
@@ -52,6 +56,11 @@ public class UserCP {
 */
 
     public void delete(Context context) {
+        SampleProviderSQLiteOpenHelper s= SampleProviderSQLiteOpenHelper.getInstance(context);
+        SQLiteDatabase db=s.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS "+ UserInfoColumns.TABLE_NAME);
+        db.execSQL(SampleProviderSQLiteOpenHelper.SQL_CREATE_TABLE_USER_INFO);
+
         UserInfoSelection userInfoSelection = new UserInfoSelection();
         userInfoSelection.delete(context);
     }

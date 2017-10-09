@@ -20,7 +20,6 @@ import java.util.UUID;
 
 
 public class MetadataBuilder {
-
     public DataStream buildDataStreamMetadata(String userUUID, DataSourceClient dsc) {
 
         //From DataKit
@@ -30,20 +29,26 @@ public class MetadataBuilder {
         if (datasource_dataDescriptors == null) {
             datasource_dataDescriptors = new ArrayList<HashMap<String, String>>();
         }
-
-
         String datasource_id = dsc.getDataSource().getId();
         String datasource_type = dsc.getDataSource().getType();
         HashMap<String, String> datasource_metadata = dsc.getDataSource().getMetadata();
 
-        String application_id = dsc.getDataSource().getApplication().getId();
-        String application_type = dsc.getDataSource().getApplication().getType();
-        HashMap<String, String> application_metadata = dsc.getDataSource().getApplication().getMetadata();
-
-        String platform_id = dsc.getDataSource().getPlatform().getId();
-        String platform_type = dsc.getDataSource().getPlatform().getType();
-        HashMap<String, String> platform_metadata = dsc.getDataSource().getPlatform().getMetadata();
-
+        String application_id = null;
+        String application_type = null;
+        HashMap<String, String> application_metadata = null;
+        if (dsc.getDataSource().getApplication() != null) {
+            application_id = dsc.getDataSource().getApplication().getId();
+            application_type = dsc.getDataSource().getApplication().getType();
+            application_metadata = dsc.getDataSource().getApplication().getMetadata();
+        }
+        String platform_id = null;
+        String platform_type = null;
+        HashMap<String, String> platform_metadata = null;
+        if (dsc.getDataSource().getPlatform() != null) {
+            platform_id = dsc.getDataSource().getPlatform().getId();
+            platform_type = dsc.getDataSource().getPlatform().getType();
+            platform_metadata = dsc.getDataSource().getPlatform().getMetadata();
+        }
         String platformapp_id = null;
         String platformapp_type = null;
         HashMap<String, String> platformapp_metadata = null;
@@ -52,8 +57,6 @@ public class MetadataBuilder {
             platformapp_type = dsc.getDataSource().getPlatformApp().getType();
             platformapp_metadata = dsc.getDataSource().getPlatformApp().getMetadata();
         }
-
-
         UUID ownerUUID = UUID.fromString(userUUID);
         String stream = userUUID.toString() + generateDSCString(dsc);
         UUID streamUUID = UUID.nameUUIDFromBytes(stream.getBytes());
@@ -173,28 +176,28 @@ public class MetadataBuilder {
             }
         }
 
-        result += dsc.getDataSource().getApplication().getId();
-        result += dsc.getDataSource().getApplication().getType();
+        if(dsc.getDataSource().getApplication()!=null)result += dsc.getDataSource().getApplication().getId();else result+="null";
+        if(dsc.getDataSource().getApplication()!=null)result += dsc.getDataSource().getApplication().getType();else result+="null";
         if (dsc.getDataSource().getApplication().getMetadata() != null) {
             for (Map.Entry<String, String> meta : dsc.getDataSource().getApplication().getMetadata().entrySet()) {
                 result += meta.getKey();
                 result += meta.getValue();
             }
         }
+        if(dsc.getDataSource().getPlatform()!=null)result += dsc.getDataSource().getPlatform().getId();else result+="null";
+        if(dsc.getDataSource().getPlatform()!=null)result += dsc.getDataSource().getPlatform().getType();else result+="null";
 
-        result += dsc.getDataSource().getPlatform().getId();
-        result += dsc.getDataSource().getPlatform().getType();
-        if (dsc.getDataSource().getPlatform().getMetadata() != null) {
+        if (dsc.getDataSource().getPlatform()!=null && dsc.getDataSource().getPlatform().getMetadata() != null) {
             for (Map.Entry<String, String> meta : dsc.getDataSource().getPlatform().getMetadata().entrySet()) {
                 result += meta.getKey();
                 result += meta.getValue();
             }
         }
 
+        if(dsc.getDataSource().getPlatformApp()!=null)result += dsc.getDataSource().getPlatformApp().getId();else result+="null";
+        if(dsc.getDataSource().getPlatformApp()!=null)result += dsc.getDataSource().getPlatformApp().getType();else result+="null";
 
         if (dsc.getDataSource().getPlatformApp() != null) {
-            result += dsc.getDataSource().getPlatformApp().getId();
-            result += dsc.getDataSource().getPlatformApp().getType();
             if (dsc.getDataSource().getPlatformApp().getMetadata() != null) {
                 for (Map.Entry<String, String> meta : dsc.getDataSource().getPlatformApp().getMetadata().entrySet()) {
                     result += meta.getKey();

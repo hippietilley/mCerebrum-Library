@@ -27,18 +27,13 @@ package org.md2k.system.provider;
  */
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
+import android.database.sqlite.SQLiteDatabase;
 
 import org.md2k.system.provider.studyinfo.StudyInfoBean;
+import org.md2k.system.provider.studyinfo.StudyInfoColumns;
 import org.md2k.system.provider.studyinfo.StudyInfoContentValues;
 import org.md2k.system.provider.studyinfo.StudyInfoCursor;
 import org.md2k.system.provider.studyinfo.StudyInfoSelection;
-
-import java.io.IOException;
 
 public class StudyCP{
     private StudyInfoBean studyInfoBean;
@@ -61,6 +56,10 @@ public class StudyCP{
     }
 
     public void delete(Context context) {
+        SampleProviderSQLiteOpenHelper s= SampleProviderSQLiteOpenHelper.getInstance(context);
+        SQLiteDatabase db=s.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS "+ StudyInfoColumns.TABLE_NAME);
+        db.execSQL(s.SQL_CREATE_TABLE_STUDY_INFO);
         StudyInfoSelection studyInfoSelection = new StudyInfoSelection();
         studyInfoSelection.delete(context);
     }

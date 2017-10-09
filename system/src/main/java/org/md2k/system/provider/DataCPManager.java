@@ -27,8 +27,9 @@ package org.md2k.system.provider;
  */
 
 import android.content.Context;
-import android.util.Log;
+import android.database.sqlite.SQLiteDatabase;
 
+import org.md2k.system.provider.appinfo.AppInfoColumns;
 import org.md2k.system.provider.appinfo.AppInfoCursor;
 import org.md2k.system.provider.appinfo.AppInfoSelection;
 
@@ -74,8 +75,10 @@ public class DataCPManager {
         serverCP=new ServerCP();
     }
     private void deleteAppCP(){
-        for(int i=0;i<appCPs.size();i++)
-            appCPs.get(i).delete(context);
+        SampleProviderSQLiteOpenHelper s= SampleProviderSQLiteOpenHelper.getInstance(context);
+        SQLiteDatabase db=s.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS "+ AppInfoColumns.TABLE_NAME);
+        db.execSQL(SampleProviderSQLiteOpenHelper.SQL_CREATE_TABLE_APP_INFO);
         appCPs.clear();
     }
     public void deleteAll(){
