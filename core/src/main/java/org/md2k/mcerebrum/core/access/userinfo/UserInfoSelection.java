@@ -1,0 +1,217 @@
+package org.md2k.mcerebrum.core.access.userinfo;
+
+// @formatter:off
+import java.util.Date;
+
+import android.content.Context;
+import android.content.ContentResolver;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.Uri;
+
+import org.md2k.mcerebrum.core.access.base.AbstractSelection;
+
+/**
+ * Selection for the {@code user_info} table.
+ */
+@SuppressWarnings({"unused", "WeakerAccess", "Recycle"})
+public class UserInfoSelection extends AbstractSelection<UserInfoSelection> {
+    @Override
+    protected Uri baseUri() {
+        return UserInfoColumns.CONTENT_URI;
+    }
+
+    /**
+     * Query the given content resolver using this selection.
+     *
+     * @param contentResolver The content resolver to query.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @return A {@code UserInfoCursor} object, which is positioned before the first entry, or null.
+     */
+    public UserInfoCursor query(ContentResolver contentResolver, String[] projection) {
+        Cursor cursor = contentResolver.query(uri(), projection, sel(), args(), order());
+        if (cursor == null) return null;
+        return new UserInfoCursor(cursor);
+    }
+
+    /**
+     * Equivalent of calling {@code query(contentResolver, null)}.
+     */
+    public UserInfoCursor query(ContentResolver contentResolver) {
+        return query(contentResolver, null);
+    }
+
+    /**
+     * Query the given content resolver using this selection.
+     *
+     * @param context The context to use for the query.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @return A {@code UserInfoCursor} object, which is positioned before the first entry, or null.
+     */
+    public UserInfoCursor query(Context context, String[] projection) {
+        Cursor cursor = context.getContentResolver().query(uri(), projection, sel(), args(), order());
+        if (cursor == null) return null;
+        return new UserInfoCursor(cursor);
+    }
+
+    /**
+     * Equivalent of calling {@code query(context, null)}.
+     */
+    public UserInfoCursor query(Context context) {
+        return query(context, null);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CursorLoader getCursorLoader(Context context, String[] projection) {
+        return new CursorLoader(context, uri(), projection, sel(), args(), order()) {
+            @Override
+            public Cursor loadInBackground() {
+                return new UserInfoCursor(super.loadInBackground());
+            }
+        };
+    }
+
+
+    public UserInfoSelection id(long... value) {
+        addEquals("user_info." + UserInfoColumns._ID, toObjectArray(value));
+        return this;
+    }
+
+    public UserInfoSelection idNot(long... value) {
+        addNotEquals("user_info." + UserInfoColumns._ID, toObjectArray(value));
+        return this;
+    }
+
+    public UserInfoSelection orderById(boolean desc) {
+        orderBy("user_info." + UserInfoColumns._ID, desc);
+        return this;
+    }
+
+    public UserInfoSelection orderById() {
+        return orderById(false);
+    }
+
+    public UserInfoSelection uid(String... value) {
+        addEquals(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection uidNot(String... value) {
+        addNotEquals(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection uidLike(String... value) {
+        addLike(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection uidContains(String... value) {
+        addContains(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection uidStartsWith(String... value) {
+        addStartsWith(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection uidEndsWith(String... value) {
+        addEndsWith(UserInfoColumns.UID, value);
+        return this;
+    }
+
+    public UserInfoSelection orderByUid(boolean desc) {
+        orderBy(UserInfoColumns.UID, desc);
+        return this;
+    }
+
+    public UserInfoSelection orderByUid() {
+        orderBy(UserInfoColumns.UID, false);
+        return this;
+    }
+
+    public UserInfoSelection type(String... value) {
+        addEquals(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection typeNot(String... value) {
+        addNotEquals(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection typeLike(String... value) {
+        addLike(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection typeContains(String... value) {
+        addContains(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection typeStartsWith(String... value) {
+        addStartsWith(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection typeEndsWith(String... value) {
+        addEndsWith(UserInfoColumns.TYPE, value);
+        return this;
+    }
+
+    public UserInfoSelection orderByType(boolean desc) {
+        orderBy(UserInfoColumns.TYPE, desc);
+        return this;
+    }
+
+    public UserInfoSelection orderByType() {
+        orderBy(UserInfoColumns.TYPE, false);
+        return this;
+    }
+
+    public UserInfoSelection username(String... value) {
+        addEquals(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection usernameNot(String... value) {
+        addNotEquals(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection usernameLike(String... value) {
+        addLike(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection usernameContains(String... value) {
+        addContains(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection usernameStartsWith(String... value) {
+        addStartsWith(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection usernameEndsWith(String... value) {
+        addEndsWith(UserInfoColumns.USERNAME, value);
+        return this;
+    }
+
+    public UserInfoSelection orderByUsername(boolean desc) {
+        orderBy(UserInfoColumns.USERNAME, desc);
+        return this;
+    }
+
+    public UserInfoSelection orderByUsername() {
+        orderBy(UserInfoColumns.USERNAME, false);
+        return this;
+    }
+}

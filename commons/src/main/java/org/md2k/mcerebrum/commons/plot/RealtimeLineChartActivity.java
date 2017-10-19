@@ -245,7 +245,6 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
                     try {
                         Thread.sleep(25);
                     } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
