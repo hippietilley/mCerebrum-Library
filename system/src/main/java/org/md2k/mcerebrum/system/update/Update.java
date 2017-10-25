@@ -49,7 +49,7 @@ public class Update {
                 }).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread());
     }
-    private static Observable<Boolean> checkUpdateServer(final Context context) {
+    public static Observable<Boolean> checkUpdateServer(final Context context) {
         ServerCP.setLatestVersion(context, ServerCP.getCurrentVersion(context));
         return Observable.just(true).map(new Func1<Boolean, Boolean>() {
             @Override
