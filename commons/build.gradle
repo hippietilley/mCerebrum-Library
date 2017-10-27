@@ -34,7 +34,8 @@ dependencies {
 //    compile 'com.android.support:appcompat-v7:25.3.1'
     // Utilities
     compile 'com.blankj:utilcode:1.8.1'
-
+    compile project(':datakitapi')
+    compile project(':core')
 
     // Icons
     compile "com.mikepenz:iconics-core:2.9.1@aar"
@@ -64,8 +65,13 @@ dependencies {
 
     //MPAndroidPlot
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+    compile 'com.beardedhen:androidbootstrap:2.3.1'
+    compile files('libs/YouTubeAndroidPlayerApi.jar')
 
     //Notification
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
-
+    compile 'com.github.medyo:fancybuttons:1.8'
+    compile('com.mikepenz:materialdrawer:5.9.0@aar') {
+        transitive = true
+    }
 }

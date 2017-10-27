@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.md2k.datakitapi.source.datasource.DataSource;
-import org.md2k.mcerebrum.system.R;
+import org.md2k.mcerebrum.commons.R;
 
 public class FragmentDataQuality extends Fragment {
     DataSource[] dataSources;

@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 
 import android.content.Intent;
@@ -10,7 +10,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import org.md2k.mcerebrum.system.R;
+import org.md2k.mcerebrum.commons.R;
 
 
 public class ActivityYouTube extends YouTubeBaseActivity implements

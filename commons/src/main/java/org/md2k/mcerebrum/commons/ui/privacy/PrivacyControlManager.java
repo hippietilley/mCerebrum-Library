@@ -1,9 +1,7 @@
-package org.md2k.mcerebrum.system.ui.privacy;
+package org.md2k.mcerebrum.commons.ui.privacy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 

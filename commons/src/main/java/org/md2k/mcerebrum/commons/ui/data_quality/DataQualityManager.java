@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
 
@@ -42,7 +42,7 @@ public class DataQualityManager {
     private static final String TAG = DataQualityManager.class.getSimpleName();
     private ArrayList<DataQuality> dataQualities;
     public ArrayList<DataQualityInfo> dataQualityInfos;
-    DataQualityManager(){
+    public DataQualityManager(){
         dataQualities=new ArrayList<>();
         dataQualityInfos=new ArrayList<>();
     }

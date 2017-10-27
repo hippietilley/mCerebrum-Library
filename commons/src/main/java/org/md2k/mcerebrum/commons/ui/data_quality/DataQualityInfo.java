@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import org.md2k.datakitapi.datatype.DataTypeInt;
 import org.md2k.datakitapi.time.DateTime;

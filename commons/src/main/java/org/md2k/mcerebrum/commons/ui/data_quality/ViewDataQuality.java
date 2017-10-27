@@ -1,16 +1,14 @@
-package org.md2k.mcerebrum.system.ui.privacy;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import org.md2k.mcerebrum.system.R;
+import org.md2k.mcerebrum.commons.R;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -39,33 +37,33 @@ import org.md2k.mcerebrum.system.R;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class ViewPrivacy extends LinearLayout {
-        private View mValue;
-        private ImageView mImage;
+public class ViewDataQuality extends LinearLayout {
+    private View mValue;
+    private ImageView mImage;
 
-        public ViewPrivacy(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            setOrientation(LinearLayout.HORIZONTAL);
-            setGravity(Gravity.CENTER_VERTICAL);
+    public ViewDataQuality(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        setOrientation(LinearLayout.HORIZONTAL);
+        setGravity(Gravity.CENTER_VERTICAL);
 
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.view_privacy, this, true);
+        LayoutInflater inflater = (LayoutInflater) context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.view_data_quality_4, this, true);
 
-            TextView title = (TextView) getChildAt(0);
-            title.setText("abc");
+//        TextView title = (TextView) getChildAt(0);
+//        title.setText("abc");
 
 /*
             mValue = getChildAt(1);
             mValue.setBackgroundColor(valueColor);
 */
 
-            mImage = (ImageView) getChildAt(2);
-        }
+//        mImage = (ImageView) getChildAt(2);
+    }
 
-        public ViewPrivacy(Context context) {
-            this(context, null);
-        }
+    public ViewDataQuality(Context context) {
+        this(context, null);
+    }
 
 /*
         public void setValueColor(int color) {
@@ -73,9 +71,8 @@ public class ViewPrivacy extends LinearLayout {
         }
 */
 
-        public void setImageVisible(boolean visible) {
-            mImage.setVisibility(visible ? View.VISIBLE : View.GONE);
-        }
-
+    public void setImageVisible(boolean visible) {
+        mImage.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
+
 }

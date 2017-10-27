@@ -29,6 +29,7 @@ package org.md2k.mcerebrum.core.access;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
@@ -72,15 +73,17 @@ public class MCerebrum {
     }
 
     public static void setConfigured(Context context, boolean b){
-        Log.d("phonesensor","configured="+b);
         AppAccess.setConfigured(context, context.getPackageName(), b);
     }
     public static void setConfigureExact(Context context, boolean b){
-        Log.d("phonesensor","configureExact="+b);
         AppAccess.setConfigureMatch(context, context.getPackageName(), b);
     }
 
     public static void init(Context context, Class<? extends MCerebrumInfo> info) {
+        SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("init", info.getName());
+        editor.apply();
         AppAccess.setFuncUpdateInfo(context, context.getPackageName(), info.getName());
     }
 

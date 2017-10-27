@@ -37,7 +37,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.blankj:utilcode:1.8.1'
     compile 'com.github.javiersantos:AppUpdater:2.6.3'
-    compile files('libs/YouTubeAndroidPlayerApi.jar')
 
     testCompile 'junit:junit:4.12'
     compile project(path: ':core')

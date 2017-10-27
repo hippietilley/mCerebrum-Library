@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
 import android.os.Handler;

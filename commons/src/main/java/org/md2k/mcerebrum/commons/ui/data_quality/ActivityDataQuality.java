@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.system.ui.data_quality;
+package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import org.md2k.mcerebrum.system.R;
+
+import org.md2k.mcerebrum.commons.R;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
