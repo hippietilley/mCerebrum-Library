@@ -17,7 +17,7 @@ public class ActivityYouTube extends YouTubeBaseActivity implements
         YouTubePlayer.OnInitializedListener {
     private static final int RECOVERY_DIALOG_REQUEST = 10;
     private static final String API_KEY = "AIzaSyCxbfW38QiMdp5St96IhYUtDCSvDO8cNfA";
-    ConfigDataQuality configDataQuality;
+    //ConfigDataQuality configDataQuality;
 
     //From URL -> https://www.youtube.com/watch?v=kHue-HaXXzg
     // Let It Go : "Frozen"
@@ -26,9 +26,10 @@ public class ActivityYouTube extends YouTubeBaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        configDataQuality=getIntent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
+//        configDataQuality=getIntent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
         setContentView(R.layout.activity_youtube);
-        VIDEO_ID = configDataQuality.video_link;
+        String video_link = getIntent().getStringExtra("video_link");
+        VIDEO_ID = video_link;//configDataQuality.video_link;
       // setupButtons();
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);

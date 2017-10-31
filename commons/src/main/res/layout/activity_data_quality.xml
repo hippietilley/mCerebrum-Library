@@ -44,6 +44,7 @@
             android:gravity="center_horizontal"/>
         <TextView
             android:layout_width="match_parent"
+            android:id="@+id/textview_content"
             android:layout_height="wrap_content"
             android:text=" 1) In the menu, tap Reset Application, wait 15 seconds and check again.\n\n 2) Restart the phone, wait one minute and check again.\n\n 3) Make sure the wrist sensor is charged and LED lights are on."
             android:textColor="#ffff"
