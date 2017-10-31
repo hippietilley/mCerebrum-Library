@@ -46,8 +46,7 @@ public class Update {
                     public Boolean call(Boolean aBoolean) {
                         return aBoolean;
                     }
-                }).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+                });
     }
     public static Observable<Boolean> checkUpdateServer(final Context context) {
         ServerCP.setLatestVersion(context, ServerCP.getCurrentVersion(context));

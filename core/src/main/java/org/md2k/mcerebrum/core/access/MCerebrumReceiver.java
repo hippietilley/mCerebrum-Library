@@ -29,6 +29,7 @@ package org.md2k.mcerebrum.core.access;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.md2k.datakitapi.DataKitAPI;
@@ -38,9 +39,13 @@ import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 public class MCerebrumReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(MCerebrumReceiver.class.getSimpleName(),"received");
         String funcInit= AppAccess.getFuncUpdateInfo(context, context.getPackageName());
-        if(funcInit==null) return;
+        if(funcInit==null){
+            SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
+            String init=sharedpreferences.getString("init",null);
+            if(init==null) return;
+            AppAccess.setFuncUpdateInfo(context, context.getPackageName(), init);
+        }
         String s = intent.getStringExtra(MCEREBRUM.APP_ACCESS.OP);
 
         if(s!=null && s.equals(MCEREBRUM.APP_ACCESS.OP_DATAKIT_STOP)){
@@ -59,7 +64,7 @@ public class MCerebrumReceiver extends BroadcastReceiver {
             Class act =  Class.forName(funcInit);
             MCerebrumInfo m= (MCerebrumInfo) act.newInstance();
             m.update(context);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ignored) {
+        } catch (Exception e) {
 
         }
 /*

@@ -56,13 +56,13 @@ public class ServerCP {
         try {
             SQLiteDatabase db = s.getWritableDatabase();
             db.execSQL("DROP TABLE IF EXISTS " + ServerInfoColumns.TABLE_NAME);
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         try{
             SQLiteDatabase db = s.getWritableDatabase();
             db.execSQL(SampleProviderSQLiteOpenHelper.SQL_CREATE_TABLE_SERVER_INFO);
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
     }

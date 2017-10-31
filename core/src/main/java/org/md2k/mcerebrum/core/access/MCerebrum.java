@@ -59,8 +59,8 @@ public class MCerebrum {
     public static void setConfigureActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncConfigure(context, context.getPackageName(), report.getName());
     }
-    public static void setBackgroundService(Context context, Class<? extends Service> report){
-        AppAccess.setFuncBackground(context, context.getPackageName(), report.getName());
+    public static void setBackgroundService(Context context, Class<? extends Service> s){
+        AppAccess.setFuncBackground(context, context.getPackageName(), s.getName());
     }
     public static void setPermissionActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncPermission(context, context.getPackageName(), report.getName());

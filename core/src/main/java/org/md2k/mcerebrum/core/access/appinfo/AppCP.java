@@ -28,6 +28,7 @@ package org.md2k.mcerebrum.core.access.appinfo;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import org.md2k.mcerebrum.core.access.SampleProviderSQLiteOpenHelper;
 import org.md2k.mcerebrum.core.access.appinfo.AppInfoBean;
@@ -50,7 +51,6 @@ public class AppCP {
 
         }
     }
-
     private static void insertOrUpdate(Context context, AppInfoBean appInfoBean) {
         try {
             AppInfoContentValues values = prepare(appInfoBean);
@@ -497,6 +497,19 @@ public class AppCP {
         if(flag)
             insertOrUpdate(context, a);
 
+    }
+
+    public static void deleteRow(Context context, String packageName) {
+        try {
+            SampleProviderSQLiteOpenHelper s = SampleProviderSQLiteOpenHelper.getInstance(context);
+            SQLiteDatabase db = s.getWritableDatabase();
+            String whereClause = AppInfoColumns.PACKAGE_NAME+"=?";
+            String[] whereArgs=new String[]{packageName};
+            int d = db.delete(AppInfoColumns.TABLE_NAME, whereClause, whereArgs);
+            Log.d("abc","d="+d);
+        }catch (Exception ignored){
+            Log.d("abc","abc");
+        }
     }
 
 

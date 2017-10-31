@@ -92,7 +92,6 @@ public class DownloadFile {
             subscriber.onNext(downloadInfo);
         }
         DownloadInfo downloadInfo = new DownloadInfo(totalSize,curSize,true);
-        output.flush();
         output.close();
         bis.close();
         subscriber.onNext(downloadInfo);

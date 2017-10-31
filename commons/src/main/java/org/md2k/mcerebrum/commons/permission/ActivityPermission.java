@@ -22,18 +22,12 @@ public class ActivityPermission extends Activity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             close(true);
         } else {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, RESULT_MANAGE_OVERLAY_PERMISSION);
-            } else {
                 String list[] = PermissionInfo.getList(this);
                 if (list != null)
                     requestPermissions(list, RESULT_PERMISSION);
                 else
                     close(true);
             }
-        }
     }
 
     void close(boolean result) {

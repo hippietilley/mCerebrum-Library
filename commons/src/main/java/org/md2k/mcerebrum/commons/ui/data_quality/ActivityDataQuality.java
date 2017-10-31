@@ -6,15 +6,23 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import org.md2k.datakitapi.DataKitAPI;
+import org.md2k.datakitapi.exception.DataKitException;
 import org.md2k.datakitapi.source.datasource.DataSource;
 import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
+import org.md2k.datakitapi.source.datasource.DataSourceClient;
 import org.md2k.datakitapi.source.datasource.DataSourceType;
 import org.md2k.datakitapi.source.platform.Platform;
 import org.md2k.datakitapi.source.platform.PlatformBuilder;
 import org.md2k.mcerebrum.commons.R;
+import org.md2k.mcerebrum.core.access.appinfo.AppCP;
 
+import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class ActivityDataQuality extends FragmentActivity {
@@ -31,8 +39,9 @@ public class ActivityDataQuality extends FragmentActivity {
         String title = getIntent().getStringExtra("title");
         String message = getIntent().getStringExtra("message");
         final String video_link = getIntent().getStringExtra("video_link");
-        final DataSource datasource = (DataSource) (getIntent().getParcelableExtra("datasource"));
-//        configDataQuality=getIntent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
+        final DataSource read = getIntent().getParcelableExtra("read");
+        final DataSource plot = getIntent().getParcelableExtra("plot");
+//        configDataQuality=getll Intent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
         ((TextView) findViewById(R.id.textview_title)).setText(title);
         ((TextView) findViewById(R.id.textview_content)).setText(message);
 
@@ -43,13 +52,22 @@ public class ActivityDataQuality extends FragmentActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 Bundle b = new Bundle();
-                Platform p=datasource.getPlatform();
-                org.md2k.datakitapi.source.datasource.DataSource d = new DataSourceBuilder().setType(DataSourceType.ACCELEROMETER).setPlatform(p).build();
-                b.putParcelable(org.md2k.datakitapi.source.datasource.DataSource.class.getSimpleName(), d);
-                intent.putExtras(b);
-                intent.setComponent(new ComponentName("org.md2k.motionsense", "org.md2k.motionsense.plot.ActivityPlot"));
-                intent.putExtra("datasource", datasource);
-                startActivity(intent);
+                DataKitAPI dataKitAPI=DataKitAPI.getInstance(ActivityDataQuality.this);
+                try {
+                    ArrayList<DataSourceClient> ds = dataKitAPI.find(new DataSourceBuilder(plot));
+                    if(ds.size()==0){
+                        Toasty.error(ActivityDataQuality.this, "Device not registered with datakit", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    b.putParcelable(org.md2k.datakitapi.source.datasource.DataSource.class.getSimpleName(), ds.get(0));
+                    intent.putExtra("datasource", ds.get(0));
+                    intent.putExtras(b);
+                    String packageName = ds.get(0).getDataSource().getApplication().getType();
+                    intent.setComponent(new ComponentName(packageName, AppCP.getFuncReport(ActivityDataQuality.this, packageName)));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 //
 
 //                Intent intent=new Intent(ActivityLeftWrist.this,ActivityPieChartDataCollection.class);
