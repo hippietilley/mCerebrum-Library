@@ -34,6 +34,7 @@ import android.util.Log;
 
 import org.md2k.datakitapi.DataKitAPI;
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
+import org.md2k.mcerebrum.core.access.appinfo.AppCP;
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 
 public class MCerebrumReceiver extends BroadcastReceiver {
@@ -42,9 +43,9 @@ public class MCerebrumReceiver extends BroadcastReceiver {
         String funcInit= AppAccess.getFuncUpdateInfo(context, context.getPackageName());
         if(funcInit==null){
             SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
-            String init=sharedpreferences.getString("init",null);
-            if(init==null) return;
-            AppAccess.setFuncUpdateInfo(context, context.getPackageName(), init);
+            funcInit=sharedpreferences.getString("init",null);
+            if(funcInit==null) return;
+            AppAccess.setFuncUpdateInfo(context, context.getPackageName(), funcInit);
         }
         String s = intent.getStringExtra(MCEREBRUM.APP_ACCESS.OP);
 
@@ -57,14 +58,16 @@ public class MCerebrumReceiver extends BroadcastReceiver {
         try{
             boolean isConnected=DataKitAPI.getInstance(context).isConnected();
             AppAccess.setDataKitConnected(context, context.getPackageName(), isConnected);
-        }catch (Exception e){
+        }catch (Exception ignored){
 
         }
         try {
+            Boolean b = AppCP.getUseInStudy(context, context.getPackageName());
+            if(b==null || !b) return;
             Class act =  Class.forName(funcInit);
             MCerebrumInfo m= (MCerebrumInfo) act.newInstance();
             m.update(context);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 /*
