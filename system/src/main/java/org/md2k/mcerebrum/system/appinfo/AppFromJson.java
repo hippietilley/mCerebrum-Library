@@ -63,7 +63,8 @@ public class AppFromJson {
 
                                 @Override
                                 public void onFailed(AppUpdaterError error) {
-                                    subscriber.onError(new Throwable("Update Info not found"));
+                                    subscriber.onNext(null);    // Pass on the data to subscriber
+                                    subscriber.onCompleted();     // Signal about the completion subscriber
                                 }
                             });
                     appUpdaterUtils.start();

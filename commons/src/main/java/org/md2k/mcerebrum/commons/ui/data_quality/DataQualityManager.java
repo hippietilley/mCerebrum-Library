@@ -9,6 +9,7 @@ import org.md2k.datakitapi.source.datasource.DataSourceType;
 import org.md2k.datakitapi.source.platform.Platform;
 import org.md2k.datakitapi.source.platform.PlatformBuilder;
 import org.md2k.datakitapi.source.platform.PlatformId;
+import org.md2k.mcerebrum.commons.permission.ResultCallback;
 
 import java.util.ArrayList;
 
@@ -42,19 +43,11 @@ public class DataQualityManager {
     private static final String TAG = DataQualityManager.class.getSimpleName();
     private ArrayList<DataQuality> dataQualities;
     public ArrayList<DataQualityInfo> dataQualityInfos;
+
     public DataQualityManager(){
         dataQualities=new ArrayList<>();
         dataQualityInfos=new ArrayList<>();
     }
-    private ArrayList<DataSource> getDataSources(){
-        ArrayList<DataSource> dataSources=new ArrayList<>();
-        Platform pl=new PlatformBuilder().setId(PlatformId.LEFT_WRIST).build();
-        Platform pr=new PlatformBuilder().setId(PlatformId.RIGHT_WRIST).build();
-        dataSources.add(new DataSourceBuilder().setType(DataSourceType.DATA_QUALITY).setPlatform(pl).build());
-        dataSources.add(new DataSourceBuilder().setType(DataSourceType.DATA_QUALITY).setPlatform(pr).build());
-        return dataSources;
-    }
-
     public void set(Context context, ArrayList<DataSource> dataSources) {
         if(dataQualityInfos.size()!=0 || dataQualities.size()!=0) clear();
         for (int i = 0; i < dataSources.size(); i++) {

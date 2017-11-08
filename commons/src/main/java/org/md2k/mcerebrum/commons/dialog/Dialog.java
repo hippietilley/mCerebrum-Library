@@ -31,6 +31,7 @@ import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -39,6 +40,8 @@ import org.md2k.mcerebrum.commons.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import es.dmoral.toasty.Toasty;
 
 public class Dialog {
     public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
@@ -61,6 +64,46 @@ public class Dialog {
                 .autoDismiss(true)
                 .cancelable(true);
     }
+    public static MaterialDialog.Builder singleChoiceConfirm(final Activity activity, String title, final String[] items, int selected, final DialogCallback dialogCallback) {
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .items(items)
+                .positiveText("Select")
+                .negativeText("Cancel")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if(dialog.getSelectedIndex()==-1){
+                            Toasty.error(activity, "File is not selected", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        dialogCallback.onSelected(items[dialog.getSelectedIndex()]);
+                        dialog.dismiss();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialogCallback.onSelected(null);
+                        dialog.dismiss();
+                    }
+                })
+                .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+//                        selectedFile[0] =text.toString();
+//                        dialogCallback.onSelected(text.toString());
+                        return false;
+                    }
+                })
+                .autoDismiss(false)
+                .cancelable(false);
+    }
+
 /*
     public static MaterialDialog.Builder singleChoiceOkCancel(Activity activity, String title, final String[] items, int selected, String positiveButton, String negativeButton, final DialogCallback dialogCallback) {
         return new MaterialDialog.Builder(activity)

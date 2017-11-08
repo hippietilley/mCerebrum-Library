@@ -40,6 +40,7 @@ import rx.schedulers.Schedulers;
 public class Update {
 
     public static Observable<Boolean> checkUpdate(Context context){
+        if(ServerCP.getUserName(context)!=null)
         return Observable.merge(checkUpdateServer(context), AppInstall.checkUpdate(context))
                 .filter(new Func1<Boolean, Boolean>() {
                     @Override
@@ -47,10 +48,18 @@ public class Update {
                         return aBoolean;
                     }
                 });
+        else return AppInstall.checkUpdate(context)
+                .filter(new Func1<Boolean, Boolean>() {
+                    @Override
+                    public Boolean call(Boolean aBoolean) {
+                        return aBoolean;
+                    }
+                });
+
     }
     public static Observable<Boolean> checkUpdateServer(final Context context) {
         ServerCP.setLatestVersion(context, ServerCP.getCurrentVersion(context));
-        return Observable.just(true).map(new Func1<Boolean, Boolean>() {
+        return Observable.just(true).subscribeOn(Schedulers.newThread()).map(new Func1<Boolean, Boolean>() {
             @Override
             public Boolean call(Boolean aBoolean) {
                 String latestVersion = ServerManager.getLastModified(ServerCP.getServerAddress(context), ServerCP.getToken(context), ServerCP.getFileName(context));

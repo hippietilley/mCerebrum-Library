@@ -40,13 +40,14 @@ import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 public class MCerebrumReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        String funcInit= AppAccess.getFuncUpdateInfo(context, context.getPackageName());
+        String funcInit;
+        SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
+        funcInit=sharedpreferences.getString("init",null);
         if(funcInit==null){
-            SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
-            funcInit=sharedpreferences.getString("init",null);
+            funcInit= AppAccess.getFuncUpdateInfo(context, context.getPackageName());
             if(funcInit==null) return;
-            AppAccess.setFuncUpdateInfo(context, context.getPackageName(), funcInit);
         }
+        AppAccess.setFuncUpdateInfo(context, context.getPackageName(), funcInit);
         String s = intent.getStringExtra(MCEREBRUM.APP_ACCESS.OP);
 
         if(s!=null && s.equals(MCEREBRUM.APP_ACCESS.OP_DATAKIT_STOP)){

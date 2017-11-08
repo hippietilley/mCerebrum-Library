@@ -59,10 +59,10 @@ public class ActivityDataQuality extends FragmentActivity {
                         Toasty.error(ActivityDataQuality.this, "Device not registered with datakit", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    b.putParcelable(org.md2k.datakitapi.source.datasource.DataSource.class.getSimpleName(), ds.get(0));
-                    intent.putExtra("datasource", ds.get(0));
+                    b.putParcelable(org.md2k.datakitapi.source.datasource.DataSource.class.getSimpleName(), ds.get(0).getDataSource());
+                    intent.putExtra(DataSource.class.getSimpleName(), ds.get(0).getDataSource());
                     intent.putExtras(b);
-                    String packageName = ds.get(0).getDataSource().getApplication().getType();
+                    String packageName = ds.get(0).getDataSource().getApplication().getId();
                     intent.setComponent(new ComponentName(packageName, AppCP.getFuncReport(ActivityDataQuality.this, packageName)));
                     startActivity(intent);
                 } catch (Exception e) {

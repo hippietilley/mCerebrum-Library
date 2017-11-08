@@ -1,14 +1,6 @@
-package org.md2k.mcerebrum.core.datakitapi.source.platform;
-
-import org.md2k.mcerebrum.core.datakitapi.source.AbstractObjectBuilder;
-import org.md2k.mcerebrum.core.datakitapi.source.platform.Platform;
-
-import java.util.HashMap;
-import java.util.Map;
-
-
+package org.md2k.mcerebrum.commons.ui.data_quality;
 /*
- * Copyright (c) 2015, The University of Memphis, MD2K Center
+ * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
@@ -33,38 +25,7 @@ import java.util.Map;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class PlatformBuilder extends AbstractObjectBuilder{
-    public org.md2k.mcerebrum.core.datakitapi.source.platform.PlatformBuilder setType(String type) {
-        super.setType(type);
-        return this;
-    }
 
-    public org.md2k.mcerebrum.core.datakitapi.source.platform.PlatformBuilder setId(String id) {
-        super.setId(id);
-        return this;
-    }
-
-    public org.md2k.mcerebrum.core.datakitapi.source.platform.PlatformBuilder setMetadata(String key, String value) {
-        super.setMetadata(key, value);
-        return this;
-    }
-
-    public Platform build() {
-        return new Platform(this);
-    }
-
-    public PlatformBuilder() {
-    }
-
-    public PlatformBuilder(Platform platform) {
-        this.metadata=new HashMap<>();
-        if(platform.getMetadata()!=null) {
-            for (Map.Entry<String, String> entry : platform.getMetadata().entrySet()) {
-                this.metadata.put(entry.getKey(), entry.getValue());
-            }
-        }
-        this.type = platform.getType();
-        this.id = platform.getId();
-    }
-
+public interface ResultCallback {
+    public void onResult(int[] result);
 }

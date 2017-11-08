@@ -150,7 +150,7 @@ public class AppCP {
 
     // APP Basic Info
 
-    public static void set(Context context, String packageName, String type, String title, String summary, String description, String use_as, String downloadLink, String update, String expectedVersion, String icon) {
+    public static void set(Context context, String packageName, String type, String title, String summary, String description, String use_as, String downloadLink, String update, String expectedVersion, String icon, boolean useInStudy) {
         AppInfoBean appInfoBean=read(context, packageName);
         if(appInfoBean==null) appInfoBean=new AppInfoBean();
         appInfoBean.setPackageName(packageName);
@@ -163,6 +163,7 @@ public class AppCP {
         appInfoBean.setUpdates(update);
         appInfoBean.setExpectedVersion(expectedVersion);
         appInfoBean.setIcon(icon);
+        appInfoBean.setUseInStudy(useInStudy);
         insertOrUpdate(context, appInfoBean);
     }
 
@@ -283,6 +284,15 @@ public class AppCP {
             insertOrUpdate(context, appInfoBean);
         }
     }
+    public static void setUseInStudy(Context context, String packageName, boolean b) {
+        AppInfoBean appInfoBean=read(context, packageName);
+        if(appInfoBean==null) return;
+        if(appInfoBean.getUseInStudy()==null || appInfoBean.getUseInStudy()!=b) {
+            appInfoBean.setUseInStudy(b);
+            insertOrUpdate(context, appInfoBean);
+        }
+    }
+
     public static String getFuncInitialize(Context context, String packageName) {
         AppInfoBean appInfoBean=read(context, packageName);
         if(appInfoBean==null) return null;

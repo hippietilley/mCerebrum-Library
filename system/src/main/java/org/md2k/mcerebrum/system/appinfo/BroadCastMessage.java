@@ -28,17 +28,20 @@ package org.md2k.mcerebrum.system.appinfo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 
 public class BroadCastMessage {
     public static void send(Context context){
         Intent i = new Intent("org.md2k.mcerebrum.intent.action.RECEIVE");
+        Log.d("abc","broadcast send...");
         context.sendBroadcast(i);
     }
     public static void send(Context context, String operation){
         Intent i = new Intent("org.md2k.mcerebrum.intent.action.RECEIVE");
         i.putExtra(MCEREBRUM.APP_ACCESS.OP, operation);
+        Log.d("abc","broadcast send...op="+operation);
         context.sendBroadcast(i);
     }
 }

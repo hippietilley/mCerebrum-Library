@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.datakitapi;
-
+package org.md2k.mcerebrum.commons.ui.data_quality;
 /*
- * Copyright (c) 2015, The University of Memphis, MD2K Center
+ * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
@@ -26,15 +25,13 @@ package org.md2k.mcerebrum.core.datakitapi;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class Constants {
-    public static final String SERVICE_NAME = "org.md2k.datakit.ServiceDataKit";
-    public static final String PACKAGE_NAME = "org.md2k.datakit";
-    public static final String RC_DSID = "ds_id";
-    public static final String RC_STARTTIMESTAMP = "starttimestamp";
-    public static final String RC_ENDTIMESTAMP = "endtimestamp";
-    public static final String RC_LAST_N_SAMPLE="last_n_sample";
-    public static final String RC_LIMIT = "limit";
-    public static final String RC_LAST_KEY="last_key";
-    public static final String RC_SESSION_ID="session_id";
-    public static final String RC_DATASOURCE_CLIENT = "data_source_client";
+
+import org.md2k.datakitapi.source.datasource.DataSource;
+
+public class CDataQuality {
+    public String title;
+    public DataSource read;
+    public DataSource plot;
+    public String video_link;
+    public String message;
 }

@@ -1,7 +1,6 @@
 package org.md2k.mcerebrum.commons.ui.privacy;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.google.gson.Gson;
 
@@ -44,15 +43,21 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 class PrivacyControlManager {
-    public static void launch(Context context){
-        Intent intent = new Intent();
-        intent.setClassName("org.md2k.datakit", "org.md2k.datakit.ActivityPrivacy");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
+    private PrivacyData privacyData;
+
+    PrivacyControlManager() {
+        privacyData = null;
     }
 
-    private static PrivacyData read(Context context) {
-        PrivacyData privacyData=null;
+    public void set(Context context) {
+        privacyData = readFromDataKit(context);
+    }
+
+    public void clear() {
+        privacyData = null;
+    }
+    private PrivacyData readFromDataKit(Context context) {
+        PrivacyData privacyData = null;
         try {
             DataKitAPI dataKitAPI = DataKitAPI.getInstance(context);
             ArrayList<DataSourceClient> dataSourceClients = dataKitAPI.find(createDataSourceBuilder());
@@ -65,15 +70,20 @@ class PrivacyControlManager {
                         privacyData = gson.fromJson(dataTypeJSONObject.getSample().toString(), PrivacyData.class);
                     } catch (Exception ignored) {
                         privacyData = null;
+//                        LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(AbstractActivityBasics.INTENT_RESTART));
                     }
                 }
             }
-        } catch (DataKitException ignored) {
+        } catch (DataKitException e) {
+            privacyData=null;
+/*
+            Context context = MyApplication.getContext();
+            LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(AbstractActivityBasics.INTENT_RESTART));
+*/
         }
         return privacyData;
     }
-    static long getRemainingTime(Context context){
-        PrivacyData privacyData=read(context);
+    long getRemainingTime(){
         if (privacyData == null) return -1;
         if (!privacyData.isStatus()) return -1;
         if (privacyData.getStartTimeStamp() + privacyData.getDuration().getValue() < DateTime.getDateTime())
@@ -81,7 +91,7 @@ class PrivacyControlManager {
         return privacyData.getStartTimeStamp() + privacyData.getDuration().getValue() - DateTime.getDateTime();
     }
 
-    private static DataSourceBuilder createDataSourceBuilder() {
+    private DataSourceBuilder createDataSourceBuilder() {
         return new DataSourceBuilder().setType(DataSourceType.PRIVACY);
     }
 }

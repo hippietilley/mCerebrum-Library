@@ -30,6 +30,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import com.blankj.utilcode.util.AppUtils;
 
@@ -104,6 +105,9 @@ public class AppInstall {
         return new AppFromJson().getVersion(context, AppCP.getDownloadLink(context, packageName)).map(new Func1<VersionInfo, Boolean>() {
             @Override
             public Boolean call(VersionInfo versionInfo) {
+                Log.d("abc",packageName+" versionInfo = "+versionInfo);
+                if(versionInfo==null) return false;
+                Log.d("abc",packageName+" versionInfo = "+versionInfo.versionName);
                 AppCP.setLatestVersion(context, packageName, versionInfo.versionName);
                 return hasUpdate(context, packageName);
             }
@@ -143,15 +147,18 @@ public class AppInstall {
             return observable.flatMap(new Func1<VersionInfo, Observable<DownloadInfo>>() {
                 @Override
                 public Observable<DownloadInfo> call(VersionInfo versionInfo) {
-                    if (versionInfo == null)
-                        return Observable.error(new Throwable("File can't be downloaded"));
+                    if (versionInfo == null) {
+                        return Observable.just(null);
+                    }
                     return new DownloadFile().download(versionInfo.downloadURL, dirName, fileName).subscribeOn(Schedulers.computation());
                 }
             }).map(new Func1<DownloadInfo, DownloadInfo>() {
                 @Override
                 public DownloadInfo call(DownloadInfo downloadInfo) {
-                    if (downloadInfo.isCompleted())
+                    if(downloadInfo==null) return new DownloadInfo(0,0,true);
+                    if (downloadInfo.isCompleted()) {
                         AppUtils.installApp(activity, dirName + "/" + fileName, "org.md2k.mcerebrum.provider_file", REQUEST_CODE);
+                    }
                     return downloadInfo;
                 }
             });

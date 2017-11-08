@@ -129,7 +129,7 @@ public class AppBasicInfo {
         return AppCP.getType(context, packageName);
     }
 
-    public static void set(Context context, String package_name, String type, String title, String summary, String description, String use_as, String download_link, String update, String expected_version, String icon) {
-        AppCP.set(context, package_name, type, title, summary, description, use_as, download_link, update, expected_version, icon);
+    public static void set(Context context, String package_name, String type, String title, String summary, String description, String use_as, String download_link, String update, String expected_version, String icon, boolean useInStudy) {
+        AppCP.set(context, package_name, type, title, summary, description, use_as, download_link, update, expected_version, icon, useInStudy);
     }
 }

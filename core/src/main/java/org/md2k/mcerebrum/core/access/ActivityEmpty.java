@@ -15,8 +15,8 @@ public class ActivityEmpty extends AppCompatActivity {
 
         SharedPreferences sharedpreferences = getSharedPreferences("mcerebrum", MODE_PRIVATE);
         String init=sharedpreferences.getString("init",null);
-        if(init==null) return;
-        AppAccess.setFuncUpdateInfo(this, getPackageName(), init);
+        if(init!=null)
+            AppAccess.setFuncUpdateInfo(this, getPackageName(), init);
         finish();
     }
 }

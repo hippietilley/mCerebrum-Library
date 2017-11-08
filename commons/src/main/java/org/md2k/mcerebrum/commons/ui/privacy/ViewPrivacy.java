@@ -39,8 +39,6 @@ import org.md2k.mcerebrum.commons.R;
  */
 
 public class ViewPrivacy extends LinearLayout {
-    private View mValue;
-    private ImageView mImage;
 
     public ViewPrivacy(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,16 +48,6 @@ public class ViewPrivacy extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_privacy, this, true);
-
-//        TextView title = (TextView) getChildAt(0);
-//        title.setText("abc");
-
-/*
-            mValue = getChildAt(1);
-            mValue.setBackgroundColor(valueColor);
-*/
-
-//        mImage = (ImageView) getChildAt(2);
     }
 
     public ViewPrivacy(Context context) {
@@ -73,7 +61,6 @@ public class ViewPrivacy extends LinearLayout {
 */
 
     public void setImageVisible(boolean visible) {
-        mImage.setVisibility(visible ? View.VISIBLE : View.GONE);
     }
 
 }
