@@ -43,6 +43,8 @@ import java.util.Collections;
 
 import es.dmoral.toasty.Toasty;
 
+import static android.R.id.input;
+
 public class Dialog {
     public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
         ArrayList<String> tempItems=new ArrayList<>();
@@ -149,6 +151,12 @@ public class Dialog {
                     }
                 });
     }
+
+
+
+
+
+
     public static MaterialDialog.Builder editbox(Activity activity, String title, String content, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
@@ -213,6 +221,26 @@ public class Dialog {
                 .cancelable(false)
                 .autoDismiss(false);
 
+    }
+    public static MaterialDialog showCustomDatePicker(Activity activity, String content, String title, final DialogCallback dialogCallback) {
+        return new MaterialDialog.Builder(activity)
+                .title(title)
+                .customView(R.layout.dialog_datepicker, false)
+                .positiveText(android.R.string.ok)
+                .negativeText(android.R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        String value;
+                  //      dialogCallback.onSelected ();
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+               //         dialogCallback.onSelected(buttonNegative);
+                    }
+                }).show();
     }
 
 }
