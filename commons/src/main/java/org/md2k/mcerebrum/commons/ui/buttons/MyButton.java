@@ -3,6 +3,7 @@ package org.md2k.mcerebrum.commons.ui.buttons;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+
+import org.md2k.mcerebrum.commons.R;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -43,24 +46,25 @@ import mehdi.sakout.fancybuttons.FancyButton;
 public class MyButton extends FancyButton {
     public MyButton(Context context, AttributeSet attrs, String title, Drawable image, OnClickListener onClickListener) {
         super(context, attrs);
-        setOrientation(LinearLayout.HORIZONTAL);
-        setGravity(Gravity.CENTER_VERTICAL);
+//        setOrientation(LinearLayout.HORIZONTAL);
+//        setGravity(Gravity.CENTER_VERTICAL);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-/*
+        Log.d("abc","abcccccc");
         View v = inflater.inflate(R.layout.view_button, this, true);
-        FancyButton fancyButton = ((FancyButton)v).findViewById(R.id.button_1);
+/*
+        FancyButton fancyButton = (FancyButton) v.findViewById(R.id.button_1);
         fancyButton.setOnClickListener(onClickListener);
-        ImageView imageView=((ImageView)v).findViewById(R.id.imageview_1);
+        ImageView imageView= (ImageView) v.findViewById(R.id.imageview_1);
         imageView.setImageDrawable(image);
-        TextView textView = ((TextView)v).findViewById(R.id.textview_1);
+        TextView textView = (TextView) v.findViewById(R.id.textview_1);
         textView.setText(title);
 */
     }
     public MyButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(LinearLayout.HORIZONTAL);
-        setGravity(Gravity.CENTER_VERTICAL);
+//        setOrientation(LinearLayout.HORIZONTAL);
+//        setGravity(Gravity.CENTER_VERTICAL);
     }
 
     public MyButton(Context context, String title, Drawable image, OnClickListener onClickListener) {

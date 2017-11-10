@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:background="@color/view_background"
         android:orientation="vertical">
 
@@ -31,9 +31,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:orientation="horizontal"
-            android:id="@+id/linear_layout_view_buttons">
+            android:orientation="horizontal">
+
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btn_twitter_follow"
+                android:layout_width="60dp"
+                android:layout_height="100dp"
+                fancy:fb_defaultColor="#55acee"
+                fancy:fb_focusColor="#8cc9f8"
+                fancy:fb_iconPosition="top"
+                fancy:fb_iconResource="@drawable/icon_graph"
+                fancy:fb_text="Follow"
+                fancy:fb_textSize="6sp"
+                fancy:fb_textColor="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 </merge>

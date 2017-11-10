@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,11 +51,11 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class ViewButtons extends LinearLayout {
+public class ViewButtons extends GridLayout {
     public ViewButtons(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(LinearLayout.HORIZONTAL);
-        setGravity(Gravity.CENTER_VERTICAL);
+//        setOrientation(LinearLayout.HORIZONTAL);
+//        setGravity(Gravity.CENTER_VERTICAL);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_buttons, this, true);
@@ -77,8 +79,15 @@ public class ViewButtons extends LinearLayout {
     }
 
     public void addButton(String title, Drawable image, OnClickListener onClickListener) {
-        LinearLayout ll = (LinearLayout) findViewById(R.id.linear_layout_view_buttons);
+
+/*
         MyButton m=new MyButton(getContext(), title, image, onClickListener);
         ll.addView(m);
+*/
+  /*      MyButton mm=new MyButton(getContext(), title+" new", image, onClickListener);
+        ll.addView(mm);
+        MyButton mmm=new MyButton(getContext(), title+" new new", image, onClickListener);
+        ll.addView(mmm);
+*/
     }
 }
