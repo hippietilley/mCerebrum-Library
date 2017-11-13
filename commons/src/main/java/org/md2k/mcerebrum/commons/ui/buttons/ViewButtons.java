@@ -47,7 +47,7 @@ public class ViewButtons extends LinearLayout {
         inflater.inflate(R.layout.view_buttons, this, true);
         for(int i=1;i<=6;i++){
             FancyButton b=getButton(i);
-            b.setVisibility(INVISIBLE);
+         //   b.setVisibility(INVISIBLE);
         }
     }
 

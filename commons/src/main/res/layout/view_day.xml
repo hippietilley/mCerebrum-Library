@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/view_background"
+        android:orientation="vertical">
+
+        <!--  bar-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/header_background"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Day"
+                android:textColor="@color/header_text" />
+        </LinearLayout>
+
+        <!--  button list layout-->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_background"
+    android:orientation="horizontal"
+    android:weightSum="1">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33"
+        android:background="@color/backgroundColor"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="Start Day"
+            android:textColor="@color/header_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="00:00:00"
+            android:textColor="@color/header_text" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.33"
+        android:background="@color/backgroundColor"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="End Day"
+            android:textColor="@color/header_text" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="00:00:00"
+            android:textColor="@color/header_text" />
+    </LinearLayout>
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/button_1"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="0.33"
+        android:layout_margin="10dp"
+        fancy:fb_defaultColor="@color/backgroundColor"
+        fancy:fb_focusColor="@color/colorBackground"
+        fancy:fb_iconPosition="bottom"
+        fancy:fb_fontIconResource="&#xf04b;"
+        fancy:fb_fontIconSize="30dp"
+        fancy:fb_text="Start day"
+        fancy:fb_textSize="14sp"
+        fancy:fb_radius="5dp"
+        fancy:fb_textColor="#FFFFFF"/>
+
+
+
+
+</LinearLayout>
+    </LinearLayout>
+</merge>
