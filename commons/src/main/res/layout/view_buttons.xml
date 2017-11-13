@@ -40,12 +40,39 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
             <mehdi.sakout.fancybuttons.FancyButton
                 android:id="@+id/button_2"
                 android:layout_width="0dp"
@@ -54,12 +81,40 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
+
             <mehdi.sakout.fancybuttons.FancyButton
                 android:id="@+id/button_3"
                 android:layout_width="0dp"
@@ -68,12 +123,39 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,12 +170,39 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
             <mehdi.sakout.fancybuttons.FancyButton
                 android:id="@+id/button_5"
                 android:layout_width="0dp"
@@ -102,12 +211,39 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
             <mehdi.sakout.fancybuttons.FancyButton
                 android:id="@+id/button_6"
                 android:layout_width="0dp"
@@ -116,12 +252,40 @@
                 android:layout_margin="10dp"
                 fancy:fb_defaultColor="@color/backgroundColor"
                 fancy:fb_focusColor="@color/colorBackground"
-                fancy:fb_iconPosition="bottom"
-                fancy:fb_iconResource="@drawable/icon_graph"
-                fancy:fb_text="Follow"
+                fancy:fb_text=""
                 fancy:fb_textSize="12sp"
-                fancy:fb_radius="10dp"
-                fancy:fb_textColor="#FFFFFF"/>
+                fancy:fb_radius="5dp"
+                fancy:fb_textColor="#FFFFFF">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/textview_button_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".5"
+                        android:text="Work Duration"
+                        android:textAlignment="center"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:id="@+id/imageview_button_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="top"
+                        android:layout_margin="10dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/icon_graph" />
+                </LinearLayout>
+
+
+            </mehdi.sakout.fancybuttons.FancyButton>
+
         </LinearLayout>
     </LinearLayout>
 </merge>

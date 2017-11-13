@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import org.md2k.mcerebrum.commons.R;
@@ -52,6 +54,8 @@ public class ViewButtons extends LinearLayout {
     public ViewButtons(Context context) {
         this(context, null);
     }
+
+
     FancyButton getButton(int index){
         switch(index){
             case 1: return (FancyButton) findViewById(R.id.button_1);
@@ -64,11 +68,42 @@ public class ViewButtons extends LinearLayout {
         }
     }
 
+    ImageView getImageView(int index){
+        switch(index){
+            case 1: return (ImageView) findViewById(R.id.imageview_button_1);
+
+            case 2: return (ImageView) findViewById(R.id.imageview_button_2);
+            case 3: return (ImageView) findViewById(R.id.imageview_button_3);
+            case 4: return (ImageView) findViewById(R.id.imageview_button_4);
+            case 5: return (ImageView) findViewById(R.id.imageview_button_5);
+            case 6: return (ImageView) findViewById(R.id.imageview_button_6);
+
+            default: return (ImageView) findViewById(R.id.imageview_button_1);
+        }
+    }
+    TextView getTextView(int index){
+        switch(index){
+            case 1: return (TextView) findViewById(R.id.textview_button_1);
+
+            case 2: return (TextView) findViewById(R.id.textview_button_2);
+            case 3: return (TextView) findViewById(R.id.textview_button_3);
+            case 4: return (TextView) findViewById(R.id.textview_button_4);
+            case 5: return (TextView) findViewById(R.id.textview_button_5);
+            case 6: return (TextView) findViewById(R.id.textview_button_6);
+
+            default: return (TextView) findViewById(R.id.textview_button_1);
+        }
+    }
+
     public void addButton(int index, String title, Drawable image, OnClickListener onClickListener) {
+        ImageView i = getImageView (index);
+        TextView t = getTextView (index);
+        i.setImageDrawable (image);
         FancyButton b=getButton(index);
-        b.setText(title);
-        b.setVisibility(VISIBLE);
-        b.setIconResource(image);
-        b.setOnClickListener(onClickListener);
+            t.setText(title);
+            b.setVisibility(VISIBLE);
+                  i.setImageDrawable (image);
+            b.setOnClickListener(onClickListener);
+
     }
 }
