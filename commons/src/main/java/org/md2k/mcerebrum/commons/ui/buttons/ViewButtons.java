@@ -1,26 +1,13 @@
 package org.md2k.mcerebrum.commons.ui.buttons;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.mikepenz.fontawesome_typeface_library.FontAwesome;
-import com.mikepenz.iconics.IconicsDrawable;
 
 import org.md2k.mcerebrum.commons.R;
-import org.md2k.mcerebrum.commons.ui.data_quality.ActivityDataQuality;
-import org.md2k.mcerebrum.commons.ui.data_quality.CDataQuality;
-import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -51,43 +38,37 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class ViewButtons extends GridLayout {
+public class ViewButtons extends LinearLayout {
     public ViewButtons(Context context, AttributeSet attrs) {
         super(context, attrs);
-//        setOrientation(LinearLayout.HORIZONTAL);
-//        setGravity(Gravity.CENTER_VERTICAL);
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_buttons, this, true);
-/*
-           ((TextView) findViewById(R.id.textview_data_quality_title_1)).setText(cDataQualities[0].title);
-           FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_1);
-           f.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   startActivity(cDataQualities[0]);
-               }
-           });
-        imageView = (ImageView) findViewById(R.id.imageview_data_quality_1);
-        textView = (TextView) findViewById(R.id.textview_data_quality_response_1);
-*/
-
+        for(int i=1;i<=6;i++){
+            FancyButton b=getButton(i);
+            b.setVisibility(INVISIBLE);
+        }
     }
 
     public ViewButtons(Context context) {
         this(context, null);
     }
+    FancyButton getButton(int index){
+        switch(index){
+            case 1: return (FancyButton) findViewById(R.id.button_1);
+            case 2: return (FancyButton) findViewById(R.id.button_2);
+            case 3: return (FancyButton) findViewById(R.id.button_3);
+            case 4: return (FancyButton) findViewById(R.id.button_4);
+            case 5: return (FancyButton) findViewById(R.id.button_5);
+            case 6: return (FancyButton) findViewById(R.id.button_6);
+            default: return (FancyButton) findViewById(R.id.button_1);
+        }
+    }
 
-    public void addButton(String title, Drawable image, OnClickListener onClickListener) {
-
-/*
-        MyButton m=new MyButton(getContext(), title, image, onClickListener);
-        ll.addView(m);
-*/
-  /*      MyButton mm=new MyButton(getContext(), title+" new", image, onClickListener);
-        ll.addView(mm);
-        MyButton mmm=new MyButton(getContext(), title+" new new", image, onClickListener);
-        ll.addView(mmm);
-*/
+    public void addButton(int index, String title, Drawable image, OnClickListener onClickListener) {
+        FancyButton b=getButton(index);
+        b.setText(title);
+        b.setVisibility(VISIBLE);
+        b.setIconResource(image);
+        b.setOnClickListener(onClickListener);
     }
 }

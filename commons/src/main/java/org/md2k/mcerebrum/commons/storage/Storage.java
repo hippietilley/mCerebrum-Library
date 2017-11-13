@@ -27,6 +27,7 @@ package org.md2k.mcerebrum.commons.storage;
  */
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.os.StatFs;
 
@@ -219,6 +220,14 @@ public class Storage {
             }
         }
         return data;
+    }
+
+    public static Drawable readDrawable(String filePath) {
+        try {
+            return Drawable.createFromPath(filePath);
+        }catch (Exception e){
+            return null;
+        }
     }
 
     private static class ListOfSomething<X> implements ParameterizedType {

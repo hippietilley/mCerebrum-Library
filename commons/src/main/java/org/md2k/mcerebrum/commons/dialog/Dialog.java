@@ -27,18 +27,27 @@ package org.md2k.mcerebrum.commons.dialog;
  */
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.md2k.datakitapi.DataKitAPI;
+import org.md2k.datakitapi.datatype.DataTypeLong;
+import org.md2k.datakitapi.exception.DataKitException;
+import org.md2k.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 
 import es.dmoral.toasty.Toasty;
@@ -138,12 +147,12 @@ public class Dialog {
     }
 
 */
-    public static MaterialDialog.Builder editboxText(Activity activity, String title, String content, final DialogCallback dialogCallback){
+    public static MaterialDialog.Builder editboxText(Activity activity, String title, String content, String input, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
                 .inputType(InputType.TYPE_CLASS_TEXT)
-                .input("", "", new MaterialDialog.InputCallback() {
+                .input("", input, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
@@ -161,7 +170,7 @@ public class Dialog {
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
-                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL)
+                .inputType(InputType.TYPE_CLASS_TEXT)
                 .input("abc", "", new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
@@ -172,12 +181,12 @@ public class Dialog {
     }
 
 
-    public static MaterialDialog.Builder editbox_numeric(Activity activity, String title, String content, final DialogCallback dialogCallback){
+    public static MaterialDialog.Builder editbox_numeric(Activity activity, String title, String content, String selectedValue, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
-                .inputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_NORMAL)
-                .input("10000", "", new MaterialDialog.InputCallback() {
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input(null, selectedValue, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
@@ -222,25 +231,30 @@ public class Dialog {
                 .autoDismiss(false);
 
     }
-    public static MaterialDialog showCustomDatePicker(Activity activity, String content, String title, final DialogCallback dialogCallback) {
-        return new MaterialDialog.Builder(activity)
-                .title(title)
-                .customView(R.layout.dialog_datepicker, false)
-                .positiveText(android.R.string.ok)
-                .negativeText(android.R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
+    public static DatePickerDialog dateTimePicker(Activity activity, int year, int month, int day, final DialogCallback dialogCallback) {
+        return new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, dayOfMonth, 0,0, 0);
+                c.set(Calendar.MILLISECOND, 0);
+                long time = c.getTimeInMillis();
+                dialogCallback.onSelected(String.valueOf(time));
+            }
+        },year, month, day);
+    }
+    public static TimePickerDialog timePicker(Activity activity, int hourOfDay, int minute, final DialogCallback dialogCallback) {
+        return new TimePickerDialog(activity,
+                new TimePickerDialog.OnTimeSetListener() {
+
                     @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        String value;
-                  //      dialogCallback.onSelected ();
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        long time = hourOfDay * 60 * 60 * 1000 + minute * 60 * 1000;
+                        dialogCallback.onSelected(String.valueOf(time));
+                        //     txtTime.setText(hourOfDay + ":" + minute);
                     }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-               //         dialogCallback.onSelected(buttonNegative);
-                    }
-                }).show();
+                }, hourOfDay, minute, false);
     }
 
 }
