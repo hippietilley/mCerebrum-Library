@@ -3,6 +3,8 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -12,9 +14,13 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import org.md2k.mcerebrum.commons.R;
 
+import mehdi.sakout.fancybuttons.FancyButton;
+
 
 public class ActivityYouTube extends YouTubeBaseActivity implements
         YouTubePlayer.OnInitializedListener {
+
+    FancyButton back;
     private static final int RECOVERY_DIALOG_REQUEST = 10;
     private static final String API_KEY = "AIzaSyCxbfW38QiMdp5St96IhYUtDCSvDO8cNfA";
     //ConfigDataQuality configDataQuality;
@@ -29,11 +35,22 @@ public class ActivityYouTube extends YouTubeBaseActivity implements
 //        configDataQuality=getIntent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
         setContentView(R.layout.activity_youtube);
         String video_link = getIntent().getStringExtra("video_link");
+        String title = getIntent().getStringExtra("title");
+        ((TextView) findViewById(R.id.textview_title)).setText(title);
         VIDEO_ID = video_link;//configDataQuality.video_link;
       // setupButtons();
 
         YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         youTubeView.initialize(API_KEY, this);
+        back = (FancyButton) findViewById(R.id.button_back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
     }
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider,

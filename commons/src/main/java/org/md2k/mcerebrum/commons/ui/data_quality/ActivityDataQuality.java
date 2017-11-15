@@ -36,7 +36,7 @@ public class ActivityDataQuality extends FragmentActivity {
         super.onCreate(savedInstanceState);
         // Defines the xml file for the fragment
         setContentView(R.layout.activity_data_quality);
-        String title = getIntent().getStringExtra("title");
+        final String title = getIntent().getStringExtra("title");
         String message = getIntent().getStringExtra("message");
         final String video_link = getIntent().getStringExtra("video_link");
         final DataSource read = getIntent().getParcelableExtra("read");
@@ -84,6 +84,8 @@ public class ActivityDataQuality extends FragmentActivity {
 
                 Intent intent = new Intent(ActivityDataQuality.this, ActivityYouTube.class);
                 intent.putExtra("video_link", video_link);
+                intent.putExtra ("title", title);
+
                 startActivity(intent);
 
             }
