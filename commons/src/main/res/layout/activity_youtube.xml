@@ -57,6 +57,7 @@
             android:layout_height="match_parent"
             android:id="@+id/button_back"
             fancy:fb_defaultColor="@color/backGroundDark"
+            fancy:fb_focusColor="@color/colorBackground"
             fancy:fb_borderWidth="0dp"
             fancy:fb_radius="10dp"
             fancy:fb_borderColor="@color/tealsecondary"

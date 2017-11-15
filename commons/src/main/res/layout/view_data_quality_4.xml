@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/view_background"
+        android:background="@color/colorbackground"
         android:orientation="vertical">
 
         <!--  data quality bar-->
@@ -31,7 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/colorbackground"
             android:orientation="horizontal"
             android:weightSum="1">
             <!--Sensor 1 -->
@@ -39,15 +39,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
-                android:background="@color/colorBackground"
+                android:background="@color/colorbackground"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/button_data_quality_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_margin="4dp"
                     fancy:fb_defaultColor="@color/backGroundDark"
+                    fancy:fb_focusColor="@color/colorbackground"
+                    fancy:fb_radius="4dp"
                     fancy:fb_text=""
                     fancy:fb_textColor="#fff"
                     fancy:fb_textSize="0sp">
@@ -96,15 +98,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
-                android:background="@color/colorBackground"
+                android:background="@color/colorbackground"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/button_data_quality_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_margin="4dp"
+                    fancy:fb_radius="4dp"
                     fancy:fb_defaultColor="@color/backGroundDark"
+                    fancy:fb_focusColor="@color/colorBackground"
                     fancy:fb_text=""
                     fancy:fb_textColor="#fff"
                     fancy:fb_textSize="0sp">
@@ -153,15 +157,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
-                android:background="@color/colorBackground"
+                android:background="@color/colorbackground"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/button_data_quality_3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_margin="4dp"
+                    fancy:fb_radius="4dp"
                     fancy:fb_defaultColor="@color/backGroundDark"
+                    fancy:fb_focusColor="@color/colorBackground"
                     fancy:fb_text=""
                     fancy:fb_textColor="#fff"
                     fancy:fb_textSize="0sp">
@@ -210,15 +216,17 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".25"
-                android:background="@color/colorBackground"
+                android:background="@color/colorbackground"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
                     android:id="@+id/button_data_quality_4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
+                    android:layout_margin="4dp"
+                    fancy:fb_radius="4dp"
                     fancy:fb_defaultColor="@color/backGroundDark"
+                    fancy:fb_focusColor="@color/colorBackground"
                     fancy:fb_text=""
                     fancy:fb_textColor="#fff"
                     fancy:fb_textSize="0sp">

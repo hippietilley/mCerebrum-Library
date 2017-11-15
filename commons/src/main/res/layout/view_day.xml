@@ -30,82 +30,41 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#15202d"
+    android:background="@color/colorbackground"
     android:orientation="horizontal"
     android:weightSum="1">
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.33"
-        android:background="@color/backgroundColor"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Start Day"
-            android:textColor="@color/header_text" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="00:00:00"
-            android:textColor="@color/header_text" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="0.33"
-        android:background="@color/backGroundDark"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="End Day"
-            android:textColor="@color/header_text" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="0.5"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="00:00:00"
-            android:textColor="@color/header_text" />
-    </LinearLayout>
+
     <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/button_1"
+        android:id="@+id/button_start"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:layout_weight="0.33"
+        android:layout_weight="0.5"
         android:layout_margin="10dp"
-        fancy:fb_defaultColor="@color/backgroundColor"
+        fancy:fb_defaultColor="@color/backGroundDark"
         fancy:fb_focusColor="@color/colorBackground"
         fancy:fb_iconPosition="bottom"
-        fancy:fb_fontIconResource="&#xf04b;"
-        fancy:fb_fontIconSize="30dp"
-        fancy:fb_text="Start day"
+        fancy:fb_fontIconResource="&#xf185;"
+        fancy:fb_fontIconSize="20dp"
+        fancy:fb_text="Start\n"
         fancy:fb_textSize="14sp"
-        fancy:fb_radius="5dp"
-        fancy:fb_textColor="#FFFFFF"/>
+        fancy:fb_radius="7dp"
+        fancy:fb_textColor="#FFFF"/>
 
-
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/button_end"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="0.5"
+        android:layout_margin="10dp"
+        fancy:fb_defaultColor="@color/backGroundDark"
+        fancy:fb_focusColor="@color/colorBackground"
+        fancy:fb_iconPosition="bottom"
+        fancy:fb_fontIconResource="&#xf186;"
+        fancy:fb_fontIconSize="20dp"
+        fancy:fb_text="End\n"
+        fancy:fb_textSize="13sp"
+        fancy:fb_radius="7dp"
+        fancy:fb_textColor="#FFFF"/>
 
 
 </LinearLayout>
