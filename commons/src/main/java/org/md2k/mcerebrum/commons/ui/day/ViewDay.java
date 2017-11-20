@@ -1,14 +1,11 @@
-package org.md2k.mcerebrum.commons.ui.view_day;
+package org.md2k.mcerebrum.commons.ui.day;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import org.md2k.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
 
 import mehdi.sakout.fancybuttons.FancyButton;
@@ -50,7 +47,35 @@ public class ViewDay extends LinearLayout {
     public ViewDay(Context context) {
         this(context, null);
     }
-
-
-
+    public void setButtons(long w1, long s1, long w2, long s2, long ds, long de){
+        long c = DateTime.getDateTime();
+        if(w1<0 || s1<0){
+            set(false, false);
+        }else if(ds<0 || ds<w1){
+            if(w1<c && c<s1){
+                set(true, false);
+            }else if(s1<c){
+                set(false, false);
+            }
+        }else{
+            if(ds<0){
+                if(ds<s1){
+                    set(false, true);
+                }else{
+                    set(false, false);
+                }
+            }else if(ds<de){
+                set(false, false);
+            }
+            else if(ds>de){
+                set(false, true);
+            }
+        }
+    }
+    private void set(boolean s1, boolean s2){
+        FancyButton bs = findViewById(R.id.button_start);
+        FancyButton be = findViewById(R.id.button_end);
+        bs.setEnabled(s1);
+        be.setEnabled(s2);
+    }
 }
