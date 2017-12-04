@@ -4,6 +4,10 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +29,7 @@ import java.util.ArrayList;
 import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
-public class ActivityDataQuality extends FragmentActivity {
+public class ActivityDataQuality extends AppCompatActivity {
     FancyButton buttonPlot;
     FancyButton buttonVideo;
     FancyButton buttonClose;
@@ -33,18 +37,21 @@ public class ActivityDataQuality extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate (savedInstanceState);
         // Defines the xml file for the fragment
-        setContentView(R.layout.activity_data_quality);
-        final String title = getIntent().getStringExtra("title");
-        String message = getIntent().getStringExtra("message");
-        final String video_link = getIntent().getStringExtra("video_link");
-        final DataSource read = getIntent().getParcelableExtra("read");
-        final DataSource plot = getIntent().getParcelableExtra("plot");
+        setContentView (R.layout.activity_data_quality);
+        final String title = getIntent ( ).getStringExtra ("title");
+        String message = getIntent ( ).getStringExtra ("message");
+        final String video_link = getIntent ( ).getStringExtra ("video_link");
+        final DataSource read = getIntent ( ).getParcelableExtra ("read");
+        final DataSource plot = getIntent ( ).getParcelableExtra ("plot");
 //        configDataQuality=getll Intent().getParcelableExtra(ConfigDataQuality.class.getSimpleName());
-        ((TextView) findViewById(R.id.textview_title)).setText(title);
-        ((TextView) findViewById(R.id.textview_content)).setText(message);
-
+        ((TextView) findViewById (R.id.textview_title)).setText (title);
+        ((TextView) findViewById (R.id.textview_content)).setText (message);
+        if (getSupportActionBar ( ) != null) {
+            getSupportActionBar ( ).setDisplayHomeAsUpEnabled (true);
+            getSupportActionBar ( ).setDisplayShowHomeEnabled (true);
+        }
 
         buttonPlot = (FancyButton) findViewById(R.id.button_graph);
         buttonPlot.setOnClickListener(new View.OnClickListener() {
@@ -99,4 +106,17 @@ public class ActivityDataQuality extends FragmentActivity {
             }
         });
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

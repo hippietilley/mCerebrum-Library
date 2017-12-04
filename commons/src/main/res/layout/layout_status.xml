@@ -22,7 +22,7 @@
         android:paddingTop="10dp"
         android:text="@string/tap"
         android:textAppearance="@android:style/TextAppearance.Small"
-        android:textColor="@color/grey_700"
+        android:textColor="@color/text_gray"
         android:textStyle="italic" />
 
     <Button
@@ -37,7 +37,7 @@
         android:minHeight="100dp"
         android:minWidth="200dp"
         android:padding="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_white"
         android:textSize="40sp" />
 </LinearLayout>
 
