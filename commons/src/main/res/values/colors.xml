@@ -7,6 +7,13 @@
     <color name="menu_badge">#D32F2F</color>
     <color name="colorPrimary">#1e2c3c</color>
     <color name="colorPrimaryDark">#154360</color>
+    <color name="base_layer">#131325</color>
+    <color name="teal_header">#00838F</color>
+    <color name="front_layer">#1e2c3c</color>
+    <color name="focus_color">#154360</color>
+    <color name="text_white">#FFFF</color>
+    <color name="text_red">#FF00</color>
+    <color name="text_gray">#616161</color>
     <!--Final -->
 
 
@@ -42,6 +49,14 @@
     <color name="md_cyan_A700">#00B8D4</color>
 
     <!-- Material DEFAULT drawer colors -->
+    <color name="material_drawer_primary">#03b3bc</color>
+    <color name="material_drawer_background">#1e2c3c</color>
+    <color name="material_drawer_primary_text">#FFFFFF</color>
+    <color name="material_drawer_primary_icon">#FFFFFF</color>
+    <color name="material_drawer_secondary_text">#8A000000</color>
+    <color name="material_drawer_hint_text">#42000000</color>
+    <color name="material_drawer_selected">#131325</color>
+
     <!-- Material DEFAULT colors -->
     <!--
     -->

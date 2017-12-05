@@ -6,14 +6,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@color/view_background"
+        android:background="@color/base_layer"
         android:orientation="vertical">
 
         <!--  data quality bar-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/header_background"
+            android:background="@color/teal_header"
             android:orientation="horizontal">
 
             <TextView
@@ -24,14 +24,14 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="Sensor Data Quality"
-                android:textColor="@color/header_text" />
+                android:textColor="@color/text_white" />
         </LinearLayout>
 
         <!--  data quality layout-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/base_layer"
             android:orientation="horizontal"
             android:weightSum="1">
             <!--Sensor 1 -->
@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
-                android:background="@color/colorbackground"
+                android:background="@color/base_layer"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
@@ -48,10 +48,10 @@
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
                     fancy:fb_radius="4dp"
-                    fancy:fb_defaultColor="@color/backGroundDark"
-                    fancy:fb_focusColor="@color/colorBackground"
+                    fancy:fb_defaultColor="@color/front_layer"
+                    fancy:fb_focusColor="@color/focus_color"
                     fancy:fb_text=""
-                    fancy:fb_textColor="#fff"
+                    fancy:fb_textColor="@color/text_white"
                     fancy:fb_textSize="0sp">
 
                     <LinearLayout
@@ -67,8 +67,8 @@
                             android:layout_gravity="center"
                             android:layout_weight=".33"
                             android:text="Left wrist"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
 
                         <ImageView
                             android:id="@+id/imageview_data_quality_1"
@@ -86,8 +86,8 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
                             android:text="Good"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>
 
                 </mehdi.sakout.fancybuttons.FancyButton>
@@ -98,7 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
-                android:background="@color/colorbackground"
+                android:background="@color/base_layer"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
@@ -107,10 +107,10 @@
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
                     fancy:fb_radius="4dp"
-                    fancy:fb_defaultColor="@color/backGroundDark"
-                    fancy:fb_focusColor="@color/colorBackground"
+                    fancy:fb_defaultColor="@color/front_layer"
+                    fancy:fb_focusColor="@color/focus_color"
                     fancy:fb_text=""
-                    fancy:fb_textColor="#fff"
+                    fancy:fb_textColor="@color/text_white"
                     fancy:fb_textSize="0sp">
 
                     <LinearLayout
@@ -126,8 +126,8 @@
                             android:layout_gravity="center"
                             android:layout_weight=".33"
                             android:text="Left wrist"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
 
                         <ImageView
                             android:id="@+id/imageview_data_quality_2"
@@ -145,8 +145,8 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
                             android:text="Good"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>
 
                 </mehdi.sakout.fancybuttons.FancyButton>
@@ -157,7 +157,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight=".33"
-                android:background="@color/colorbackground"
+                android:background="@color/base_layer"
                 android:orientation="vertical">
 
                 <mehdi.sakout.fancybuttons.FancyButton
@@ -166,10 +166,10 @@
                     android:layout_height="match_parent"
                     android:layout_margin="4dp"
                     fancy:fb_radius="4dp"
-                    fancy:fb_defaultColor="@color/backGroundDark"
-                    fancy:fb_focusColor="@color/colorBackground"
+                    fancy:fb_defaultColor="@color/front_layer"
+                    fancy:fb_focusColor="@color/focus_color"
                     fancy:fb_text=""
-                    fancy:fb_textColor="#fff"
+                    fancy:fb_textColor="@color/text_white"
                     fancy:fb_textSize="0sp">
 
                     <LinearLayout
@@ -185,8 +185,8 @@
                             android:layout_gravity="center"
                             android:layout_weight=".33"
                             android:text="Left wrist"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
 
                         <ImageView
                             android:id="@+id/imageview_data_quality_3"
@@ -204,8 +204,8 @@
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
                             android:text="Good"
-                            android:textColor="#FFFF"
-                            android:textSize="12sp" />
+                            android:textColor="@color/text_white"
+                            android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>
 
                 </mehdi.sakout.fancybuttons.FancyButton>

@@ -5,14 +5,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#0000"
+        android:background="@color/base_layer"
         android:orientation="vertical">
 
         <!--  bar-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/header_background"
+            android:background="@color/teal_header"
             android:orientation="horizontal">
 
             <TextView
@@ -23,14 +23,14 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="Day"
-                android:textColor="@color/header_text" />
+                android:textColor="@color/text_white" />
         </LinearLayout>
 
         <!--  button list layout-->
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorbackground"
+    android:background="@color/base_layer"
     android:orientation="horizontal"
     android:weightSum="1">
 
@@ -40,15 +40,15 @@
         android:layout_height="70dp"
         android:layout_weight="0.5"
         android:layout_margin="10dp"
-        fancy:fb_defaultColor="@color/backGroundDark"
-        fancy:fb_focusColor="@color/colorBackground"
+        fancy:fb_defaultColor="@color/front_layer"
+        fancy:fb_focusColor="@color/focus_color"
         fancy:fb_iconPosition="bottom"
         fancy:fb_fontIconResource="&#xf185;"
         fancy:fb_fontIconSize="20dp"
         fancy:fb_text="Start\n"
-        fancy:fb_textSize="14sp"
+        fancy:fb_textSize="@dimen/text_body_size"
         fancy:fb_radius="7dp"
-        fancy:fb_textColor="#FFFF"/>
+        fancy:fb_textColor="@color/text_white"/>
 
     <mehdi.sakout.fancybuttons.FancyButton
         android:id="@+id/button_end"
@@ -56,15 +56,15 @@
         android:layout_height="70dp"
         android:layout_weight="0.5"
         android:layout_margin="10dp"
-        fancy:fb_defaultColor="@color/backGroundDark"
-        fancy:fb_focusColor="@color/colorBackground"
+        fancy:fb_defaultColor="@color/front_layer"
+        fancy:fb_focusColor="@color/focus_color"
         fancy:fb_iconPosition="bottom"
         fancy:fb_fontIconResource="&#xf186;"
         fancy:fb_fontIconSize="20dp"
         fancy:fb_text="End\n"
-        fancy:fb_textSize="13sp"
+        fancy:fb_textSize="@dimen/text_body_size"
         fancy:fb_radius="7dp"
-        fancy:fb_textColor="#FFFF"/>
+        fancy:fb_textColor="@color/text_white"/>
 
 
 </LinearLayout>

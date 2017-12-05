@@ -36,6 +36,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class UserViewDay {
+/*
     private static final String TAG = UserViewDay.class.getSimpleName();
     private Handler handler;
     private DayManager dayManager;
@@ -52,7 +53,8 @@ public class UserViewDay {
         @Override
         public void run() {
             dayManager.set(viewDay.getContext());
-            viewDay.setButtons(dayManager.getWakeupTime()
+           */
+/* viewDay.setButtons(dayManager.getWakeupTime()
             long remainingTime = dayManager.getRemainingTime();
             if (remainingTime > 0) {
                 remainingTime /= 1000;
@@ -66,12 +68,17 @@ public class UserViewDay {
                 t.setBootstrapText(new BootstrapText.Builder(viewPrivacy.getContext()).addText(show).build());
                 t.setBootstrapBrand(DefaultBootstrapBrand.DANGER);
 //                t.setText(show);
+                *//*
+*/
+/*
 //                t.setTextColor(ContextCompat.getColor(viewPrivacy.getContext(), R.color.headerOrange));
                 FancyButton button = (FancyButton) viewPrivacy.findViewById(R.id.btn_pause_resume_data_collection);
                 button.setFontIconSize(16);
                 button.setIconResource("\uf00d");
-                button.setIconColor(ContextCompat.getColor(viewPrivacy.getContext(), R.color.headerOrange));
-            }
+
+            button.setIconColor(ContextCompat.getColor(viewPrivacy.getContext(), R.color.headerOrange));
+            *//*
+}
         }
     };
 */
@@ -79,21 +86,27 @@ public class UserViewDay {
 
     private void prepareButton() {
         FancyButton button;
-        final long lastTime= DateTime.getDateTime();
+  */
+/*      final long lastTime= DateTime.getDateTime();
         button = (FancyButton) viewDay.findViewById(R.id.btn_pause_resume_data_collection);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View v) {
+*//*
+*/
 /*
                 if(DateTime.getDateTime()-lastTime<500) return;
                 Intent intent = new Intent();
                 intent.setClassName("org.md2k.datakit", "org.md2k.datakit.ActivityPrivacy");
                 viewPrivacy.getContext().startActivity(intent);
+*//*
 */
+/*
             }
         });
-    }
-
+  *//*
+  }
     public void set() {
 /*
         handler.removeCallbacks(runnableDay);
@@ -105,4 +118,5 @@ public class UserViewDay {
     public void clear() {
 //        handler.removeCallbacks(runnablePrivacy);
     }
+*/
 }

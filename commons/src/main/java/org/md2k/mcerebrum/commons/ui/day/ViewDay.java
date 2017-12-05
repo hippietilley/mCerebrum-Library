@@ -73,9 +73,11 @@ public class ViewDay extends LinearLayout {
         }
     }
     private void set(boolean s1, boolean s2){
-        FancyButton bs = (FancyButton) findViewById(R.id.button_start);
-        FancyButton be = (FancyButton) findViewById(R.id.button_end);
+/*
+        FancyButton bs = findViewById(R.id.button_start);
+        FancyButton be = findViewById(R.id.button_end);
         bs.setEnabled(s1);
         be.setEnabled(s2);
+*/
     }
 }
