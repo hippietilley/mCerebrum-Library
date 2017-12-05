@@ -1,19 +1,10 @@
 package org.md2k.mcerebrum.commons.ui.day;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-
-import com.beardedhen.androidbootstrap.AwesomeTextView;
-import com.beardedhen.androidbootstrap.BootstrapText;
-import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
-
-import java.util.Locale;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 
@@ -56,6 +47,7 @@ public class UserViewDay {
     }
 
 
+/*
     private Runnable runnableDay = new Runnable() {
         @Override
         public void run() {
@@ -82,6 +74,7 @@ public class UserViewDay {
             }
         }
     };
+*/
 
 
     private void prepareButton() {
@@ -102,9 +95,11 @@ public class UserViewDay {
     }
 
     public void set() {
+/*
         handler.removeCallbacks(runnableDay);
         prepareButton();
         handler.post(runnableDay);
+*/
     }
 
     public void clear() {

@@ -51,6 +51,9 @@ public class MCerebrumReceiver extends BroadcastReceiver {
         String s = intent.getStringExtra(MCEREBRUM.APP_ACCESS.OP);
 
         if(s!=null && s.equals(MCEREBRUM.APP_ACCESS.OP_DATAKIT_STOP)){
+            try {
+                AppAccess.stopBackground(context, context.getPackageName());
+            }catch (Exception e){}
             if(DataKitAPI.getInstance(context).isConnected()){
                 DataKitAPI.getInstance(context).disconnect();
             }
