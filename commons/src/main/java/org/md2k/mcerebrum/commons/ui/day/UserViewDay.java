@@ -85,7 +85,7 @@ public class UserViewDay {
 
 
     private void prepareButton() {
-        FancyButton button;
+/*        FancyButton button;
   */
 /*      final long lastTime= DateTime.getDateTime();
         button = (FancyButton) viewDay.findViewById(R.id.btn_pause_resume_data_collection);
@@ -118,5 +118,5 @@ public class UserViewDay {
     public void clear() {
 //        handler.removeCallbacks(runnablePrivacy);
     }
-*/
+
 }
