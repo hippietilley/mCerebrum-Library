@@ -70,10 +70,12 @@ public class ServerManager {
         }
         return false;
     }
-    public static String getLastModified(String serverName, String token, String fileName){
+    public static String getLastModified(String serverName, String userName, String password, String fileName){
         CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        if(authResponse==null) return null;
+        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(authResponse.getAccessToken(), "configuration");
         if(objectList==null || objectList.size()==0) return null;
         for(int i=0;i<objectList.size();i++){
             if(!objectList.get(i).getObjectName().equals(fileName)) continue;

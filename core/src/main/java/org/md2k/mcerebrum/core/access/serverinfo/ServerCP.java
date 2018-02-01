@@ -183,7 +183,6 @@ public class ServerCP {
         String l=getLatestVersion(context);
         String c=getCurrentVersion(context);
         if(c==null || l==null) return false;
-        if(c.equalsIgnoreCase(l)) return false;
-        return true;
+        return !c.equalsIgnoreCase(l);
     }
 }

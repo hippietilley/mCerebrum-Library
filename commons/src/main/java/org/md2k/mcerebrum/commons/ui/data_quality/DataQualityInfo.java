@@ -35,7 +35,9 @@ import java.util.Iterator;
  */
 public class DataQualityInfo {
     private static final String TAG = DataQualityInfo.class.getSimpleName();
-    private static final long TIME_LIMIT_NODATA = 6*1000;
+    private static final long TIME_STORE = 60*1000;
+
+    private static final long TIME_LIMIT_NODATA = 10*1000;
     private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12*1000;
     private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6*1000;
     private ArrayList<DataTypeInt> qualities;
@@ -49,17 +51,38 @@ public class DataQualityInfo {
     public int getQuality() {
         return quality;
     }
+    private boolean isBandOff(){
+        long curTime=DateTime.getDateTime();
+        for(int i=0;i<qualities.size();i++){
+            if(qualities.get(i).getSample()!=DATA_QUALITY.BAND_OFF && curTime - qualities.get(i).getDateTime()<TIME_LIMIT_NODATA)
+                return false;
+        }
+        return true;
+    }
+    private int getWorn(){
+        long curTime=DateTime.getDateTime();
+        for(int i=0;i<qualities.size();i++){
+            if(qualities.get(i).getSample()==DATA_QUALITY.GOOD && curTime - qualities.get(i).getDateTime()<TIME_STORE)
+                return DATA_QUALITY.GOOD;
+        }
+        return DATA_QUALITY.NOT_WORN;
+    }
 
 
     public void set(DataTypeInt value) {
         long currentTime = DateTime.getDateTime();
-        for(Iterator<DataTypeInt> i=qualities.iterator();i.hasNext();) {
-            DataTypeInt dataTypeInt = i.next();
-            if(dataTypeInt.getDateTime()+ TIME_LIMIT_NODATA <currentTime)
-                i.remove();
-        }
         int lastSample=translate(value.getSample());
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
+        for(Iterator<DataTypeInt> i=qualities.iterator();i.hasNext();) {
+            DataTypeInt dataTypeInt = i.next();
+            if(dataTypeInt.getDateTime()+ TIME_STORE <currentTime)
+                i.remove();
+        }
+        if(quality==-1) quality=lastSample;
+        else if(isBandOff()) quality=DATA_QUALITY.BAND_OFF;
+        else quality=getWorn();
+
+/*
         switch(quality){
             case -1: quality=lastSample;break;
             case DATA_QUALITY.BAND_OFF:
@@ -72,6 +95,7 @@ public class DataQualityInfo {
                 quality=getQualityGoodTo();
                 break;
         }
+*/
 /*
         Status curStatus = new Status(0, this.quality);
         message = getTitle() + " - " + curStatus.getMessage();

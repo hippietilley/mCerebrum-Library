@@ -293,8 +293,7 @@ public class AppAccess {
 */
 public static boolean isConfigurable(Context context, String packageName){
     String f = AppCP.getFuncConfigure(context, packageName);
-    if(f==null) return false;
-    return true;
+    return f != null;
 }
 public static ArrayList<String> getRequiredAppNotConfigured(Context context) {
     ArrayList<String> packageNames=AppBasicInfo.get(context);

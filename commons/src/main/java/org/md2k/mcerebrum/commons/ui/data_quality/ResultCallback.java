@@ -27,5 +27,5 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
  */
 
 public interface ResultCallback {
-    public void onResult(int[] result);
+    void onResult(int[] result);
 }

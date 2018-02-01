@@ -62,7 +62,9 @@ public class Update {
         return Observable.just(true).subscribeOn(Schedulers.newThread()).map(new Func1<Boolean, Boolean>() {
             @Override
             public Boolean call(Boolean aBoolean) {
-                String latestVersion = ServerManager.getLastModified(ServerCP.getServerAddress(context), ServerCP.getToken(context), ServerCP.getFileName(context));
+
+                String latestVersion = ServerManager.getLastModified(ServerCP.getServerAddress(context), ServerCP.getUserName(context), ServerCP.getPasswordHash(context), ServerCP.getFileName(context));
+                if(latestVersion==null) return false;
                 ServerCP.setLatestVersion(context, latestVersion);
                 if(ServerCP.getCurrentVersion(context).equals(latestVersion)) return false;
                 else return true;

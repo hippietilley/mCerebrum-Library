@@ -144,8 +144,7 @@ public class AppCP {
     }
 
     public boolean isEqual(AppInfoBean appInfoBean, String packageName) {
-        if(appInfoBean.getPackageName().equals(packageName)) return true;
-        return false;
+        return appInfoBean.getPackageName().equals(packageName);
     }
 
     // APP Basic Info

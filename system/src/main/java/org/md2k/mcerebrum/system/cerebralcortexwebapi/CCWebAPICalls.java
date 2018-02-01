@@ -192,7 +192,7 @@ public class CCWebAPICalls {
                 Log.e("CCWebAPI", "Not successful " + errorBody.getMessage());
                 return false;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Log.e("CCWebAPICalls", e.getMessage());
             return false;

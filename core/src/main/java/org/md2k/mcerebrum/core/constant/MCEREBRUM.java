@@ -44,7 +44,8 @@ public class MCEREBRUM {
 
         public enum TYPE_DOWNLOAD {
             GITHUB, URL, JSON, SERVER, UNKNOWN
-        };
+        }
+
         public static TYPE_DOWNLOAD getDownloadType(String downloadLink){
             if(downloadLink==null) return TYPE_DOWNLOAD.UNKNOWN;
             if(downloadLink.toLowerCase().endsWith(".json"))
@@ -70,6 +71,6 @@ public class MCEREBRUM {
 
         public enum TYPE_DOWNLOAD {
             PLAYSTORE, URL, JSON, UNKNOWN
-        };
+        }
     }
 }
