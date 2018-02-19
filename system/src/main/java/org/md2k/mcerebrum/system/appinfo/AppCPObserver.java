@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.appinfo;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.system.appinfo;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.appinfo;
+
 import android.content.Context;
 import android.content.Intent;
 import android.database.ContentObserver;
@@ -36,22 +37,48 @@ import android.util.Log;
 
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 
+/**
+ * Observes the application for changes.
+ */
 public class AppCPObserver extends ContentObserver {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
+    private static final String TAG = AppCPObserver.class.getSimpleName();
+
+    /** Android context. */
     private Context context;
+
+
+    /**
+     * Constructor
+     *
+     * @param context Android context
+     * @param handler Message handler
+     */
     public AppCPObserver(Context context, Handler handler) {
         super(handler);
-        this.context=context;
+        this.context = context;
     }
 
+    /**
+     * Wrapper method for <code>onChange</code>.
+     *
+     * @param selfChange Whether the change is self imposed or not.
+     */
     @Override
     public void onChange(boolean selfChange) {
         this.onChange(selfChange, null);
     }
 
+    /**
+     * Sends a broadcast message when the <code>AppCPObserver</code> is changed.
+     *
+     * @param selfChange Whether the change is self imposed or not.
+     * @param uri
+     */
     @Override
     public void onChange(boolean selfChange, Uri uri) {
         Intent intent = new Intent(MCEREBRUM.APP_ACCESS.APPCP_CHANGED);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-        Log.d("abc","appcp_changed");
+        Log.d(TAG, "appcp_changed");
     }
 }
