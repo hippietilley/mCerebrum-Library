@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.update;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.system.update;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.update;
+
 import android.content.Context;
 
 import org.md2k.mcerebrum.core.access.serverinfo.ServerCP;
@@ -37,45 +38,89 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+/**
+ * Provides methods for checking for application updates.
+ */
 public class Update {
 
+    /**
+     * Checks for an application update.
+     *
+     * @param context Android context.
+     * @return An <code>Observable</code> that determines if there is an update or not.
+     */
     public static Observable<Boolean> checkUpdate(Context context){
-        if(ServerCP.getUserName(context)!=null)
-        return Observable.merge(checkUpdateServer(context), AppInstall.checkUpdate(context))
+        if(ServerCP.getUserName(context) != null)
+            return Observable.merge(checkUpdateServer(context), AppInstall.checkUpdate(context))
                 .filter(new Func1<Boolean, Boolean>() {
+                    /**
+                     * @param aBoolean
+                     * @return aBoolean
+                     */
                     @Override
                     public Boolean call(Boolean aBoolean) {
                         return aBoolean;
                     }
                 });
-        else return AppInstall.checkUpdate(context)
+        else
+            return AppInstall.checkUpdate(context)
                 .filter(new Func1<Boolean, Boolean>() {
+                    /**
+                     * @param aBoolean
+                     * @return aBoolean
+                     */
                     @Override
                     public Boolean call(Boolean aBoolean) {
                         return aBoolean;
                     }
                 });
-
     }
+
+    /**
+     * Checks the update server for the latest app versions.
+     *
+     * @param context Android context.
+     * @return An <code>Observable</code> that determines if there is an update or not.
+     */
     public static Observable<Boolean> checkUpdateServer(final Context context) {
         ServerCP.setLatestVersion(context, ServerCP.getCurrentVersion(context));
         return Observable.just(true).subscribeOn(Schedulers.newThread()).map(new Func1<Boolean, Boolean>() {
+            /**
+             * Checks whether the current app version is the latest version when called.
+             *
+             * @param aBoolean Need for proper method overriding.
+             * @return Whether the current app version is the latest version or not.
+             */
             @Override
             public Boolean call(Boolean aBoolean) {
 
-                String latestVersion = ServerManager.getLastModified(ServerCP.getServerAddress(context), ServerCP.getUserName(context), ServerCP.getPasswordHash(context), ServerCP.getFileName(context));
-                if(latestVersion==null) return false;
+                String latestVersion = ServerManager.getLastModified(ServerCP.getServerAddress(context),
+                        ServerCP.getUserName(context),
+                        ServerCP.getPasswordHash(context),
+                        ServerCP.getFileName(context));
+
+                if(latestVersion == null)
+                    return false;
                 ServerCP.setLatestVersion(context, latestVersion);
-                if(ServerCP.getCurrentVersion(context).equals(latestVersion)) return false;
-                else return true;
+                if(ServerCP.getCurrentVersion(context).equals(latestVersion))
+                    return false;
+                else
+                    return true;
             }
         });
     }
+
+    /**
+     * Counts the number of apps that have an update available.
+     *
+     * @param context Android context.
+     * @return The number of apps that have an update available.
+     */
     public static int hasUpdate(Context context){
-        int count=0;
-        if(ServerCP.hasUpdate(context)) count++;
-        count+= AppInstall.hasUpdate(context);
+        int count = 0;
+        if(ServerCP.hasUpdate(context))
+            count++;
+        count += AppInstall.hasUpdate(context);
         return count;
     }
-
 }
