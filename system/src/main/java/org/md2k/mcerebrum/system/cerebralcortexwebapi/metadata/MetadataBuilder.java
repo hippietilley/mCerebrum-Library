@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.md2k.mcerebrum.system.cerebralcortexwebapi.metadata;
 
 import org.md2k.datakitapi.source.datasource.DataSourceClient;
@@ -18,8 +45,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-
+/**
+ *
+ */
 public class MetadataBuilder {
+
+    /**
+     * Builds a <code>DataStream</code> object with the proper metadata.
+     *
+     * @param userUUID
+     * @param dsc <code>DataSourceClient</code> to build the <code>DataStream</code> from.
+     * @return The constructed <code>DataStream</code> object.
+     */
     public DataStream buildDataStreamMetadata(String userUUID, DataSourceClient dsc) {
 
         //From DataKit
@@ -98,12 +135,6 @@ public class MetadataBuilder {
         String dataType = "";
         String dataUnit = "";
 
-        //InputParameters meta
-//        Integer windowSize = 60;
-//        Integer windowOffset = 300;
-//        Double lowLevelThreshold = 1.1;
-//        Double highLevelThreshold = 1.4;
-
         //InputStream meta
         String inputStreamName = "";
         String inputStreamIdentifier = "";
@@ -120,7 +151,6 @@ public class MetadataBuilder {
         InputStream inputStream = new InputStream(inputStreamName, inputStreamIdentifier);
 
         OutputStream outputStream = new OutputStream(outputStreamName, outputStreamIdentifier);
-//        InputParameters inputParameters = new InputParameters(windowSize, windowOffset, lowLevelThreshold, highLevelThreshold);
         InputParameters inputParameters = new InputParameters();
         Annotation annotation = new Annotation(annotationName, annotationIdentifier);
         Reference reference = new Reference(referenceUrl);
@@ -136,22 +166,20 @@ public class MetadataBuilder {
 
         List<Annotation> annotations = new ArrayList<Annotation>();
 
-        ProcessingModule processingModule = new ProcessingModule(processingModuleName, processingModuleDescription, inputParameters, inputStreams, outputStreams, algorithms);
-        ExecutionContext executionContext = new ExecutionContext(processingModule, datasource_metadata, application_metadata, platform_metadata, platformapp_metadata);
+        ProcessingModule processingModule = new ProcessingModule(processingModuleName,
+                processingModuleDescription, inputParameters, inputStreams, outputStreams, algorithms);
+        ExecutionContext executionContext = new ExecutionContext(processingModule, datasource_metadata,
+                application_metadata, platform_metadata, platformapp_metadata);
 
-//        if(rawOrZip=="zip") {
-        DataStream dataStream = new DataStream("datastream", streamUUID.toString(), ownerUUID.toString(), streamName, datasource_dataDescriptors, executionContext, annotations);
+        DataStream dataStream = new DataStream("datastream", streamUUID.toString(), ownerUUID.toString(),
+                streamName, datasource_dataDescriptors, executionContext, annotations);
         return dataStream;
-//        }else{
-//            DataPoints dataPoints = new DataPoints("12345", "156789", "0101");
-//            List<DataPoints> dataPointsList = new ArrayList<DataPoints>();
-//            dataPointsList.add(dataPoints);
-//            DataStream dataStream = new DataStream(type, identifier, owner, name, dataDescriptors, executionContext, annotations, dataPointsList);
-//            return dataStream;
-//        }
-
     }
 
+    /**
+     * @param dsc <code>DataSourceClient</code>.
+     * @return The generated string.
+     */
     private String generateDSCString(DataSourceClient dsc) {
         String result = "";
 
@@ -176,26 +204,45 @@ public class MetadataBuilder {
             }
         }
 
-        if(dsc.getDataSource().getApplication()!=null)result += dsc.getDataSource().getApplication().getId();else result+="null";
-        if(dsc.getDataSource().getApplication()!=null)result += dsc.getDataSource().getApplication().getType();else result+="null";
+        if(dsc.getDataSource().getApplication()!=null)
+            result += dsc.getDataSource().getApplication().getId();
+        else
+            result += "null";
+        if(dsc.getDataSource().getApplication()!=null)
+            result += dsc.getDataSource().getApplication().getType();
+        else
+            result += "null";
+
         if (dsc.getDataSource().getApplication().getMetadata() != null) {
             for (Map.Entry<String, String> meta : dsc.getDataSource().getApplication().getMetadata().entrySet()) {
                 result += meta.getKey();
                 result += meta.getValue();
             }
         }
-        if(dsc.getDataSource().getPlatform()!=null)result += dsc.getDataSource().getPlatform().getId();else result+="null";
-        if(dsc.getDataSource().getPlatform()!=null)result += dsc.getDataSource().getPlatform().getType();else result+="null";
 
-        if (dsc.getDataSource().getPlatform()!=null && dsc.getDataSource().getPlatform().getMetadata() != null) {
+        if(dsc.getDataSource().getPlatform()!= null)
+            result += dsc.getDataSource().getPlatform().getId();
+        else
+            result += "null";
+        if(dsc.getDataSource().getPlatform()!= null)
+            result += dsc.getDataSource().getPlatform().getType();
+        else result += "null";
+
+        if(dsc.getDataSource().getPlatform()!= null && dsc.getDataSource().getPlatform().getMetadata() != null) {
             for (Map.Entry<String, String> meta : dsc.getDataSource().getPlatform().getMetadata().entrySet()) {
                 result += meta.getKey();
                 result += meta.getValue();
             }
         }
 
-        if(dsc.getDataSource().getPlatformApp()!=null)result += dsc.getDataSource().getPlatformApp().getId();else result+="null";
-        if(dsc.getDataSource().getPlatformApp()!=null)result += dsc.getDataSource().getPlatformApp().getType();else result+="null";
+        if(dsc.getDataSource().getPlatformApp()!=null)
+            result += dsc.getDataSource().getPlatformApp().getId();
+        else
+            result += "null";
+        if(dsc.getDataSource().getPlatformApp()!=null)
+            result += dsc.getDataSource().getPlatformApp().getType();
+        else
+            result += "null";
 
         if (dsc.getDataSource().getPlatformApp() != null) {
             if (dsc.getDataSource().getPlatformApp().getMetadata() != null) {
@@ -205,9 +252,6 @@ public class MetadataBuilder {
                 }
             }
         }
-
-
         return result;
     }
-
 }

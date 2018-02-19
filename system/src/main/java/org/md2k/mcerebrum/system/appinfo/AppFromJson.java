@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.appinfo;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.system.appinfo;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.appinfo;
+
 import android.content.Context;
 
 import com.github.javiersantos.appupdater.AppUpdaterUtils;
@@ -36,7 +37,15 @@ import com.github.javiersantos.appupdater.objects.Update;
 import rx.Observable;
 import rx.Subscriber;
 
+/**
+ *
+ */
 public class AppFromJson {
+    /**
+     * @param context Android context.
+     * @param downloadLink URL to download the application from.
+     * @return
+     */
     public Observable<VersionInfo> getVersion(final Context context, final String downloadLink) {
         return Observable.create(new Observable.OnSubscribe<VersionInfo>() {
             @Override
@@ -52,11 +61,11 @@ public class AppFromJson {
                             .withListener(new AppUpdaterUtils.UpdateListener() {
                                 @Override
                                 public void onSuccess(Update update, Boolean isUpdateAvailable) {
-                                    VersionInfo versionInfo=new VersionInfo();
-                                    versionInfo.versionName=update.getLatestVersion();
-                                    versionInfo.versionCode= update.getLatestVersionCode();
-                                    versionInfo.downloadURL=update.getUrlToDownload().toString();
-                                    versionInfo.releaseInfo=update.getReleaseNotes();
+                                    VersionInfo versionInfo = new VersionInfo();
+                                    versionInfo.versionName = update.getLatestVersion();
+                                    versionInfo.versionCode = update.getLatestVersionCode();
+                                    versionInfo.downloadURL = update.getUrlToDownload().toString();
+                                    versionInfo.releaseInfo = update.getReleaseNotes();
                                     subscriber.onNext(versionInfo);    // Pass on the data to subscriber
                                     subscriber.onCompleted();     // Signal about the completion subscriber
                                 }
@@ -74,5 +83,4 @@ public class AppFromJson {
             }
         });
     }
-
 }

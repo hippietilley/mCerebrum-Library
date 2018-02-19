@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.appinfo;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.system.appinfo;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.appinfo;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -49,9 +50,30 @@ import rx.Observable;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
+/**
+ * Provides methods for managing the installation of applications.
+ */
 public class AppInstall {
+    /** Code to verify request replies. <p>Default is 2000.</p>. */
     private static final int REQUEST_CODE = 2000;
 
+    /**
+     * Determines what type of app to download.
+     *
+     * <p>
+     *     Supported types are:
+     *     <ul>
+     *         <li><code>"market://"</code> which is downloaded from the Google Playstore.</li>
+     *         <li><code>".json"</code> which is installed through the <code>AppFromJson</code> class.</li>
+     *         <li><code>".apk"</code> which is downloaded and sideloaded.</li>
+     *     </ul>
+     *     If those cases fail, an unkown install type is returned.
+     * </p>
+     *
+     * @param context Android context.
+     * @param packageName Name of package to download.
+     * @return The installation type of the application to download.
+     */
     private static MCEREBRUM.APP.TYPE_DOWNLOAD getDownloadType(Context context, String packageName) {
         String d = AppCP.getDownloadLink(context, packageName);
         if (d == null) return MCEREBRUM.APP.TYPE_DOWNLOAD.UNKNOWN;
@@ -64,6 +86,12 @@ public class AppInstall {
         return MCEREBRUM.APP.TYPE_DOWNLOAD.UNKNOWN;
     }
 
+    /**
+     *
+     *
+     * @param context Android context.
+     * @param packageName Name of package
+     */
     public static void set(Context context, String packageName) {
         boolean isInstalled = AppInfo.isPackageInstalled(context, packageName);
         String currentVersion = null;
@@ -71,9 +99,13 @@ public class AppInstall {
             currentVersion = AppInfo.getVersionName(context, packageName);
         }
         AppCP.setInstalled(context, packageName, isInstalled, currentVersion);
-//        AppCP.setLatestVersion(context, packageName, AppCP.getExpectedVersion(context, packageName));
     }
 
+    /**
+     * @param context Android context.
+     * @param packageName Name of package
+     * @return
+     */
     public static boolean hasUpdate(Context context, String packageName) {
         //never update app
         String update = AppCP.getUpdate(context, packageName);
@@ -91,6 +123,11 @@ public class AppInstall {
         return true;
     }
 
+    /**
+     * @param context Android context.
+     * @param packageName Name of package
+     * @return
+     */
     public static Observable<Boolean> checkUpdate(final Context context, final String packageName) {
         String update = AppCP.getUpdate(context, packageName);
         if (update == null || update.equalsIgnoreCase(MCEREBRUM.APP.UPDATE_TYPE_NEVER))
@@ -113,6 +150,11 @@ public class AppInstall {
             }
         });
     }
+
+    /**
+     * @param context Android context.
+     * @return
+     */
     public static Observable<Boolean> checkUpdate(Context context){
         ArrayList<String> p = AppBasicInfo.get(context);
         ArrayList<Observable<Boolean>> o=new ArrayList<>();
@@ -123,6 +165,11 @@ public class AppInstall {
     }
 
 
+    /**
+     * @param activity
+     * @param packageName
+     * @return
+     */
     public static Observable<DownloadInfo> install(final Activity activity, String packageName) {
         final String dirName = Storage.getRootDirectory(activity, StorageType.SDCARD_INTERNAL) + "/mCerebrum/temp";
         final String fileName = "temp.apk";
@@ -166,6 +213,11 @@ public class AppInstall {
     }
 
 
+    /**
+     * @param activity
+     * @param packageName
+     * @param requestCode
+     */
     public static void uninstall(Activity activity, String packageName, int requestCode) {
         AppUtils.uninstallApp(activity, packageName, requestCode);
     }
@@ -178,14 +230,18 @@ public class AppInstall {
         }
         return true;
     }
+
+    /**
+     * @param context Android context.
+     * @return
+     */
     public static int[] getInstallStatus(Context context) {
         int result[] = new int[3];
         result[0] = 0;
         result[1] = 0;
         result[2] = 0;
-        ArrayList<String> packageNames=AppBasicInfo.get(context);
+        ArrayList<String> packageNames = AppBasicInfo.get(context);
 
-//        if (appCPs == null) return result;
         for (int i = 0; i < packageNames.size(); i++) {
             if (!AppCP.getInstalled(context, packageNames.get(i)))
                 result[2]++;
@@ -196,21 +252,42 @@ public class AppInstall {
         return result;
     }
 
+    /**
+     * @param context Android context.
+     * @param packageName Name of package
+     * @return
+     */
     public static String getCurrentVersion(Context context, String packageName) {
         String versionName = AppCP.getCurrentVersion(context, packageName);
         if(versionName==null) versionName="not installed";
         return versionName;
     }
 
+    /**
+     * @param context Android context.
+     * @param packageName Name of package
+     * @return
+     */
     public static String getLatestVersion(Context context, String packageName) {
-        String lastVersionName= AppCP.getLatestVersion(context, packageName);
-        if(lastVersionName==null) lastVersionName="up-to-date";
+        String lastVersionName = AppCP.getLatestVersion(context, packageName);
+        if(lastVersionName == null) lastVersionName="up-to-date";
         return lastVersionName;
     }
 
+    /**
+     *
+     * @param context Android context.
+     * @param packageName Name of package
+     * @return
+     */
     public static boolean getInstalled(Context context, String packageName) {
         return AppCP.getInstalled(context, packageName);
     }
+
+    /**
+     * @param context Android context.
+     * @return
+     */
     public static boolean isCoreInstalled(Context context) {
         ArrayList<String> apps = AppBasicInfo.getStudy(context);
         if(apps==null || apps.size()==0) return false;
@@ -220,28 +297,46 @@ public class AppInstall {
         if(!AppInstall.getInstalled(context, app)) return false;
         return true;
     }
+
+    /**
+     * @param context Android context.
+     * @return
+     */
     public static ArrayList<String> getRequiredAppNotInstalled(Context context) {
         ArrayList<String> packageNames=AppBasicInfo.get(context);
         ArrayList<String> list=new ArrayList<>();
-        for(int i=0;i<packageNames.size();i++) {
+        for(int i = 0; i < packageNames.size(); i++) {
             String useAs = AppCP.getUseAs(context, packageNames.get(i));
-            if (useAs == null || !useAs.equalsIgnoreCase(MCEREBRUM.APP.USE_AS_REQUIRED)) continue;
-            if(AppCP.getInstalled(context, packageNames.get(i))) continue;
+            if (useAs == null || !useAs.equalsIgnoreCase(MCEREBRUM.APP.USE_AS_REQUIRED))
+                continue;
+            if(AppCP.getInstalled(context, packageNames.get(i)))
+                continue;
             list.add(packageNames.get(i));
         }
         return list;
     }
 
+    /**
+     *
+     *
+     * @param context Android context.
+     */
     public static void set(Context context) {
         ArrayList<String> apps = AppBasicInfo.get(context);
-        for(int i=0;i<apps.size();i++)
+        for(int i = 0; i < apps.size(); i++)
             set(context, apps.get(i));
     }
 
+    /**
+     * Counts the number of apps that have an update available.
+     *
+     * @param context Android context.
+     * @return The number of apps that have an update available.
+     */
     public static int hasUpdate(Context context) {
-        int count=0;
+        int count = 0;
         ArrayList<String> apps = AppBasicInfo.get(context);
-        for(int i=0;i<apps.size();i++)
+        for(int i = 0; i < apps.size(); i++)
             if(hasUpdate(context, apps.get(i)))
                 count++;
         return count;
