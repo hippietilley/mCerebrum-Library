@@ -44,7 +44,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 
 /**
- *
+ * Provides utility methods for the Cerebral Cortex Web API.
  */
 public class ApiUtils {
     /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
@@ -61,7 +61,9 @@ public class ApiUtils {
     }
 
     /**
-     * @param body
+     * Writes the given response to the local disk.
+     *
+     * @param body Response from the Cerebral Cortex server.
      * @param fileName Name of the file to write to.
      * @return Whether the writing was successful or not.
      */
@@ -108,6 +110,8 @@ public class ApiUtils {
     }
 
     /**
+     * Creates a file to upload to the server as a multipart request.
+     *
      * @param filePath File path of the
      * @return
      */
