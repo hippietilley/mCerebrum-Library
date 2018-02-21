@@ -88,11 +88,9 @@ public class Algorithm {
     private Reference reference;
 
     /**
-     * No args constructor for use in serialization
-     *
+     * No argument constructor for use in serialization
      */
-    public Algorithm() {
-    }
+    public Algorithm() {}
 
     /**
      * Constructor
