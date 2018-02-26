@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.download;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.core.internet.download;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.download;
+
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
@@ -33,9 +34,17 @@ import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 import rx.Observable;
 
+/**
+ * Retrofit interface for downloading files via RxJava.
+ */
 public interface RetrofitInterface {
 
-    // Retrofit 2 GET request for rxjava
+    /**
+     * Retrofit get request for downloading a file via rxjava.
+     *
+     * @param fileUrl URL of the file to download.
+     * @return A reponse observer.
+     */
     @Streaming
     @GET
     Observable<Response<ResponseBody>> downloadFileByUrlRx(@Url String fileUrl);
