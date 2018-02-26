@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.download;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.core.internet.download;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.download;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,25 +46,55 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
 
+/**
+ * Provides methods for downloading a file.
+ */
 public class DownloadFile {
+    /**
+     * Creates a download service to download the file from <code>source</code>.
+     *
+     * @param source Source of the file to download.
+     * @param destinationPath Destination path for the downloaded file.
+     * @param destinationFile File the download is saved as.
+     * @return A <code>DownloadInfo</code> observer.
+     */
     public Observable<DownloadInfo> download(String source, String destinationPath, String destinationFile) {
         Observable<DownloadInfo> observable;
         try {
             String[] parts = getParts(source);
             RetrofitInterface downloadService = createService(RetrofitInterface.class, parts[0]);
-            observable = downloadService.downloadFileByUrlRx(parts[1])//.subscribeOn(Schedulers.newThread())
+            observable = downloadService.downloadFileByUrlRx(parts[1])
                     .flatMap(processResponse(destinationPath, destinationFile));
         } catch (MalformedURLException e) {
             return Observable.error(e);
         }
         return observable.throttleLast(500, TimeUnit.MILLISECONDS).onBackpressureLatest();
-
     }
-    private Func1<Response<ResponseBody>, Observable<DownloadInfo>> processResponse(final String destinationPath, final String destinationFile) {
+
+    /**
+     * Processes a response from the API.
+     *
+     * @param destinationPath Destination path for the downloaded file.
+     * @param destinationFile File the download is saved as.
+     * @return A <code>ResponseBody</code>.
+     */
+    private Func1<Response<ResponseBody>, Observable<DownloadInfo>> processResponse(final String destinationPath,
+                                                                                    final String destinationFile) {
         return new Func1<Response<ResponseBody>, Observable<DownloadInfo>>() {
+
+            /**
+             * Creates an observer that waits to download a file.
+             * @param responseBodyResponse The <code>ResponseBody</code> specifying the file to download.
+             * @return A <code>DownloadInfo</code> observer.
+             */
             @Override
             public Observable<DownloadInfo> call(final Response<ResponseBody> responseBodyResponse) {
                 return Observable.create(new Observable.OnSubscribe<DownloadInfo>() {
+
+                    /**
+                     * Tries to download the file specified in the <code>ResponseBody</code>.
+                     * @param subscriber <code>DownloadInfo</code> subscriber.
+                     */
                     @Override
                     public void call(Subscriber<? super DownloadInfo> subscriber) {
                         try {
@@ -76,7 +107,18 @@ public class DownloadFile {
             }
         };
     }
-    private void downloadFile(ResponseBody body, Subscriber<? super DownloadInfo> subscriber, String destinationPath, String destinationFile) throws IOException {
+
+    /**
+     * Saves a file to disk as it's downloaded.
+     *
+     * @param body <code>ResponseBody</code>.
+     * @param subscriber <code>DownloadInfo</code> subscriber.
+     * @param destinationPath Destination path for the downloaded file.
+     * @param destinationFile File the download is saved as.
+     * @throws IOException
+     */
+    private void downloadFile(ResponseBody body, Subscriber<? super DownloadInfo> subscriber, String destinationPath,
+                              String destinationFile) throws IOException {
         int count;
         byte data[] = new byte[1024 * 4];
         long totalSize = body.contentLength();
@@ -85,12 +127,14 @@ public class DownloadFile {
         File outputFile = new File(destinationPath, destinationFile);
         OutputStream output = new FileOutputStream(outputFile);
         long curSize = 0;
+
         while ((count = bis.read(data)) != -1) {
             curSize += count;
             DownloadInfo downloadInfo = new DownloadInfo(totalSize,curSize, false);
             output.write(data, 0, count);
             subscriber.onNext(downloadInfo);
         }
+
         DownloadInfo downloadInfo = new DownloadInfo(totalSize,curSize,true);
         output.close();
         bis.close();
@@ -98,20 +142,35 @@ public class DownloadFile {
         subscriber.onCompleted();
     }
 
+    /**
+     * Converts a file path into an array of its parts.
+     *
+     * @param path File path to convert.
+     * @return An array containing the parts of the file path.
+     * @throws MalformedURLException
+     */
     private String[] getParts(String path) throws MalformedURLException {
-        String parts[]=new String[2];
-        URL aURL=new URL(path);
-        parts[1]=aURL.getFile().substring(1);
-        parts[0]=aURL.getProtocol()+"://"+aURL.getAuthority()+"/";
+        String parts[] = new String[2];
+        URL aURL = new URL(path);
+        parts[1] = aURL.getFile().substring(1);
+        parts[0] = aURL.getProtocol() + "://" + aURL.getAuthority() + "/";
         return parts;
     }
 
+    /**
+     * Creates an API implemenation for the given class and URL.
+     *
+     * @param serviceClass
+     * @param baseUrl
+     * @param <T>
+     * @return
+     */
     private <T> T createService(Class<T> serviceClass, String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(new OkHttpClient.Builder().build())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-        .build();
+                .build();
         return retrofit.create(serviceClass);
     }
 }
