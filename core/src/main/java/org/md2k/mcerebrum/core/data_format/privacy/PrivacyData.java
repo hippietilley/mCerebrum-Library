@@ -1,10 +1,6 @@
-package org.md2k.mcerebrum.core.data_format.privacy;
-
-import java.util.ArrayList;
-
-/**
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,40 +24,80 @@ import java.util.ArrayList;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.core.data_format.privacy;
+
+import java.util.ArrayList;
+
+/**
+ *
+ */
 public class PrivacyData {
     Duration duration;
     ArrayList<PrivacyType> privacyTypes;
     long startTimeStamp;
     boolean status;
 
+    /**
+     * Returns the duration of the privacy.
+     * @return The duration of the privacy.
+     */
     public Duration getDuration() {
         return duration;
     }
 
+    /**
+     * Sets the duration of the privacy.
+     * @param duration The duration of the privacy.
+     */
     public void setDuration(Duration duration) {
         this.duration = duration;
     }
 
+    /**
+     * Returns a list of privacy types.
+     * @return A list of privacy types.
+     */
     public ArrayList<PrivacyType> getPrivacyTypes() {
         return privacyTypes;
     }
 
+    /**
+     * Sets a list of privacy types.
+     * @param privacyTypes A list of privacy types.
+     */
     public void setPrivacyTypes(ArrayList<PrivacyType> privacyTypes) {
         this.privacyTypes = privacyTypes;
     }
 
+    /**
+     * Returns the starting timestamp.
+     * @return The starting timestamp.
+     */
     public long getStartTimeStamp() {
         return startTimeStamp;
     }
 
+    /**
+     * Sets the starting timestamp.
+     * @param startTimeStamp The starting timestamp.
+     */
     public void setStartTimeStamp(long startTimeStamp) {
         this.startTimeStamp = startTimeStamp;
     }
 
+    /**
+     * Returns the status.
+     * @return The status.
+     */
     public boolean isStatus() {
         return status;
     }
 
+    /**
+     * Sets the status.
+     * @param status The new status.
+     */
     public void setStatus(boolean status) {
         this.status = status;
     }
