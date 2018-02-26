@@ -54,6 +54,9 @@ import rx.schedulers.Schedulers;
  * Provides methods for managing the installation of applications.
  */
 public class AppInstall {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
+    private static final String TAG = AppInstall.class.getSimpleName();
+
     /** Code to verify request replies. <p>Default is 2000.</p>. */
     private static final int REQUEST_CODE = 2000;
 
@@ -87,7 +90,7 @@ public class AppInstall {
     }
 
     /**
-     *
+     * Sets the values of <code>isInstalled</code> and <code>currentVersion</code> if applicable.
      *
      * @param context Android context.
      * @param packageName Name of package
@@ -102,21 +105,34 @@ public class AppInstall {
     }
 
     /**
+     * Checks for an app update depending on the update settings.
+     *
+     * <p>
+     *     If the app is set to never update, is not installed, or update information is unavailable
+     *     then this method returns false.
+     * </p>
+     *
      * @param context Android context.
      * @param packageName Name of package
-     * @return
+     * @return Whether the app has an update or not.
      */
     public static boolean hasUpdate(Context context, String packageName) {
         //never update app
         String update = AppCP.getUpdate(context, packageName);
         if (update == null || update.equalsIgnoreCase(MCEREBRUM.APP.UPDATE_TYPE_NEVER))
             return false;
+
         //App not installed
         boolean installed = AppCP.getInstalled(context, packageName);
-        if (!installed) return false;
+        if (!installed)
+            return false;
+
         // No update information
-        if (AppCP.getLatestVersion(context, packageName) == null) return false;
-        if(AppCP.getCurrentVersion(context, packageName)==null) return false;
+        if (AppCP.getLatestVersion(context, packageName) == null)
+            return false;
+        if(AppCP.getCurrentVersion(context, packageName) == null)
+            return false;
+
         //Compare update and current
         if (AppCP.getCurrentVersion(context, packageName).equalsIgnoreCase(AppCP.getLatestVersion(context, packageName)))
             return false;
@@ -124,27 +140,47 @@ public class AppInstall {
     }
 
     /**
+     * Checks for an app update.
+     *
+     * <p>
+     *     If the app is set to never update, is not installed, or update information is unavailable
+     *     then this method returns <code>Observable.just(false)</code>.
+     * </p>
+     *
      * @param context Android context.
      * @param packageName Name of package
-     * @return
+     * @return A boolean observer.
      */
     public static Observable<Boolean> checkUpdate(final Context context, final String packageName) {
         String update = AppCP.getUpdate(context, packageName);
+
         if (update == null || update.equalsIgnoreCase(MCEREBRUM.APP.UPDATE_TYPE_NEVER))
             return Observable.just(false);
+
         String expectedVersion = AppCP.getExpectedVersion(context, packageName);
+
         if (expectedVersion != null) {
             AppCP.setLatestVersion(context, packageName, expectedVersion);
             return Observable.just(hasUpdate(context, packageName));
         }
+
         if (!getDownloadType(context, packageName).equals(MCEREBRUM.APP.TYPE_DOWNLOAD.JSON))
             return Observable.just(false);
-        return new AppFromJson().getVersion(context, AppCP.getDownloadLink(context, packageName)).map(new Func1<VersionInfo, Boolean>() {
+
+        return new AppFromJson().getVersion(context, AppCP.getDownloadLink(context, packageName))
+                                .map(new Func1<VersionInfo, Boolean>() {
+            /**
+             * Logs the version information of the app and calls <code>hasUpdate</code>.
+             *
+             * @param versionInfo Version information for the app.
+             * @return Whether the app has an update or not.
+             */
             @Override
             public Boolean call(VersionInfo versionInfo) {
-                Log.d("abc",packageName+" versionInfo = "+versionInfo);
-                if(versionInfo==null) return false;
-                Log.d("abc",packageName+" versionInfo = "+versionInfo.versionName);
+                Log.d(TAG, packageName + " versionInfo = " + versionInfo);
+                if(versionInfo == null)
+                    return false;
+                Log.d(TAG, packageName + " versionInfo = " + versionInfo.versionName);
                 AppCP.setLatestVersion(context, packageName, versionInfo.versionName);
                 return hasUpdate(context, packageName);
             }
@@ -152,13 +188,15 @@ public class AppInstall {
     }
 
     /**
+     * Checks for multiple app updates and merges the resulting <code>Observables</code>.
+     *
      * @param context Android context.
-     * @return
+     * @return A merged boolean observer.
      */
     public static Observable<Boolean> checkUpdate(Context context){
         ArrayList<String> p = AppBasicInfo.get(context);
-        ArrayList<Observable<Boolean>> o=new ArrayList<>();
-        for(int i=0;i<p.size();i++){
+        ArrayList<Observable<Boolean>> o = new ArrayList<>();
+        for(int i = 0; i < p.size(); i++){
             o.add(checkUpdate(context, p.get(i)));
         }
         return Observable.merge(o);
@@ -166,14 +204,17 @@ public class AppInstall {
 
 
     /**
-     * @param activity
-     * @param packageName
-     * @return
+     * Fetches the download information and installs the given package.
+     *
+     * @param activity Current activity.
+     * @param packageName Name of the package to install.
+     * @return A <code>DownloadInfo</code> observer.
      */
     public static Observable<DownloadInfo> install(final Activity activity, String packageName) {
         final String dirName = Storage.getRootDirectory(activity, StorageType.SDCARD_INTERNAL) + "/mCerebrum/temp";
         final String fileName = "temp.apk";
         Observable<VersionInfo> observable = null;
+
         switch (getDownloadType(activity, packageName)) {
             case PLAYSTORE:
                 Intent goToMarket = new Intent(Intent.ACTION_VIEW)
@@ -181,9 +222,11 @@ public class AppInstall {
                 goToMarket.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivityForResult(goToMarket, REQUEST_CODE);
                 return Observable.just(new DownloadInfo(0, 0, true));
+
             case JSON:
                 observable = new AppFromJson().getVersion(activity, AppCP.getDownloadLink(activity, packageName));
                 break;
+
             case URL:
                 VersionInfo versionInfo = new VersionInfo();
                 versionInfo.downloadURL = AppCP.getDownloadLink(activity, packageName);
@@ -192,19 +235,35 @@ public class AppInstall {
         }
         if (observable != null) {
             return observable.flatMap(new Func1<VersionInfo, Observable<DownloadInfo>>() {
+                /**
+                 * Downloads the needed install files.
+                 *
+                 * @param versionInfo Version information for the app
+                 * @return A <code>DownloadInfo</code> observer.
+                 */
                 @Override
                 public Observable<DownloadInfo> call(VersionInfo versionInfo) {
                     if (versionInfo == null) {
                         return Observable.just(null);
                     }
-                    return new DownloadFile().download(versionInfo.downloadURL, dirName, fileName).subscribeOn(Schedulers.computation());
+                    return new DownloadFile().download(versionInfo.downloadURL, dirName, fileName)
+                            .subscribeOn(Schedulers.computation());
                 }
             }).map(new Func1<DownloadInfo, DownloadInfo>() {
+                /**
+                 * Gets new <code>DownloadInfo</code> if needed and then calls
+                 * <code>AppUtils.installApp()</code> to install the app.
+                 *
+                 * @param downloadInfo Download information
+                 * @return
+                 */
                 @Override
                 public DownloadInfo call(DownloadInfo downloadInfo) {
-                    if(downloadInfo==null) return new DownloadInfo(0,0,true);
+                    if(downloadInfo == null)
+                        return new DownloadInfo(0,0,true);
                     if (downloadInfo.isCompleted()) {
-                        AppUtils.installApp(activity, dirName + "/" + fileName, "org.md2k.mcerebrum.provider_file", REQUEST_CODE);
+                        AppUtils.installApp(activity, dirName + "/" + fileName,
+                                "org.md2k.mcerebrum.provider_file", REQUEST_CODE);
                     }
                     return downloadInfo;
                 }
@@ -214,26 +273,40 @@ public class AppInstall {
 
 
     /**
-     * @param activity
-     * @param packageName
-     * @param requestCode
+     * Calls on <code>AppUtils.uninstallApp()</code> to uninstall the named app.
+     *
+     * @param activity Current activity.
+     * @param packageName Name of the package.
+     * @param requestCode Request verification code. Should be 2000.
      */
     public static void uninstall(Activity activity, String packageName, int requestCode) {
         AppUtils.uninstallApp(activity, packageName, requestCode);
     }
+
+    /**
+     * Checks whether the required apps are installed.
+     *
+     * @param context Android context.
+     * @return Whether the required apps are installed or not.
+     */
     public static boolean isRequiredAppInstalled(Context context) {
-        ArrayList<String> packageNames= AppBasicInfo.get(context);
-        for(int i=0;i<packageNames.size();i++) {
+        ArrayList<String> packageNames = AppBasicInfo.get(context);
+        for(int i = 0; i < packageNames.size(); i++) {
             String useAs = AppCP.getUseAs(context, packageNames.get(i));
-            if (useAs == null || !useAs.equalsIgnoreCase(MCEREBRUM.APP.USE_AS_REQUIRED)) continue;
-            if (!AppCP.getInstalled(context, packageNames.get(i))) return false;
+            if (useAs == null || !useAs.equalsIgnoreCase(MCEREBRUM.APP.USE_AS_REQUIRED))
+                continue;
+            if (!AppCP.getInstalled(context, packageNames.get(i)))
+                return false;
         }
         return true;
     }
 
     /**
+     * Gets the number of installed apps, apps with updates, and total apps.
+     *
      * @param context Android context.
-     * @return
+     * @return An integer array with the total number of apps that are required, number of apps with
+     * updates and number of apps that are not installed.
      */
     public static int[] getInstallStatus(Context context) {
         int result[] = new int[3];
@@ -253,58 +326,73 @@ public class AppInstall {
     }
 
     /**
+     * Returns the current version of the package.
+     *
      * @param context Android context.
-     * @param packageName Name of package
-     * @return
+     * @param packageName Name of package.
+     * @return The current version of the package.
      */
     public static String getCurrentVersion(Context context, String packageName) {
         String versionName = AppCP.getCurrentVersion(context, packageName);
-        if(versionName==null) versionName="not installed";
+        if(versionName == null)
+            versionName = "not installed";
         return versionName;
     }
 
     /**
+     * Returns the latest version name of the package.
+     *
      * @param context Android context.
      * @param packageName Name of package
-     * @return
+     * @return The last version. If the package is already the latest version, it returns <code>"up-to-date"</code>.
      */
     public static String getLatestVersion(Context context, String packageName) {
         String lastVersionName = AppCP.getLatestVersion(context, packageName);
-        if(lastVersionName == null) lastVersionName="up-to-date";
+        if(lastVersionName == null)
+            lastVersionName = "up-to-date";
         return lastVersionName;
     }
 
     /**
+     * Returns whether the passed package is installed or not.
      *
      * @param context Android context.
      * @param packageName Name of package
-     * @return
+     * @return Whether the named package is installed or not.
      */
     public static boolean getInstalled(Context context, String packageName) {
         return AppCP.getInstalled(context, packageName);
     }
 
     /**
+     * Checks for Study apps and DataKit installations.
+     *
      * @param context Android context.
-     * @return
+     * @return Whether Study or DataKit have installed applications.
      */
     public static boolean isCoreInstalled(Context context) {
         ArrayList<String> apps = AppBasicInfo.getStudy(context);
-        if(apps==null || apps.size()==0) return false;
-        if(!AppInstall.getInstalled(context, apps.get(0))) return false;
+        if(apps == null || apps.size() == 0)
+            return false;
+        if(!AppInstall.getInstalled(context, apps.get(0)))
+            return false;
         String app = AppBasicInfo.getDataKit(context);
-        if(app==null) return false;
-        if(!AppInstall.getInstalled(context, app)) return false;
+        if(app == null)
+            return false;
+        if(!AppInstall.getInstalled(context, app))
+            return false;
         return true;
     }
 
     /**
+     * Returns a list of apps tat are required, but not installed.
+     *
      * @param context Android context.
-     * @return
+     * @return A list of apps that are required, but not installed.
      */
     public static ArrayList<String> getRequiredAppNotInstalled(Context context) {
-        ArrayList<String> packageNames=AppBasicInfo.get(context);
-        ArrayList<String> list=new ArrayList<>();
+        ArrayList<String> packageNames = AppBasicInfo.get(context);
+        ArrayList<String> list = new ArrayList<>();
         for(int i = 0; i < packageNames.size(); i++) {
             String useAs = AppCP.getUseAs(context, packageNames.get(i));
             if (useAs == null || !useAs.equalsIgnoreCase(MCEREBRUM.APP.USE_AS_REQUIRED))
@@ -317,7 +405,7 @@ public class AppInstall {
     }
 
     /**
-     *
+     * Sets the values of <code>isInstalled</code> and <code>currentVersion</code> for multiple apps.
      *
      * @param context Android context.
      */
