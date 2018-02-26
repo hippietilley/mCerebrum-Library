@@ -33,7 +33,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- *
+ * <code>Algorithm</code> object
  */
 public class Algorithm {
 

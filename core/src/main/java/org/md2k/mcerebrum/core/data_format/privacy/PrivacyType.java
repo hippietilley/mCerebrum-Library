@@ -32,7 +32,7 @@ import org.md2k.datakitapi.source.datasource.DataSource;
 import java.util.ArrayList;
 
 /**
- * 
+ *
  */
 public class PrivacyType {
     String id;

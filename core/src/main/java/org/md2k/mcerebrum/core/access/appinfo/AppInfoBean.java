@@ -1,6 +1,32 @@
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.md2k.mcerebrum.core.access.appinfo;
 
-// @formatter:off
 import org.md2k.mcerebrum.core.access.base.BaseModel;
 
 import java.util.Date;
@@ -45,7 +71,11 @@ class AppInfoBean implements AppInfoModel {
     private Boolean mDatakitConnected;
 
     /**
-     * Primary key.
+     * Returns this application id.
+     * <p>
+     *     Used as the primary key.
+     * </p>
+     * @return The application id.
      */
     @Override
     public long getId() {
@@ -53,15 +83,19 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Primary key.
+     * Sets this application id.
+     * <p>
+     *     Used as the primary key.
+     * </p>
+     * @param id The application id.
      */
     public void setId(long id) {
         mId = id;
     }
 
     /**
-     * Get the {@code package_name} value.
-     * Can be {@code null}.
+     * Returns the name of this package.
+     * @return The name of the package.
      */
     @Nullable
     @Override
@@ -70,16 +104,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code package_name} value.
-     * Can be {@code null}.
+     * Sets the name of this package.
+     * @param packageName New package name.
      */
     public void setPackageName(@Nullable String packageName) {
         mPackageName = packageName;
     }
 
     /**
-     * MCEREBRUM, STUDY, DATAKIT,any other string
-     * Can be {@code null}.
+     * Returns the type of this application.
+     * @return The type of this application.
      */
     @Nullable
     @Override
@@ -88,16 +122,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * MCEREBRUM, STUDY, DATAKIT,any other string
-     * Can be {@code null}.
+     * Sets the type of this application.
+     * @param type New application type.
      */
     public void setType(@Nullable String type) {
         mType = type;
     }
 
     /**
-     * Get the {@code title} value.
-     * Can be {@code null}.
+     * Returns the title of this application.
+     * @return The title of this application.
      */
     @Nullable
     @Override
@@ -106,16 +140,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code title} value.
-     * Can be {@code null}.
+     * Sets the title of this application.
+     * @param title The new title of this application.
      */
     public void setTitle(@Nullable String title) {
         mTitle = title;
     }
 
     /**
-     * Get the {@code summary} value.
-     * Can be {@code null}.
+     * Returns the summary of this application.
+     * @return The summary of this application.
      */
     @Nullable
     @Override
@@ -124,16 +158,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code summary} value.
-     * Can be {@code null}.
+     * Sets the summary of this application.
+     * @param summary The new summary of this application.
      */
     public void setSummary(@Nullable String summary) {
         mSummary = summary;
     }
 
     /**
-     * Get the {@code description} value.
-     * Can be {@code null}.
+     * Returns the description of this application.
+     * @return The application description.
      */
     @Nullable
     @Override
@@ -142,16 +176,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code description} value.
-     * Can be {@code null}.
+     * Sets the description of this application.
+     * @param description The description of the application.
      */
     public void setDescription(@Nullable String description) {
         mDescription = description;
     }
 
     /**
-     * Get the {@code use_in_study} value.
-     * Can be {@code null}.
+     * Return whether this application is used in <code>Study</code>.
+     * @return Whether this application is used in <code>Study</code>.
      */
     @Nullable
     @Override
@@ -160,16 +194,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code use_in_study} value.
-     * Can be {@code null}.
+     * Sets whether this application is used in <code>Study</code>.
+     * @param useInStudy Whether this application is used in <code>Study</code>.
      */
     public void setUseInStudy(@Nullable Boolean useInStudy) {
         mUseInStudy = useInStudy;
     }
 
     /**
-     * not in use, required, optional
-     * Can be {@code null}.
+     * Returns what this app is used as.
+     * @return Either required, optional, or not in use.
      */
     @Nullable
     @Override
@@ -178,16 +212,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * not in use, required, optional
-     * Can be {@code null}.
+     * Sets whether this app is required, optional or not in use.
+     * @param useAs Either required, optional, or not in use.
      */
     public void setUseAs(@Nullable String useAs) {
         mUseAs = useAs;
     }
 
     /**
-     * Get the {@code installed} value.
-     * Can be {@code null}.
+     * Returns whether this application is installed or not.
+     * @returns Whether this application is installed or not.
      */
     @Nullable
     @Override
@@ -196,16 +230,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code installed} value.
-     * Can be {@code null}.
+     * Sets whether this application is installed or not.
+     * @param installed Whether this application is installed or not.
      */
     public void setInstalled(@Nullable Boolean installed) {
         mInstalled = installed;
     }
 
     /**
-     * Get the {@code download_link} value.
-     * Can be {@code null}.
+     * Returns the download link for this application.
+     * @return The download link for this application.
      */
     @Nullable
     @Override
@@ -214,16 +248,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code download_link} value.
-     * Can be {@code null}.
+     * Sets the download link for this application.
+     * @param downloadLink The download link for this application.
      */
     public void setDownloadLink(@Nullable String downloadLink) {
         mDownloadLink = downloadLink;
     }
 
     /**
-     * NOTIFY, AUTO, MANUAL
-     * Can be {@code null}.
+     * Returns the update preferences for this application.
+     * @return The update preferences for this application.
      */
     @Nullable
     @Override
@@ -232,16 +266,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * NOTIFY, AUTO, MANUAL
-     * Can be {@code null}.
+     * Sets the update preferences for this application.
+     * @param updates New update preferences.
      */
     public void setUpdates(@Nullable String updates) {
         mUpdates = updates;
     }
 
     /**
-     * Get the {@code current_version} value.
-     * Can be {@code null}.
+     * Returns the current application version.
+     * @return The current version of this application.
      */
     @Nullable
     @Override
@@ -250,16 +284,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code current_version} value.
-     * Can be {@code null}.
+     * Sets the current application version.
+     * @param currentVersion New current version of this application.
      */
     public void setCurrentVersion(@Nullable String currentVersion) {
         mCurrentVersion = currentVersion;
     }
 
     /**
-     * Get the {@code latest_version} value.
-     * Can be {@code null}.
+     * Returns the latest version of this application.
+     * @return The latest version of this application.
      */
     @Nullable
     @Override
@@ -268,16 +302,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code latest_version} value.
-     * Can be {@code null}.
+     * Sets the latest version of this application.
+     * @param latestVersion The latest version of this application.
      */
     public void setLatestVersion(@Nullable String latestVersion) {
         mLatestVersion = latestVersion;
     }
 
     /**
-     * Get the {@code expected_version} value.
-     * Can be {@code null}.
+     * Returns the expected version of this application.
+     * @return The expected version of this application.
      */
     @Nullable
     @Override
@@ -286,16 +320,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code expected_version} value.
-     * Can be {@code null}.
+     * Sets the expected version of this application.
+     * @param expectedVersion The expected version of this application.
      */
     public void setExpectedVersion(@Nullable String expectedVersion) {
         mExpectedVersion = expectedVersion;
     }
 
     /**
-     * Get the {@code icon} value.
-     * Can be {@code null}.
+     * Returns the filepath for this application's icon.
+     * @return The filepath for this application's icon.
      */
     @Nullable
     @Override
@@ -304,16 +338,16 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code icon} value.
-     * Can be {@code null}.
+     * Sets the filepath for this application's icon.
+     * @param icon The filepath for this application's icon.
      */
     public void setIcon(@Nullable String icon) {
         mIcon = icon;
     }
 
     /**
-     * Get the {@code mcerebrum_supported} value.
-     * Can be {@code null}.
+     * Returns whether mCerebrum is supported by this application.
+     * @return Whether mCerebrum is supported by this application.
      */
     @Nullable
     @Override
@@ -322,16 +356,15 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code mcerebrum_supported} value.
-     * Can be {@code null}.
+     * Sets whether mCerebrum is supported by this application.
+     * @param mcerebrumSupported Whether mCerebrum is supported by this application.
      */
     public void setMcerebrumSupported(@Nullable Boolean mcerebrumSupported) {
         mMcerebrumSupported = mcerebrumSupported;
     }
 
     /**
-     * Get the {@code func_initialize} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -340,16 +373,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_initialize} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncInitialize(@Nullable String funcInitialize) {
         mFuncInitialize = funcInitialize;
     }
 
     /**
-     * Get the {@code initialized} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -358,16 +389,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code initialized} value.
-     * Can be {@code null}.
+     *
      */
     public void setInitialized(@Nullable Boolean initialized) {
         mInitialized = initialized;
     }
 
     /**
-     * Get the {@code func_update_info} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -376,16 +405,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_update_info} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncUpdateInfo(@Nullable String funcUpdateInfo) {
         mFuncUpdateInfo = funcUpdateInfo;
     }
 
     /**
-     * Get the {@code func_configure} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -394,16 +421,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_configure} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncConfigure(@Nullable String funcConfigure) {
         mFuncConfigure = funcConfigure;
     }
 
     /**
-     * Get the {@code configured} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -412,16 +437,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code configured} value.
-     * Can be {@code null}.
+     *
      */
     public void setConfigured(@Nullable Boolean configured) {
         mConfigured = configured;
     }
 
     /**
-     * Get the {@code configure_match} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -430,16 +453,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code configure_match} value.
-     * Can be {@code null}.
+     *
      */
     public void setConfigureMatch(@Nullable Boolean configureMatch) {
         mConfigureMatch = configureMatch;
     }
 
     /**
-     * Get the {@code func_permission} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -448,16 +469,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_permission} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncPermission(@Nullable String funcPermission) {
         mFuncPermission = funcPermission;
     }
 
     /**
-     * Get the {@code permission_ok} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -466,16 +485,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code permission_ok} value.
-     * Can be {@code null}.
+     *
      */
     public void setPermissionOk(@Nullable Boolean permissionOk) {
         mPermissionOk = permissionOk;
     }
 
     /**
-     * Get the {@code func_background} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -484,16 +501,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_background} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncBackground(@Nullable String funcBackground) {
         mFuncBackground = funcBackground;
     }
 
     /**
-     * Get the {@code background_running_time} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -502,16 +517,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code background_running_time} value.
-     * Can be {@code null}.
+     *
      */
     public void setBackgroundRunningTime(@Nullable Boolean backgroundRunningTime) {
         mBackgroundRunningTime = backgroundRunningTime;
     }
 
     /**
-     * Get the {@code is_background_running} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -520,16 +533,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code is_background_running} value.
-     * Can be {@code null}.
+     *
      */
     public void setIsBackgroundRunning(@Nullable Boolean isBackgroundRunning) {
         mIsBackgroundRunning = isBackgroundRunning;
     }
 
     /**
-     * Get the {@code func_report} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -538,16 +549,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_report} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncReport(@Nullable String funcReport) {
         mFuncReport = funcReport;
     }
 
     /**
-     * Get the {@code func_clear} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -556,16 +565,14 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code func_clear} value.
-     * Can be {@code null}.
+     *
      */
     public void setFuncClear(@Nullable String funcClear) {
         mFuncClear = funcClear;
     }
 
     /**
-     * Get the {@code datakit_connected} value.
-     * Can be {@code null}.
+     *
      */
     @Nullable
     @Override
@@ -574,17 +581,23 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Set the {@code datakit_connected} value.
-     * Can be {@code null}.
+     *
      */
     public void setDatakitConnected(@Nullable Boolean datakitConnected) {
         mDatakitConnected = datakitConnected;
     }
 
+    /**
+     * Determines if the parameterized object is the same as the calling object.
+     * @param o Object to
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         AppInfoBean bean = (AppInfoBean) o;
         return mId == bean.mId;
     }
@@ -595,7 +608,10 @@ class AppInfoBean implements AppInfoModel {
     }
 
     /**
-     * Instantiate a new AppInfoBean with specified values.
+     * Instantiate a new <code>AppInfoBean</code> with specified values.
+     * <p>
+     *     This instance cannot be <code>null</code>.
+     * </p>
      */
     @NonNull
     public static AppInfoBean newInstance(long id, @Nullable String packageName, @Nullable String type, @Nullable String title, @Nullable String summary, @Nullable String description, @Nullable Boolean useInStudy, @Nullable String useAs, @Nullable Boolean installed, @Nullable String downloadLink, @Nullable String updates, @Nullable String currentVersion, @Nullable String latestVersion, @Nullable String expectedVersion, @Nullable String icon, @Nullable Boolean mcerebrumSupported, @Nullable String funcInitialize, @Nullable Boolean initialized, @Nullable String funcUpdateInfo, @Nullable String funcConfigure, @Nullable Boolean configured, @Nullable Boolean configureMatch, @Nullable String funcPermission, @Nullable Boolean permissionOk, @Nullable String funcBackground, @Nullable Boolean backgroundRunningTime, @Nullable Boolean isBackgroundRunning, @Nullable String funcReport, @Nullable String funcClear, @Nullable Boolean datakitConnected) {
@@ -684,8 +700,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code package_name} value.
-         * Can be {@code null}.
+         *
          */
         public Builder packageName(@Nullable String packageName) {
             mRes.mPackageName = packageName;
@@ -694,7 +709,7 @@ class AppInfoBean implements AppInfoModel {
 
         /**
          * MCEREBRUM, STUDY, DATAKIT,any other string
-         * Can be {@code null}.
+         *
          */
         public Builder type(@Nullable String type) {
             mRes.mType = type;
@@ -702,8 +717,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code title} value.
-         * Can be {@code null}.
+         *
          */
         public Builder title(@Nullable String title) {
             mRes.mTitle = title;
@@ -711,8 +725,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code summary} value.
-         * Can be {@code null}.
+         *
          */
         public Builder summary(@Nullable String summary) {
             mRes.mSummary = summary;
@@ -720,8 +733,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code description} value.
-         * Can be {@code null}.
+         *
          */
         public Builder description(@Nullable String description) {
             mRes.mDescription = description;
@@ -729,8 +741,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code use_in_study} value.
-         * Can be {@code null}.
+         *
          */
         public Builder useInStudy(@Nullable Boolean useInStudy) {
             mRes.mUseInStudy = useInStudy;
@@ -739,7 +750,7 @@ class AppInfoBean implements AppInfoModel {
 
         /**
          * not in use, required, optional
-         * Can be {@code null}.
+         *
          */
         public Builder useAs(@Nullable String useAs) {
             mRes.mUseAs = useAs;
@@ -747,8 +758,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code installed} value.
-         * Can be {@code null}.
+         *
          */
         public Builder installed(@Nullable Boolean installed) {
             mRes.mInstalled = installed;
@@ -756,8 +766,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code download_link} value.
-         * Can be {@code null}.
+         *
          */
         public Builder downloadLink(@Nullable String downloadLink) {
             mRes.mDownloadLink = downloadLink;
@@ -766,7 +775,7 @@ class AppInfoBean implements AppInfoModel {
 
         /**
          * NOTIFY, AUTO, MANUAL
-         * Can be {@code null}.
+         *
          */
         public Builder updates(@Nullable String updates) {
             mRes.mUpdates = updates;
@@ -774,8 +783,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code current_version} value.
-         * Can be {@code null}.
+         *
          */
         public Builder currentVersion(@Nullable String currentVersion) {
             mRes.mCurrentVersion = currentVersion;
@@ -783,8 +791,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code latest_version} value.
-         * Can be {@code null}.
+         *
          */
         public Builder latestVersion(@Nullable String latestVersion) {
             mRes.mLatestVersion = latestVersion;
@@ -792,8 +799,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code expected_version} value.
-         * Can be {@code null}.
+         *
          */
         public Builder expectedVersion(@Nullable String expectedVersion) {
             mRes.mExpectedVersion = expectedVersion;
@@ -801,8 +807,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code icon} value.
-         * Can be {@code null}.
+         *
          */
         public Builder icon(@Nullable String icon) {
             mRes.mIcon = icon;
@@ -810,8 +815,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code mcerebrum_supported} value.
-         * Can be {@code null}.
+         *
          */
         public Builder mcerebrumSupported(@Nullable Boolean mcerebrumSupported) {
             mRes.mMcerebrumSupported = mcerebrumSupported;
@@ -819,8 +823,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_initialize} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcInitialize(@Nullable String funcInitialize) {
             mRes.mFuncInitialize = funcInitialize;
@@ -828,8 +831,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code initialized} value.
-         * Can be {@code null}.
+         *
          */
         public Builder initialized(@Nullable Boolean initialized) {
             mRes.mInitialized = initialized;
@@ -837,8 +839,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_update_info} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcUpdateInfo(@Nullable String funcUpdateInfo) {
             mRes.mFuncUpdateInfo = funcUpdateInfo;
@@ -846,8 +847,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_configure} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcConfigure(@Nullable String funcConfigure) {
             mRes.mFuncConfigure = funcConfigure;
@@ -855,8 +855,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code configured} value.
-         * Can be {@code null}.
+         *
          */
         public Builder configured(@Nullable Boolean configured) {
             mRes.mConfigured = configured;
@@ -864,8 +863,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code configure_match} value.
-         * Can be {@code null}.
+         *
          */
         public Builder configureMatch(@Nullable Boolean configureMatch) {
             mRes.mConfigureMatch = configureMatch;
@@ -873,8 +871,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_permission} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcPermission(@Nullable String funcPermission) {
             mRes.mFuncPermission = funcPermission;
@@ -882,8 +879,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code permission_ok} value.
-         * Can be {@code null}.
+         *
          */
         public Builder permissionOk(@Nullable Boolean permissionOk) {
             mRes.mPermissionOk = permissionOk;
@@ -891,8 +887,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_background} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcBackground(@Nullable String funcBackground) {
             mRes.mFuncBackground = funcBackground;
@@ -900,8 +895,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code background_running_time} value.
-         * Can be {@code null}.
+         *
          */
         public Builder backgroundRunningTime(@Nullable Boolean backgroundRunningTime) {
             mRes.mBackgroundRunningTime = backgroundRunningTime;
@@ -909,8 +903,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code is_background_running} value.
-         * Can be {@code null}.
+         *
          */
         public Builder isBackgroundRunning(@Nullable Boolean isBackgroundRunning) {
             mRes.mIsBackgroundRunning = isBackgroundRunning;
@@ -918,8 +911,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_report} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcReport(@Nullable String funcReport) {
             mRes.mFuncReport = funcReport;
@@ -927,8 +919,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code func_clear} value.
-         * Can be {@code null}.
+         *
          */
         public Builder funcClear(@Nullable String funcClear) {
             mRes.mFuncClear = funcClear;
@@ -936,8 +927,7 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Set the {@code datakit_connected} value.
-         * Can be {@code null}.
+         *
          */
         public Builder datakitConnected(@Nullable Boolean datakitConnected) {
             mRes.mDatakitConnected = datakitConnected;
@@ -945,13 +935,17 @@ class AppInfoBean implements AppInfoModel {
         }
 
         /**
-         * Get a new AppInfoBean built with the given values.
+         * Get a new <code>AppInfoBean</code> built with the given values.
          */
         public AppInfoBean build() {
             return mRes;
         }
     }
 
+    /**
+     * Returns a new builder object.
+     * @return A new builder object.
+     */
     public static Builder newBuilder() {
         return new Builder();
     }

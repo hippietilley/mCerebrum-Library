@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.data_format;
 
 /**
- * 
+ *
  */
 public class UserInfo {
     String user_id;
