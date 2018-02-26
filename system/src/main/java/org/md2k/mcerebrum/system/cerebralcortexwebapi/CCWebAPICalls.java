@@ -50,35 +50,8 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-
-/*
- * EXAMPLES
-
- CerebralCortexWebApi ccService = ApiUtils.getCCService("https://fourtytwo.md2k.org/");
- CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
- AuthResponse ar = ccWebAPICalls.authenticateUser(username, password);
-
-
- List<MinioBucket> buckets = ccWebAPICalls.getMinioBuckets(ar.getAccessToken().toString());
-
- List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(ar.getAccessToken().toString(), buckets.get(0).getBucketName().toString());
-
- MinioObjectStats object = ccWebAPICalls.getObjectStats(ar.getAccessToken().toString(), buckets.get(0).getBucketName().toString(), "203_mcerebrum_syed_new.pdf");
- MinioObjectStats object = ccWebAPICalls.getObjectStats(ar.getAccessToken().toString(), "configuration", "mperf.zip");
-
-
- Boolean result = ccWebAPICalls.downloadMinioObject(ar.getAccessToken().toString(), "configuration", "mperf.zip", "mperf.zip");
-
-
- MetadataBuilder metadataBuilder = new MetadataBuilder();
- DataStream dataStreamMetadata = metadataBuilder.buildDataStreamMetadata("datastream", "123", "999", "sampleStream", "zip");
- Boolean resultUpload = ccWebAPICalls.putArchiveDataAndMetadata(ar.getAccessToken().toString(), dataStreamMetadata, "/storage/emulated/0/Android/data/org.md2k.datakit/files/raw/raw2/2017092217_2.csv.gz");
-
- */
-
-
 /**
- *
+ * Handles web API calls to Cerebral Cortex.
  */
 public class CCWebAPICalls {
 
@@ -98,6 +71,15 @@ public class CCWebAPICalls {
 
     /**
      * Authenticates the user.
+     *
+     * <p>
+     *     Example
+     *     <code>
+     *         CerebralCortexWebApi ccService = ApiUtils.getCCService("https://fourtytwo.md2k.org/");
+     *         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
+     *         AuthResponse ar = ccWebAPICalls.authenticateUser(username, password);
+     *     </code>
+     * </p>
      *
      * @param userName Username
      * @param userPassword Password
@@ -133,6 +115,13 @@ public class CCWebAPICalls {
     /**
      * Returns a list of Minio buckets.
      *
+     * <p>
+     *     Example
+     *     <code>
+     *         List<MinioBucket> buckets = ccWebAPICalls.getMinioBuckets(ar.getAccessToken().toString());
+     *     </code>
+     * </p>
+     *
      * @param accessToken Authenticated access token.
      * @return A list of Minio buckets.
      */
@@ -158,6 +147,13 @@ public class CCWebAPICalls {
 
     /**
      * Gets a list of Minio objects in the given bucket.
+     *
+     * <p>
+     *     <code>
+     *         List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(ar.getAccessToken()
+     *         .toString(), buckets.get(0).getBucketName().toString());
+     *     </code>
+     * </p>
      *
      * @param accessToken Authenticated access token.
      * @param bucketName Name of the bucket.
@@ -186,6 +182,18 @@ public class CCWebAPICalls {
     /**
      * Gets a single Minio object.
      *
+     * <p>
+     *     Example
+     *     <code>
+     *         MinioObjectStats object = ccWebAPICalls.getObjectStats(ar.getAccessToken().toString(),
+     *                      buckets.get(0).getBucketName().toString(), "203_mcerebrum_syed_new.pdf");
+     *     </code>
+     *     <code>
+     *         MinioObjectStats object = ccWebAPICalls.getObjectStats(ar.getAccessToken().toString(),
+     *                      "configuration", "mperf.zip");
+     *     </code>
+     * </p>
+     *
      * @param accessToken Authenticated access token.
      * @param bucketName Name of the bucket.
      * @param objectName Name of the object.
@@ -213,6 +221,14 @@ public class CCWebAPICalls {
 
     /**
      * Downloads the given Minio object.
+     *
+     * <p>
+     *     Example
+     *     <code>
+     *         Boolean result = ccWebAPICalls.downloadMinioObject(ar.getAccessToken().toString(),
+     *                          "configuration", "mperf.zip", "mperf.zip");
+     *     </code>
+     * </p>
      *
      * @param accessToken Authenticated access token.
      * @param bucketName Name of the bucket.
@@ -244,6 +260,18 @@ public class CCWebAPICalls {
 
     /**
      * Uploads metadata and puts it with the archive data.
+     *
+     * <p>
+     *     Example
+     *     <code>
+     *         MetadataBuilder metadataBuilder = new MetadataBuilder();
+     *         DataStream dataStreamMetadata = metadataBuilder
+     *                  .buildDataStreamMetadata("datastream", "123", "999", "sampleStream", "zip");
+     *         Boolean resultUpload = ccWebAPICalls
+     *                  .putArchiveDataAndMetadata(ar.getAccessToken().toString(), dataStreamMetadata,
+     *                  "/storage/emulated/0/Android/data/org.md2k.datakit/files/raw/raw2/2017092217_2.csv.gz");
+     *     </code>
+     * </p>
      *
      * @param accessToken Authenticated access token.
      * @param metadata Metadata to upload.
