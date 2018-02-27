@@ -1,8 +1,6 @@
-package org.md2k.mcerebrum.commons.debug;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Timothy Hnat <twhnat@memphis.edu>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,16 +25,25 @@ package org.md2k.mcerebrum.commons.debug;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.debug;
+
 import android.os.Environment;
 
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Allows the local storage of a log file for offline debugging.
+ */
 public class LogStorage {
     private static final String logDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/logs/";
     private static String logfile;
     private static Process process;
 
+    /**
+     * Creates a log file and logs warning and error messages to it for offline debugging.
+     * @param applicationName Name of the application
+     */
     public static void startLogFileStorageProcess(String applicationName) {
         logfile = logDir + applicationName + ".log";
 
@@ -45,7 +52,6 @@ public class LogStorage {
             if (!log.exists()) {
                 log.mkdirs();
             }
-
             try {
                 if (process != null) {
                     process.destroy();
@@ -65,5 +71,4 @@ public class LogStorage {
             }
         }
     }
-
 }
