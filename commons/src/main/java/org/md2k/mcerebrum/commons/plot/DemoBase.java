@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.commons.plot;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.commons.plot;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.plot;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.renderscript.Type;
@@ -36,8 +37,6 @@ import org.md2k.mcerebrum.commons.R;
 
 /**
  * Baseclass of all Activities of the Demo Application.
- *
- * @author Philipp Jahoda
  */
 public abstract class DemoBase extends FragmentActivity {
 
@@ -55,18 +54,31 @@ public abstract class DemoBase extends FragmentActivity {
     protected Typeface mTfRegular;
     protected Typeface mTfLight;
 
+    /**
+     * Sets the typeface
+     * @param savedInstanceState This activity's previous state, is null if this activity has never
+     *                           existed.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mTfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }
 
+    /**
+     * Returns a random number within the given range.
+     * @param range Range for the random number.
+     * @param startsfrom Lowest number in the range.
+     * @return A random number within the given range.
+     */
     protected float getRandom(float range, float startsfrom) {
         return (float) (Math.random() * range) + startsfrom;
     }
 
+    /**
+     * Overrides the standard exit animation when the back button is pressed.
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
