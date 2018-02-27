@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
@@ -21,33 +48,14 @@ import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
- * All rights reserved.
- * <p>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- * <p>
- * * Redistributions of source code must retain the above copyright notice, this
- * list of conditions and the following disclaimer.
- * <p>
- * * Redistributions in binary form must reproduce the above copyright notice,
- * this list of conditions and the following disclaimer in the documentation
- * and/or other materials provided with the distribution.
- * <p>
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
  */
-
 public class ViewDataQuality extends LinearLayout {
+    /**
+     * @param context
+     * @param attrs
+     * @param cDataQualities
+     */
     public ViewDataQuality(Context context, AttributeSet attrs, final CDataQuality[] cDataQualities) {
         super(context, attrs);
         setOrientation(LinearLayout.HORIZONTAL);
@@ -72,7 +80,7 @@ public class ViewDataQuality extends LinearLayout {
                 inflater.inflate(R.layout.view_data_quality_4, this, true);
                 break;
        }
-       if(cDataQualities.length>=1) {
+       if(cDataQualities.length >= 1) {
            ((TextView) findViewById(R.id.textview_data_quality_title_1)).setText(cDataQualities[0].title);
            FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_1);
            f.setOnClickListener(new OnClickListener() {
@@ -82,7 +90,7 @@ public class ViewDataQuality extends LinearLayout {
                }
            });
        }
-        if(cDataQualities.length>=2) {
+        if(cDataQualities.length >= 2) {
             ((TextView) findViewById(R.id.textview_data_quality_title_2)).setText(cDataQualities[1].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_2);
             f.setOnClickListener(new OnClickListener() {
@@ -92,7 +100,7 @@ public class ViewDataQuality extends LinearLayout {
                 }
             });
         }
-        if(cDataQualities.length>=3) {
+        if(cDataQualities.length >= 3) {
             ((TextView) findViewById(R.id.textview_data_quality_title_3)).setText(cDataQualities[2].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_3);
             f.setOnClickListener(new OnClickListener() {
@@ -102,7 +110,7 @@ public class ViewDataQuality extends LinearLayout {
                 }
             });
         }
-        if(cDataQualities.length>=4) {
+        if(cDataQualities.length >= 4) {
             ((TextView) findViewById(R.id.textview_data_quality_title_4)).setText(cDataQualities[3].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_4);
             f.setOnClickListener(new OnClickListener() {
@@ -113,6 +121,10 @@ public class ViewDataQuality extends LinearLayout {
             });
         }
     }
+
+    /**
+     * @param cDataQuality
+     */
     void startActivity(CDataQuality cDataQuality){
         Intent intent = new Intent(getContext(), ActivityDataQuality.class);
         intent.putExtra("title", cDataQuality.title);
@@ -124,21 +136,21 @@ public class ViewDataQuality extends LinearLayout {
         getContext().startActivity(intent);
     }
 
+    /**
+     * @param context
+     * @param cDataQualities
+     */
     public ViewDataQuality(Context context, CDataQuality[] cDataQualities) {
         this(context, null, cDataQualities);
     }
 
-
-/*
-        public void setValueColor(int color) {
-            mValue.setBackgroundColor(color);
-        }
-*/
-
+    /**
+     * @param result
+     */
     public void setDataQuality(int[] result){
         ImageView imageView;
         TextView textView;
-        for(int index=0;index<result.length;index++) {
+        for(int index = 0; index < result.length; index++) {
             switch (index) {
                 case 0:
                     imageView = (ImageView) findViewById(R.id.imageview_data_quality_1);
@@ -165,21 +177,42 @@ public class ViewDataQuality extends LinearLayout {
             textView.setText(getDataQualityText(result[index]));
         }
     }
+
+    /**
+     * @param value
+     * @return
+     */
     String getDataQualityText(int value){
         switch(value){
-            case -1: return "";
-            case DATA_QUALITY.GOOD: return "Good";
-            case DATA_QUALITY.BAND_OFF: return "No Data";
-            default: return "Poor";
-        }
-    }
-    Drawable getDataQualityImage(int value){
-        switch(value){
-            case -1: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_refresh).sizeDp(24).color(Color.GRAY);
-            case DATA_QUALITY.GOOD: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_check_circle).sizeDp(24).color(Color.GREEN);
-            case DATA_QUALITY.BAND_OFF: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_times_circle).sizeDp(24).color(Color.RED);
-            default: return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_exclamation_triangle).sizeDp(24).color(Color.YELLOW);
+            case -1:
+                return "";
+            case DATA_QUALITY.GOOD:
+                return "Good";
+            case DATA_QUALITY.BAND_OFF:
+                return "No Data";
+            default:
+                return "Poor";
         }
     }
 
+    /**
+     * @param value
+     * @return
+     */
+    Drawable getDataQualityImage(int value){
+        switch(value){
+            case -1:
+                return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_refresh)
+                        .sizeDp(24).color(Color.GRAY);
+            case DATA_QUALITY.GOOD:
+                return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_check_circle)
+                        .sizeDp(24).color(Color.GREEN);
+            case DATA_QUALITY.BAND_OFF:
+                return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_times_circle)
+                        .sizeDp(24).color(Color.RED);
+            default:
+                return new IconicsDrawable(getContext()).icon(FontAwesome.Icon.faw_exclamation_triangle)
+                        .sizeDp(24).color(Color.YELLOW);
+        }
+    }
 }

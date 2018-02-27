@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.commons.permission;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.commons.permission;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.permission;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -39,8 +40,18 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class PermissionInfo {
-    public static final String INTENT_RESULT="result";
+    /**
+     *
+     */
+    public static final String INTENT_RESULT = "result";
+
+    /**
+     * Array of
+     */
     public static final String[] PERMISSION_DANGEROUS = {
             "android.permission.ACCESS_COARSE_LOCATION",
             "android.permission.ACCESS_FINE_LOCATION",
@@ -80,7 +91,8 @@ public class PermissionInfo {
         if (isGranted(context))
             resultCallback.onResult(true);
         else {
-            LocalBroadcastManager.getInstance(context).registerReceiver(receiver, new IntentFilter(INTENT_PERMISSION));
+            LocalBroadcastManager.getInstance(context).registerReceiver(receiver,
+                    new IntentFilter(INTENT_PERMISSION));
             Intent intent = new Intent(context, ActivityPermission.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
@@ -107,9 +119,11 @@ public class PermissionInfo {
     public static String[] getList(Context context) {
         ArrayList<String> list = new ArrayList<>();
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(),
+                    PackageManager.GET_PERMISSIONS);
             for (String aList : info.requestedPermissions) {
-                if (ContextCompat.checkSelfPermission(context, aList) == PackageManager.PERMISSION_DENIED && isDangerous(aList))
+                if (ContextCompat.checkSelfPermission(context, aList) ==
+                        PackageManager.PERMISSION_DENIED && isDangerous(aList))
                     list.add(aList);
             }
         } catch (Exception ignored) {

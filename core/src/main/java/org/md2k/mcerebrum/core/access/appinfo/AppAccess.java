@@ -36,7 +36,7 @@ import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 import java.util.ArrayList;
 
 /**
- *
+ * Provides methods for making calls to <code>AppCP</code>.
  */
 public class AppAccess {
 
@@ -353,9 +353,10 @@ public class AppAccess {
     }
 
     /**
+     * Determines whether a app is configurable or not.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return Whether a app is configurable or not.
      */
     public static boolean isConfigurable(Context context, String packageName){
         String f = AppCP.getFuncConfigure(context, packageName);
@@ -363,8 +364,9 @@ public class AppAccess {
     }
 
     /**
+     * Returns the list of reqired apps that have not been configured.
      * @param context Android context.
-     * @return
+     * @return The list of reqired apps that have not been configured.
      */
     public static ArrayList<String> getRequiredAppNotConfigured(Context context) {
         ArrayList<String> packageNames = AppBasicInfo.get(context);
@@ -384,8 +386,9 @@ public class AppAccess {
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the list of reqired apps that have been configured.
+     * @param context Android context
+     * @return The list of reqired apps that have been configured.
      */
     public static ArrayList<String> getRequiredAppConfigured(Context context) {
         ArrayList<String> packageNames = AppBasicInfo.get(context);

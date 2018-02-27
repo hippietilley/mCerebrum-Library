@@ -827,6 +827,10 @@ public class AppCP {
      */
     public static void setDataKitConnected(Context context, String packageName, boolean b) {}
 
+    /**
+     * @param context Android context
+     * @param packageName Name of the package.
+     */
     public static void clearAccess(Context context, String packageName) {
         boolean flag = false;
         AppInfoBean a = read(context, packageName);

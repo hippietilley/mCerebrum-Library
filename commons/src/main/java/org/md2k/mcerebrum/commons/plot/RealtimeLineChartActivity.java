@@ -51,15 +51,27 @@ import org.md2k.mcerebrum.commons.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 public abstract class RealtimeLineChartActivity extends DemoBase implements
         OnChartValueSelectedListener {
 
     private LineChart mChart;
 
+    /**
+     * Returns the line chart.
+     * @return The line chart.
+     */
     public LineChart getmChart() {
         return mChart;
     }
 
+    /**
+     * Draws the chart and handles touch input and screen orientation.
+     * @param savedInstanceState This activity's previous state, is null if this activity has never
+     *                           existed.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +99,6 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
         mChart.setPinchZoom(true);
 
         // set an alternative background color
-
         mChart.setBackgroundColor(Color.BLACK);
 
         LineData data = new LineData();
@@ -119,67 +130,50 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setEnabled(false);
-
     }
 
+    /**
+     * @param menu Menu to create.
+     * @return Always returns true.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.realtime, menu);
         return true;
     }
 
+    /**
+     * @param item Selected menu item.
+     * @return Always returns true.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-/*
-        switch (item.getItemId()) {
-            case R.id.actionAdd: {
-                addEntry();
-                break;
-            }
-            case R.id.actionClear: {
-                mChart.clearValues();
-                Toast.makeText(this, "Chart cleared!", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.actionFeedMultiple: {
-                feedMultiple();
-                break;
-            }
-        }
-*/
         return true;
     }
 
 
+    /**
+     * Adds a data point to the chart.
+     * @param value Array of values to add.
+     * @param legend Array of value descriptors.
+     * @param noPoints Used to limit the number of visible entries.
+     */
     public void addEntry(float[] value, String[] legend, int noPoints) {
 
         LineData data = mChart.getData();
 
         if (data != null) {
             List<ILineDataSet> dataSets = data.getDataSets();
-            if(dataSets==null || dataSets.size()<value.length){
-                dataSets=new ArrayList<>();
-                for(int i=0;i<value.length;i++){
-                    LineDataSet set=createSet(i, legend[i]);
+            if(dataSets == null || dataSets.size()<value.length){
+                dataSets = new ArrayList<>();
+                for(int i = 0; i < value.length; i++){
+                    LineDataSet set = createSet(i, legend[i]);
                     dataSets.add(set);
                     data.addDataSet(set);
                 }
             }
-            for(int i=0;i<value.length;i++){
+            for(int i = 0; i < value.length; i++){
                 data.addEntry(new Entry(dataSets.get(i).getEntryCount(),value[i]), i);
             }
-//            ILineDataSet set = data.getDataSetByIndex(0);
-            // set.addEntry(...); // can be called as well
-
-/*
-            if (set == null) {
-                set = createSet();
-                data.addDataSet(set);
-            }
-*/
-
-//            data.addEntry(new Entry(set.getEntryCount(),value), 0);
             data.notifyDataChanged();
 
             // let the chart know it's data has changed
@@ -187,92 +181,51 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
 
             // limit the number of visible entries
             mChart.setVisibleXRangeMaximum(noPoints);
-            // mChart.setVisibleYRange(30, AxisDependency.LEFT);
 
             // move to the latest entry
             mChart.moveViewToX(data.getEntryCount());
-
-            // this automatically refreshes the chart (calls invalidate())
-            // mChart.moveViewTo(data.getXValCount()-7, 55f,
-            // AxisDependency.LEFT);
         }
     }
-    int[] colors= new int[]{Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA};
 
+    int[] colors = new int[]{Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA};
+
+    /**
+     * @param i
+     * @param l
+     * @return
+     */
     private LineDataSet createSet(int i, String l) {
-
         LineDataSet set = new LineDataSet(null, l);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        set.setColor(colors[i%colors.length]);
+        set.setColor(colors[i % colors.length]);
         set.setDrawCircles(false);
-//        set.setCircleColor(Color.WHITE);
         set.setLineWidth(2f);
-//        set.setCircleRadius(4f);
-//        set.setFillAlpha(65);
-//        set.setFillColor(ColorTemplate.getHoloBlue());
-//        set.setHighLightColor(Color.rgb(244, 117, 117));
-//        set.setValueTextColor(Color.WHITE);
-//        set.setValueTextSize(9f);
         set.setDrawValues(false);
         return set;
     }
 
-//    private Thread thread;
-
-/*
-    private void feedMultiple() {
-
-        if (thread != null)
-            thread.interrupt();
-
-        final Runnable runnable = new Runnable() {
-
-            @Override
-            public void run() {
-                addEntry();
-            }
-        };
-
-        thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                for (int i = 0; i < 1000; i++) {
-
-                    // Don't generate garbage runnables inside the loop.
-                    runOnUiThread(runnable);
-
-                    try {
-                        Thread.sleep(25);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        thread.start();
-    }
-*/
-
+    /**
+     * @param e
+     * @param h
+     */
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         Log.i("Entry selected", e.toString());
     }
 
+    /**
+     *
+     */
     @Override
     public void onNothingSelected() {
         Log.i("Nothing selected", "Nothing selected.");
     }
 
+    /**
+     *
+     */
     @Override
     protected void onPause() {
         super.onPause();
-
-/*
-        if (thread != null) {
-            thread.interrupt();
-        }
-*/
     }
 }
