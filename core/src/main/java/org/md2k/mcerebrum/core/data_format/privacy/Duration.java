@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.data_format.privacy;
 
 /**
- *
+ * Defines the duration of the privacy.
  */
 public class Duration {
     String id;

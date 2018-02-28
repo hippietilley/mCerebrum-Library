@@ -28,7 +28,15 @@
 package org.md2k.mcerebrum.core.data_format;
 
 /**
- *
+ * Defines an activity marker.
+ * <p>
+ *     Current activity markers are:
+ *     <ul>
+ *         <li>Smoking</li>
+ *         <li>Sleep</li>
+ *         <li>Wakeup</li>
+ *     </ul>
+ * </p>
  */
 public class Marker {
     /** Constant for smoking marker. <p>"SMOKING"</p> */
@@ -40,7 +48,10 @@ public class Marker {
     /** Constant for wakeup marker. <p>"WAKEUP"</p> */
     public static final String WAKEUP = "WAKEUP";
 
+    /** Marker type. */
     String type;
+
+    /** Marker timestamp. */
     long timestamp;
 
     /**

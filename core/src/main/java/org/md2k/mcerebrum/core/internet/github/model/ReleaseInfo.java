@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.internet.github.model;
 
 /**
- * <code>ReleaseInfo</code> object
+ * Holds the application's release information
  */
 public class ReleaseInfo {
     private String tag_name;

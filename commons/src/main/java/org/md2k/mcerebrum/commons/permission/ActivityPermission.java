@@ -10,12 +10,19 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 
+/**
+ * Activity for getting permissions
+ */
 public class ActivityPermission extends Activity {
     private static final String TAG = ActivityPermission.class.getSimpleName();
     private static final int RESULT_MANAGE_OVERLAY_PERMISSION = 5469;
     private static final int RESULT_PERMISSION = 5470;
 
 
+    /**
+     * @param savedInstanceState This activity's previous state, is null if this activity has never
+     *                           existed.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +37,9 @@ public class ActivityPermission extends Activity {
             }
     }
 
+    /**
+     * @param result
+     */
     void close(boolean result) {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(PermissionInfo.INTENT_RESULT, result);
@@ -40,6 +50,11 @@ public class ActivityPermission extends Activity {
         finish();
     }
 
+    /**
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -52,6 +67,11 @@ public class ActivityPermission extends Activity {
         }
     }
 
+    /**
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         boolean flag = true;

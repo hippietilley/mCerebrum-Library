@@ -32,7 +32,18 @@ import org.md2k.datakitapi.source.datasource.DataSource;
 import java.util.ArrayList;
 
 /**
+ * Defines what type of privacy is being used.
  *
+ * <p>
+ *     Privacy types can be made of any combination of:
+ *     <ul>
+ *         <li>Location</li>
+ *         <li>Activity</li>
+ *         <li>Chest Sensor</li>
+ *         <li>Wrist Sensors</li>
+ *         <li>Surveys</li>
+ *     </ul>
+ * </p>
  */
 public class PrivacyType {
     String id;

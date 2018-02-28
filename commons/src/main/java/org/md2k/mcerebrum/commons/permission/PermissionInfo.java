@@ -86,6 +86,10 @@ public class PermissionInfo {
     ResultCallback<Boolean> resultCallback;
 
 
+    /**
+     * @param context Android context
+     * @param resultCallback
+     */
     public void getPermissions(Context context, ResultCallback<Boolean> resultCallback) {
         this.resultCallback = resultCallback;
         if (isGranted(context))
@@ -100,6 +104,10 @@ public class PermissionInfo {
     }
 
     BroadcastReceiver receiver = new BroadcastReceiver() {
+        /**
+         * @param context Android context
+         * @param intent
+         */
         @Override
         public void onReceive(Context context, Intent intent) {
             boolean result = intent.getBooleanExtra(INTENT_PERMISSION_RESULT, false);
@@ -108,14 +116,24 @@ public class PermissionInfo {
         }
     };
 
+    /**
+     * @param context Android context
+     * @return
+     */
     public static boolean isGranted(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(context)) return false;
-            if (getList(context) != null) return false;
+            if (!Settings.canDrawOverlays(context))
+                return false;
+            if (getList(context) != null)
+                return false;
         }
         return true;
     }
 
+    /**
+     * @param context Android context
+     * @return
+     */
     public static String[] getList(Context context) {
         ArrayList<String> list = new ArrayList<>();
         try {
@@ -126,15 +144,19 @@ public class PermissionInfo {
                         PackageManager.PERMISSION_DENIED && isDangerous(aList))
                     list.add(aList);
             }
-        } catch (Exception ignored) {
-        }
-        if (list.size() == 0) return null;
+        } catch (Exception ignored) {}
+        if (list.size() == 0)
+            return null;
         String listArray[] = new String[list.size()];
         for (int i = 0; i < list.size(); i++)
             listArray[i] = list.get(i);
         return listArray;
     }
 
+    /**
+     * @param permission
+     * @return
+     */
     private static boolean isDangerous(String permission) {
         for (String PERMISSION_DANGEROUS : PermissionInfo.PERMISSION_DANGEROUS)
             if (PERMISSION_DANGEROUS.equals(permission))

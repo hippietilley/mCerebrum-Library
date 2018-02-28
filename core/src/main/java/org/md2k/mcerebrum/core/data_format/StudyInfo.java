@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.data_format;
 
 /**
- *
+ * Provides study identification information.
  */
 public class StudyInfo {
     private String id;

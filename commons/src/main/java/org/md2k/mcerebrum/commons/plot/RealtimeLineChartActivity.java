@@ -205,8 +205,11 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
     /**
-     * @param e
-     * @param h
+     * Called when a value has been selected inside the chart.
+     *
+     * @param e The selected Entry.
+     * @param h The corresponding highlight object that contains information
+     *          about the highlighted position
      */
     @Override
     public void onValueSelected(Entry e, Highlight h) {
@@ -214,7 +217,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
     /**
-     *
+     * Logs "Nothing selected"
      */
     @Override
     public void onNothingSelected() {
@@ -222,7 +225,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
     /**
-     *
+     * Calls it's superclass to resume the activity
      */
     @Override
     protected void onPause() {

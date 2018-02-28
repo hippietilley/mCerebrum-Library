@@ -30,7 +30,8 @@ package org.md2k.mcerebrum.core.data_format.privacy;
 import java.util.ArrayList;
 
 /**
- *
+ * Defines a privacy profile including <code>Duration</code>, a list of <code>PrivacyTypes</code>,
+ * a <code>startTimestamp</code>, and a <code>status</code>.
  */
 public class PrivacyData {
     Duration duration;

@@ -1,6 +1,32 @@
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.md2k.mcerebrum.core.access;
 
-// @formatter:off
 import java.util.Arrays;
 
 import android.content.ContentValues;
@@ -19,7 +45,11 @@ import org.md2k.mcerebrum.core.access.serverinfo.ServerInfoColumns;
 import org.md2k.mcerebrum.core.access.studyinfo.StudyInfoColumns;
 import org.md2k.mcerebrum.core.access.userinfo.UserInfoColumns;
 
+/**
+ *
+ */
 public class SampleProvider extends BaseContentProvider {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
     private static final String TAG = SampleProvider.class.getSimpleName();
 
     private static final boolean DEBUG = BuildConfig.DEBUG;
@@ -45,8 +75,6 @@ public class SampleProvider extends BaseContentProvider {
     private static final int URI_TYPE_USER_INFO = 8;
     private static final int URI_TYPE_USER_INFO_ID = 9;
 
-
-
     private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -62,16 +90,28 @@ public class SampleProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, UserInfoColumns.TABLE_NAME + "/#", URI_TYPE_USER_INFO_ID);
     }
 
+    /**
+     * Creates an instance of <code>SampleProviderSQLiteOpenHelper</code>.
+     * @return An <code>SQLiteOpenHelper</code>
+     */
     @Override
     protected SQLiteOpenHelper createSqLiteOpenHelper() {
         return SampleProviderSQLiteOpenHelper.getInstance(getContext());
     }
 
+    /**
+     * Determines if the app is in debugging mode.
+     * @return Whether the app is in debugging mode or not.
+     */
     @Override
     protected boolean hasDebug() {
         return DEBUG;
     }
 
+    /**
+     * @param uri
+     * @return
+     */
     @Override
     public String getType(Uri uri) {
         int match = URI_MATCHER.match(uri);
@@ -100,43 +140,84 @@ public class SampleProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + UserInfoColumns.TABLE_NAME;
             case URI_TYPE_USER_INFO_ID:
                 return TYPE_CURSOR_ITEM + UserInfoColumns.TABLE_NAME;
-
         }
         return null;
     }
 
+    /**
+     * @param uri
+     * @param values
+     * @return
+     */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         if (DEBUG) Log.d(TAG, "insert uri=" + uri + " values=" + values);
         return super.insert(uri, values);
     }
 
+    /**
+     * @param uri
+     * @param values
+     * @return
+     */
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
         if (DEBUG) Log.d(TAG, "bulkInsert uri=" + uri + " values.length=" + values.length);
         return super.bulkInsert(uri, values);
     }
 
+    /**
+     * @param uri
+     * @param values
+     * @param selection
+     * @param selectionArgs
+     * @return
+     */
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        if (DEBUG) Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+        if (DEBUG) Log.d(TAG, "update uri=" + uri + " values=" + values + " selection=" + selection +
+                " selectionArgs=" + Arrays.toString(selectionArgs));
         return super.update(uri, values, selection, selectionArgs);
     }
 
+    /**
+     * @param uri
+     * @param selection
+     * @param selectionArgs
+     * @return
+     */
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
-        if (DEBUG) Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs));
+        if (DEBUG) Log.d(TAG, "delete uri=" + uri + " selection=" + selection + " selectionArgs=" +
+                Arrays.toString(selectionArgs));
         return super.delete(uri, selection, selectionArgs);
     }
 
+    /**
+     * @param uri
+     * @param projection
+     * @param selection
+     * @param selectionArgs
+     * @param sortOrder
+     * @return
+     */
     @Override
-    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+                        String[] selectionArgs, String sortOrder) {
         if (DEBUG)
-            Log.d(TAG, "query uri=" + uri + " selection=" + selection + " selectionArgs=" + Arrays.toString(selectionArgs) + " sortOrder=" + sortOrder
-                    + " groupBy=" + uri.getQueryParameter(QUERY_GROUP_BY) + " having=" + uri.getQueryParameter(QUERY_HAVING) + " limit=" + uri.getQueryParameter(QUERY_LIMIT));
+            Log.d(TAG, "query uri=" + uri + " selection=" + selection + " selectionArgs=" +
+                    Arrays.toString(selectionArgs) + " sortOrder=" + sortOrder + " groupBy=" +
+                    uri.getQueryParameter(QUERY_GROUP_BY) + " having=" + uri.getQueryParameter(QUERY_HAVING) +
+                    " limit=" + uri.getQueryParameter(QUERY_LIMIT));
         return super.query(uri, projection, selection, selectionArgs, sortOrder);
     }
 
+    /**
+     * @param uri
+     * @param selection
+     * @param projection
+     * @return
+     */
     @Override
     protected QueryParams getQueryParams(Uri uri, String selection, String[] projection) {
         QueryParams res = new QueryParams();
@@ -150,7 +231,6 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = AppInfoColumns.TABLE_NAME;
                 res.orderBy = AppInfoColumns.DEFAULT_ORDER;
                 break;
-
             case URI_TYPE_CONFIG_INFO:
             case URI_TYPE_CONFIG_INFO_ID:
                 res.table = ConfigInfoColumns.TABLE_NAME;
@@ -158,7 +238,6 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = ConfigInfoColumns.TABLE_NAME;
                 res.orderBy = ConfigInfoColumns.DEFAULT_ORDER;
                 break;
-
             case URI_TYPE_SERVER_INFO:
             case URI_TYPE_SERVER_INFO_ID:
                 res.table = ServerInfoColumns.TABLE_NAME;
@@ -166,7 +245,6 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = ServerInfoColumns.TABLE_NAME;
                 res.orderBy = ServerInfoColumns.DEFAULT_ORDER;
                 break;
-
             case URI_TYPE_STUDY_INFO:
             case URI_TYPE_STUDY_INFO_ID:
                 res.table = StudyInfoColumns.TABLE_NAME;
@@ -174,7 +252,6 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = StudyInfoColumns.TABLE_NAME;
                 res.orderBy = StudyInfoColumns.DEFAULT_ORDER;
                 break;
-
             case URI_TYPE_USER_INFO:
             case URI_TYPE_USER_INFO_ID:
                 res.table = UserInfoColumns.TABLE_NAME;
@@ -182,11 +259,9 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = UserInfoColumns.TABLE_NAME;
                 res.orderBy = UserInfoColumns.DEFAULT_ORDER;
                 break;
-
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
-
         switch (matchedId) {
             case URI_TYPE_APP_INFO_ID:
             case URI_TYPE_CONFIG_INFO_ID:

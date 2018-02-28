@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.data_format;
 
 /**
- *
+ * Constructs an object representing a proximity beacon.
  */
 public class Beacon {
     private String mac_address;

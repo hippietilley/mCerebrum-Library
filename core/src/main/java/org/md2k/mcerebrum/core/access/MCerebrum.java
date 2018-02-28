@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.access;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.core.access;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.access;
+
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
@@ -34,51 +35,101 @@ import android.util.Log;
 
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
 
+/**
+ *
+ */
 public class MCerebrum {
+    /**
+     *
+     */
     private MCerebrum(){
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
-/*
-    public static void init(Context context){
-        AppInfoBean appBean=new AppInfoBean();
-        appBean.setPackageName(context.getPackageName());
-//        if(AppCP.isEmpty(context))
-            AppCP.insertOrUpdate(context, appBean);
-    }
-*/
 
+    /**
+     * @param context Android context
+     * @param report
+     */
     public static void setReportActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncReport(context, context.getPackageName(), report.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param report
+     */
     public static void setClearActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncClear(context, context.getPackageName(), report.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param report
+     */
     public static void setInitializeActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncInitialize(context, context.getPackageName(), report.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param report
+     */
     public static void setConfigureActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncConfigure(context, context.getPackageName(), report.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param s
+     */
     public static void setBackgroundService(Context context, Class<? extends Service> s){
         AppAccess.setFuncBackground(context, context.getPackageName(), s.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param report
+     */
     public static void setPermissionActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncPermission(context, context.getPackageName(), report.getName());
     }
+
+    /**
+     * @param context Android context
+     * @param b
+     */
     public static void setPermission(Context context, boolean b){
         AppAccess.setPermissionOk(context, context.getPackageName(), b);
     }
+
+    /**
+     * @param context Android context
+     * @return
+     */
     public static boolean getPermission(Context context) {
         return AppAccess.getPermissionOk(context, context.getPackageName());
     }
 
+    /**
+     * @param context Android context
+     * @param b
+     */
     public static void setConfigured(Context context, boolean b){
         AppAccess.setConfigured(context, context.getPackageName(), b);
     }
+
+    /**
+     * @param context Android context
+     * @param b
+     */
     public static void setConfigureExact(Context context, boolean b){
         AppAccess.setConfigureMatch(context, context.getPackageName(), b);
     }
 
+    /**
+     * @param context Android context
+     * @param info
+     */
     public static void init(Context context, Class<? extends MCerebrumInfo> info) {
         SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -86,10 +137,4 @@ public class MCerebrum {
         editor.apply();
         AppAccess.setFuncUpdateInfo(context, context.getPackageName(), info.getName());
     }
-
-/*
-//    public static String getReport(Context context){
-        return AppCP.getReport(context);
-    }
-*/
 }

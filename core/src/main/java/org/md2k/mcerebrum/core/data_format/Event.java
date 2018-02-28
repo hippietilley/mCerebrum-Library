@@ -30,7 +30,7 @@ package org.md2k.mcerebrum.core.data_format;
 import java.util.HashMap;
 
 /**
- *
+ * Defines a data collection event.
  */
 public class Event {
     /** Type of event. */

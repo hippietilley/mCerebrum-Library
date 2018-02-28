@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.commons.dialog;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,6 +24,8 @@ package org.md2k.mcerebrum.commons.dialog;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.commons.dialog;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -54,20 +55,35 @@ import es.dmoral.toasty.Toasty;
 
 import static android.R.id.input;
 
+/**
+ *
+ */
 public class Dialog {
-    public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items, int selected, final DialogCallback dialogCallback) {
-        ArrayList<String> tempItems=new ArrayList<>();
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param items
+     * @param selected
+     * @param dialogCallback Dialog callback interface.
+     * @return A <code>MaterialDialog</code> builder.
+     */
+    public static MaterialDialog.Builder singleChoice(Activity activity, String title, String[] items,
+                                                      int selected, final DialogCallback dialogCallback) {
+        ArrayList<String> tempItems = new ArrayList<>();
         Collections.addAll(tempItems, items);
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .items(items)
                 .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
+                    /**
+                     * @param dialog
+                     * @param view
+                     * @param which
+                     * @param text
+                     * @return
+                     */
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
                         dialogCallback.onSelected(text.toString());
                         return true;
                     }
@@ -75,13 +91,28 @@ public class Dialog {
                 .autoDismiss(true)
                 .cancelable(true);
     }
-    public static MaterialDialog.Builder singleChoiceConfirm(final Activity activity, String title, final String[] items, int selected, final DialogCallback dialogCallback) {
+
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param items
+     * @param selected
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static MaterialDialog.Builder singleChoiceConfirm(final Activity activity, String title,
+                                                             final String[] items, int selected,
+                                                             final DialogCallback dialogCallback) {
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .items(items)
                 .positiveText("Select")
                 .negativeText("Cancel")
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    /**
+                     * @param dialog
+                     * @param which
+                     */
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if(dialog.getSelectedIndex()==-1){
@@ -93,6 +124,10 @@ public class Dialog {
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    /**
+                     * @param dialog
+                     * @param which
+                     */
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialogCallback.onSelected(null);
@@ -100,14 +135,15 @@ public class Dialog {
                     }
                 })
                 .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
+                    /**
+                     * @param dialog
+                     * @param view
+                     * @param which
+                     * @param text
+                     * @return
+                     */
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-//                        selectedFile[0] =text.toString();
-//                        dialogCallback.onSelected(text.toString());
                         return false;
                     }
                 })
@@ -115,39 +151,16 @@ public class Dialog {
                 .cancelable(false);
     }
 
-/*
-    public static MaterialDialog.Builder singleChoiceOkCancel(Activity activity, String title, final String[] items, int selected, String positiveButton, String negativeButton, final DialogCallback dialogCallback) {
-        return new MaterialDialog.Builder(activity)
-                .title(title)
-                .items(items)
-                .positiveText(positiveButton)
-                .negativeText(negativeButton)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-
-                        dialogCallback.onSelected(items[which]);
-                    }
-                })
-                .itemsCallbackSingleChoice(selected, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        */
-/**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **//*
-
-                        dialogCallback.onSelected(text.toString());
-                        return true;
-                    }
-                })
-                .autoDismiss(true)
-                .cancelable(true);
-    }
-
-*/
-    public static MaterialDialog.Builder editboxText(Activity activity, String title, String content, String input, final DialogCallback dialogCallback){
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param content
+     * @param input
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static MaterialDialog.Builder editboxText(Activity activity, String title, String content,
+                                                     String input, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
@@ -156,17 +169,19 @@ public class Dialog {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
-                        // Do something
                     }
                 });
     }
 
-
-
-
-
-
-    public static MaterialDialog.Builder editbox(Activity activity, String title, String content, final DialogCallback dialogCallback){
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param content
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static MaterialDialog.Builder editbox(Activity activity, String title, String content,
+                                                 final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
@@ -175,13 +190,21 @@ public class Dialog {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
-                        // Do something
                     }
                 });
     }
 
 
-    public static MaterialDialog.Builder editbox_numeric(Activity activity, String title, String content, String selectedValue, final DialogCallback dialogCallback){
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param content
+     * @param selectedValue
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static MaterialDialog.Builder editbox_numeric(Activity activity, String title, String content,
+                                                         String selectedValue, final DialogCallback dialogCallback){
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
@@ -190,12 +213,22 @@ public class Dialog {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         dialogCallback.onSelected(input.toString());
-                        // Do something
                     }
                 });
     }
 
-    public static MaterialDialog.Builder simple(Activity activity, String title, String content, final String buttonPositive, final String buttonNegative, final DialogCallback dialogCallback) {
+    /**
+     * @param activity Activity needing a dialog.
+     * @param title
+     * @param content
+     * @param buttonPositive
+     * @param buttonNegative
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static MaterialDialog.Builder simple(Activity activity, String title, String content,
+                                                final String buttonPositive, final String buttonNegative,
+                                                final DialogCallback dialogCallback) {
         return new MaterialDialog.Builder(activity)
                 .title(title)
                 .content(content)
@@ -203,18 +236,32 @@ public class Dialog {
                 .negativeText(buttonNegative)
                 .cancelable(false)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    /**
+                     * @param dialog
+                     * @param which
+                     */
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialogCallback.onSelected(buttonPositive);
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    /**
+                     * @param dialog
+                     * @param which
+                     */
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialogCallback.onSelected(buttonNegative);
                     }
                 });
     }
+
+    /**
+     * @param activity Activity needing a dialog.
+     * @param content
+     * @return
+     */
     public static MaterialDialog.Builder progressWithBar(Activity activity, String content){
         return new MaterialDialog.Builder(activity)
                 .content(content)
@@ -223,6 +270,12 @@ public class Dialog {
                 .autoDismiss(false);
 
     }
+
+    /**
+     * @param activity Activity needing a dialog.
+     * @param content
+     * @return
+     */
     public static MaterialDialog.Builder progressIndeterminate(Activity activity, String content){
         return new MaterialDialog.Builder(activity)
                 .content(content)
@@ -231,8 +284,24 @@ public class Dialog {
                 .autoDismiss(false);
 
     }
-    public static DatePickerDialog dateTimePicker(Activity activity, int year, int month, int day, final DialogCallback dialogCallback) {
+
+    /**
+     * @param activity Activity needing a dialog.
+     * @param year
+     * @param month
+     * @param day
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static DatePickerDialog dateTimePicker(Activity activity, int year, int month, int day,
+                                                  final DialogCallback dialogCallback) {
         return new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            /**
+             * @param view
+             * @param year
+             * @param month
+             * @param dayOfMonth
+             */
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar c = Calendar.getInstance();
@@ -243,18 +312,30 @@ public class Dialog {
             }
         },year, month, day);
     }
-    public static TimePickerDialog timePicker(Activity activity, int hourOfDay, int minute, final DialogCallback dialogCallback) {
+
+    /**
+     * @param activity Activity needing a dialog.
+     * @param hourOfDay
+     * @param minute
+     * @param dialogCallback Dialog callback interface.
+     * @return
+     */
+    public static TimePickerDialog timePicker(Activity activity, int hourOfDay, int minute,
+                                              final DialogCallback dialogCallback) {
         return new TimePickerDialog(activity,
                 new TimePickerDialog.OnTimeSetListener() {
 
+                    /**
+                     * @param view
+                     * @param hourOfDay
+                     * @param minute
+                     */
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay,
                                           int minute) {
                         long time = hourOfDay * 60 * 60 * 1000 + minute * 60 * 1000;
                         dialogCallback.onSelected(String.valueOf(time));
-                        //     txtTime.setText(hourOfDay + ":" + minute);
                     }
                 }, hourOfDay, minute, false);
     }
-
 }

@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.commons.storage;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.commons.storage;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.storage;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
@@ -49,9 +50,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *
+ */
 public class Storage {
-    private Storage() {
-    }
+    /**
+     * Private Constructor
+     */
+    private Storage() {}
+
+    /**
+     * @param context
+     * @param storageType
+     * @return
+     */
     public static String getRootDirectory(Context context, StorageType storageType) {
         switch (storageType) {
             case SDCARD_APPLICATION:
@@ -65,25 +77,39 @@ public class Storage {
         }
         return null;
     }
+
+    /**
+     * @param context
+     * @return
+     */
     private static String getRootDirectoryPreferred(Context context){
         String rootDirectory = getRootDirectorySDCardExternal(context);
-        if(rootDirectory==null)
-            rootDirectory=getRootDirectorySDCardInternal();
+        if(rootDirectory == null)
+            rootDirectory = getRootDirectorySDCardInternal();
         return rootDirectory;
     }
 
+    /**
+     * @param context
+     * @return
+     */
     private static String getRootDirectorySDCardExternal(Context context) {
         String strSDCardPath = System.getenv("SECONDARY_STORAGE");
         File[] externalFilesDirs = context.getExternalFilesDirs(null);
         for (File externalFilesDir : externalFilesDirs) {
-            if (externalFilesDir == null) continue;
-            if (strSDCardPath == null) return null;
+            if (externalFilesDir == null)
+                continue;
+            if (strSDCardPath == null)
+                return null;
             if (externalFilesDir.getAbsolutePath().contains(strSDCardPath))
                 return externalFilesDir.getAbsolutePath();
         }
         return null;
     }
 
+    /**
+     * @return
+     */
     private static String getRootDirectorySDCardInternal() {
         String directory = null;
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -92,38 +118,74 @@ public class Storage {
         return directory;
     }
 
+    /**
+     * @param context
+     * @param storageType
+     * @return
+     */
     public static boolean isExist(Context context, StorageType storageType) {
-        if(storageType==StorageType.ASSET)
+        if(storageType == StorageType.ASSET)
             return context.getAssets() != null;
         else {
-            return getRootDirectory(context, storageType)!=null;
+            return getRootDirectory(context, storageType) != null;
         }
     }
 
+    /**
+     * @param context
+     * @param storageType
+     * @return
+     */
     public static long getSpaceTotal(Context context, StorageType storageType) {
-        if(!isExist(context, storageType)) return -1;
+        if(!isExist(context, storageType))
+            return -1;
         return new StatFs(getRootDirectory(context, storageType)).getTotalBytes();
     }
 
+    /**
+     * @param context
+     * @param storageType
+     * @return
+     */
     public static long getSpaceFree(Context context, StorageType storageType) {
-        if(!isExist(context, storageType)) return -1;
+        if(!isExist(context, storageType))
+            return -1;
         return new StatFs(getRootDirectory(context, storageType)).getAvailableBytes();
     }
 
+    /**
+     * @param context
+     * @param storageType
+     * @return
+     */
     public static long getSpaceUsed(Context context, StorageType storageType) {
-        if(!isExist(context, storageType)) return -1;
+        if(!isExist(context, storageType))
+            return -1;
         return getSpaceTotal(context, storageType)-getSpaceFree(context, storageType);
     }
 
+    /**
+     * @param sourcePath
+     * @param destinationPath
+     * @return
+     */
     public static boolean copy(String sourcePath, String destinationPath) {
         return FileUtils.copyFile(sourcePath, destinationPath);
     }
 
+    /**
+     * @param context
+     * @param assetFilePath
+     * @param destinationFilePath
+     * @return
+     * @throws IOException
+     */
     public static boolean copyFromAsset(Context context, String assetFilePath, String destinationFilePath) throws IOException {
         InputStream in = context.getAssets().open(assetFilePath);
         FileUtils.createOrExistsFile(destinationFilePath);
         FileOutputStream out = new FileOutputStream(destinationFilePath);
-        if (in == null) return false;
+        if (in == null)
+            return false;
         byte[] buffer = new byte[1024];
         int read;
         while ((read = in.read(buffer)) != -1) {
@@ -132,18 +194,38 @@ public class Storage {
         return true;
     }
 
+    /**
+     * @param zipFilePath
+     * @param destDirPath
+     * @return
+     */
     public static boolean unzip(String zipFilePath, String destDirPath) {
         return ZipUtils.unzipFile(zipFilePath, destDirPath);
     }
 
+    /**
+     * @param dirPath
+     * @return
+     */
     public static boolean deleteDir(String dirPath) {
         return FileUtils.deleteDir(dirPath);
     }
 
+    /**
+     * @param filePath
+     * @return
+     */
     public static boolean deleteFile(String filePath) {
         return FileUtils.deleteFile(filePath);
     }
 
+    /**
+     * @param filePath
+     * @param classType
+     * @param <T>
+     * @return
+     * @throws FileNotFoundException
+     */
     public static <T> T readJson(String filePath, Class<T> classType) throws FileNotFoundException {
         T data = null;
         BufferedReader reader = null;
@@ -156,12 +238,20 @@ public class Storage {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {
-                }
+                } catch (IOException ignored) {}
             }
         }
         return data;
     }
+
+    /**
+     * @param context
+     * @param assetFilePath
+     * @param classType
+     * @param <T>
+     * @return
+     * @throws FileNotFoundException
+     */
     public static <T> T readJsonFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
         T data = null;
         BufferedReader reader = null;
@@ -176,12 +266,21 @@ public class Storage {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {
                 }
+                catch (IOException ignored) {}
             }
         }
         return data;
     }
+
+    /**
+     * @param context
+     * @param assetFilePath
+     * @param classType
+     * @param <T>
+     * @return
+     * @throws FileNotFoundException
+     */
     public static <T> ArrayList<T> readJsonArrayFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
         ArrayList<T> data = null;
         BufferedReader reader = null;
@@ -196,13 +295,19 @@ public class Storage {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {
-                }
+                } catch (IOException ignored) {}
             }
         }
         return data;
     }
 
+    /**
+     * @param filePath
+     * @param classType
+     * @param <T>
+     * @return
+     * @throws FileNotFoundException
+     */
     public static <T> ArrayList<T> readJsonArrayList(String filePath, Class<T> classType) throws FileNotFoundException {
         ArrayList<T> data = null;
         BufferedReader reader = null;
@@ -215,13 +320,16 @@ public class Storage {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {
-                }
+                } catch (IOException ignored) {}
             }
         }
         return data;
     }
 
+    /**
+     * @param filePath
+     * @return
+     */
     public static Drawable readDrawable(String filePath) {
         try {
             return Drawable.createFromPath(filePath);
@@ -230,14 +338,23 @@ public class Storage {
         }
     }
 
+    /**
+     * @param <X>
+     */
     private static class ListOfSomething<X> implements ParameterizedType {
 
         private Class<?> wrapped;
 
+        /**
+         * @param wrapped
+         */
         ListOfSomething(Class<X> wrapped) {
             this.wrapped = wrapped;
         }
 
+        /**
+         * @return
+         */
         public java.lang.reflect.Type[] getActualTypeArguments() {
             return new java.lang.reflect.Type[]{wrapped};
         }

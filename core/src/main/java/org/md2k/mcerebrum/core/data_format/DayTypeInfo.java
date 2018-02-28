@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.core.data_format;
 
 /**
- *
+ * Provides information about the day, whether the day is a pre quit day or a post quit day.
  */
 public class DayTypeInfo {
     /** Integer constant for denoting a pre quit day. <p>Default value is 0.</p> */
