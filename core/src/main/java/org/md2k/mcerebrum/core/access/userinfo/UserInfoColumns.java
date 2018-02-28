@@ -83,7 +83,7 @@ public class UserInfoColumns implements BaseColumns {
      *         <li>_ID (Primary key)</li>
      *     </ul>
      * </p>
-     * @param projection
+     * @param projection List of columns in the table.
      * @return
      */
     public static boolean hasColumns(String[] projection) {
