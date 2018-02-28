@@ -31,7 +31,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 /**
- * Activity used for internet access.
+ * Activity used for server access.
  */
 public class ActivityAccess extends AppCompatActivity {
 
