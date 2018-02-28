@@ -33,7 +33,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 
 /**
- *
+ * Holds information about the environment the data was collected in.
+ * <p>
+ *     This information includes metadata from the data source, application, platform, and platform app.
+ * </p>
  */
 public class ExecutionContext {
 

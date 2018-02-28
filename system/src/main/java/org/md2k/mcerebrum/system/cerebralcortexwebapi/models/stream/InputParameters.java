@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Parameters for the <code>ProcessingModule</code> input.
  */
 public class InputParameters {
 

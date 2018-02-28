@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Reference URL information for the data stream.
  */
 public class Reference {
 

@@ -33,7 +33,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- *
+ * Holds information about how the data stream is processed.
+ * <p>
+ *     The module is given a <code>name</code> and <code>description</code>. It also contains information
+ *     about the <code>InputStream</code>, <code>InputParameters</code>, <code>Algorithm</code>,
+ *     and <code>OutputStream</code>.
+ * </p>
  */
 public class ProcessingModule {
 
@@ -100,9 +105,7 @@ public class ProcessingModule {
     /**
      * No argument constructor for use in serialization
      */
-    public ProcessingModule() {
-    }
-
+    public ProcessingModule() {}
 
     /**
      * Constructor

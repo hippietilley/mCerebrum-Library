@@ -114,13 +114,15 @@ public class MinioObjectStats {
 
 
     /**
-     * @return etag.
+     * Returns the etag.
+     * @return etag
      */
     public String getEtag() {
         return etag;
     }
 
     /**
+     * Sets the etag.
      * @param etag
      */
     public void setEtag(String etag) {

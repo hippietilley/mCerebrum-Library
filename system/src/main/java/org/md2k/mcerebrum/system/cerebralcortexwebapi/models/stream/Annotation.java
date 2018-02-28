@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Provides name and identifier information for a data stream.
  */
 public class Annotation {
 

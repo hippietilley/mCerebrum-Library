@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * A data point consists of a sample and a timeframe (starting and ending timestamps).
  */
 public class DataPoints {
 

@@ -33,7 +33,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * <code>Algorithm</code> object
+ * Provides information about the algorithm applied to the data stream while being processed.
  */
 public class Algorithm {
 

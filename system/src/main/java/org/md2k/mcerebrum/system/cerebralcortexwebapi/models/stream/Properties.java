@@ -33,7 +33,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- *
+ * Defines data stream properties
  */
 public class Properties {
 

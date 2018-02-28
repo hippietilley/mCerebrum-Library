@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Data stream output from the <code>ProcessingModule</code>.
  */
 public class OutputStream {
 

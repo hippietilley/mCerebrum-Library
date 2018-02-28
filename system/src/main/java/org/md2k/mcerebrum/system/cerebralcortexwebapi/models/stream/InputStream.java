@@ -31,12 +31,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Data stream input to the <code>ProcessModule</code>.
  */
 public class InputStream {
 
     /**
-     *<p>
+     * <p>
      *     Serialized name: "name"
      *     Exposed to serialization.
      * </p>

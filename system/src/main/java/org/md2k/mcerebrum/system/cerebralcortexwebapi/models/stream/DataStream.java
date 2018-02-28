@@ -34,7 +34,12 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * A <code>DataStream</code> object represents a data source and it's corresponding metadata and samples.
  *
+ * <p>
+ *     <code>DataStreams</code> contain fields for <code>type</code>, <code>name</code>, and <code>ExecutionContext</code>.
+ *     They also hold lists for <code>Annotations</code>, <code>DataDescriptors</code>, and <code>DataPoints</code>.
+ * </p>
  */
 public class DataStream {
 

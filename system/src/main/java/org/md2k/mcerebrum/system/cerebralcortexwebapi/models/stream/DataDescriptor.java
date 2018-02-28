@@ -31,7 +31,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
- *
+ * Provides a description for the data collected in the data stream.
  */
 public class DataDescriptor {
 
