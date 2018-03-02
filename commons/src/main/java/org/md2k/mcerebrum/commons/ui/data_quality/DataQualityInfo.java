@@ -35,12 +35,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- *
+ * Provides information about the data quality.
  */
 public class DataQualityInfo {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
     private static final String TAG = DataQualityInfo.class.getSimpleName();
     private static final long TIME_STORE = 60 * 1000;
-
     private static final long TIME_LIMIT_NODATA = 10 * 1000;
     private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12 * 1000;
     private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6 * 1000;
@@ -48,7 +48,7 @@ public class DataQualityInfo {
     private int quality;
 
     /**
-     *
+     * Constructor
      */
     DataQualityInfo() {
         quality = -1;
@@ -56,14 +56,16 @@ public class DataQualityInfo {
     }
 
     /**
-     * @return
+     * Returns the quality.
+     * @return The quality.
      */
     public int getQuality() {
         return quality;
     }
 
     /**
-     * @return
+     * Returns whether the band is off or not.
+     * @return Whether the band is off or not.
      */
     private boolean isBandOff(){
         long curTime = DateTime.getDateTime();
@@ -76,7 +78,8 @@ public class DataQualityInfo {
     }
 
     /**
-     * @return
+     * Determines the quality of data collected by the band.
+     * @return The quality indicator.
      */
     private int getWorn(){
         long curTime = DateTime.getDateTime();
@@ -90,7 +93,8 @@ public class DataQualityInfo {
 
 
     /**
-     * @param value
+     * Sets the quality indictator.
+     * @param value Quality to add to the list.
      */
     public void set(DataTypeInt value) {
         long currentTime = DateTime.getDateTime();
@@ -98,9 +102,10 @@ public class DataQualityInfo {
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
         for(Iterator<DataTypeInt> i = qualities.iterator(); i.hasNext(); ) {
             DataTypeInt dataTypeInt = i.next();
-            if(dataTypeInt.getDateTime()  TIME_STORE <currentTime)
+            if(dataTypeInt.getDateTime() TIME_STORE < currentTime)
                 i.remove();
         }
+
         if(quality == -1)
             quality = lastSample;
         else if(isBandOff())
@@ -110,7 +115,12 @@ public class DataQualityInfo {
     }
 
     /**
-     * @return
+     * Returns whether the data is good.
+     * <p>
+     *     The data is considered good as long as the quality indicator is good and the sample was taken
+     *     less than 12 seconds ago.
+     * </p>
+     * @return The quality indicator.
      */
     private int getQualityGoodTo(){
         int countNoData = 0;
@@ -132,7 +142,12 @@ public class DataQualityInfo {
     }
 
     /**
-     * @return
+     * Returns whether the data is good.
+     * <p>
+     *     The data is considered good as long as the quality indicator is good and the sample was taken
+     *     less than 6 seconds ago.
+     * </p>
+     * @return The quality indicator.
      */
     private int getQualityNotWornTo(){
         int countNoData = 0;
@@ -154,8 +169,9 @@ public class DataQualityInfo {
     }
 
     /**
-     * @param value
-     * @return
+     * Translates the data quality value.
+     * @param value Value to translate.
+     * @return The translated data quality value.
      */
     private int translate(int value) {
         switch (value) {
