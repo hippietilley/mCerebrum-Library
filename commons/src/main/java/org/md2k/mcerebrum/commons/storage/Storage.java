@@ -51,7 +51,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Provides methods for reading, writing, and measuring storage.
  */
 public class Storage {
     /**
@@ -60,9 +60,10 @@ public class Storage {
     private Storage() {}
 
     /**
-     * @param context
-     * @param storageType
-     * @return
+     * Returns the path to the root directory depending on the storage type.
+     * @param context Android context.
+     * @param storageType Type of storage, either application, external, internal, or external preferred.
+     * @return The path to the root directory.
      */
     public static String getRootDirectory(Context context, StorageType storageType) {
         switch (storageType) {
@@ -79,8 +80,9 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the root directory for the external preferred storage type.
+     * @param context Android context.
+     * @return The path to the root directory.
      */
     private static String getRootDirectoryPreferred(Context context){
         String rootDirectory = getRootDirectorySDCardExternal(context);
@@ -90,8 +92,9 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the root directory for the external storage type.
+     * @param context Android context.
+     * @return The path to the root directory.
      */
     private static String getRootDirectorySDCardExternal(Context context) {
         String strSDCardPath = System.getenv("SECONDARY_STORAGE");
@@ -108,7 +111,8 @@ public class Storage {
     }
 
     /**
-     * @return
+     * Returns the root directory for the internal storage type.
+     * @return The path to the root directory.
      */
     private static String getRootDirectorySDCardInternal() {
         String directory = null;
@@ -119,9 +123,10 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param storageType
-     * @return
+     * Determines if the give storage type exists.
+     * @param context Android context.
+     * @param storageType Type of storage, either application, external, internal, or external preferred.
+     * @return Whether the given storage type exists.
      */
     public static boolean isExist(Context context, StorageType storageType) {
         if(storageType == StorageType.ASSET)
@@ -132,9 +137,10 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param storageType
-     * @return
+     * Returns the total about of space the storage has in bytes.
+     * @param context Android context.
+     * @param storageType Type of storage, either application, external, internal, or external preferred.
+     * @return The total about of space the storage has in bytes.
      */
     public static long getSpaceTotal(Context context, StorageType storageType) {
         if(!isExist(context, storageType))
@@ -143,9 +149,10 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param storageType
-     * @return
+     * Returns the amount of free space the storage has in bytes.
+     * @param context Android context.
+     * @param storageType Type of storage, either application, external, internal, or external preferred.
+     * @return The amount of free space the storage has in bytes.
      */
     public static long getSpaceFree(Context context, StorageType storageType) {
         if(!isExist(context, storageType))
@@ -154,9 +161,10 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param storageType
-     * @return
+     * Returns the amount of used space on the storage has in bytes.
+     * @param context Android context.
+     * @param storageType Type of storage, either application, external, internal, or external preferred.
+     * @return The amount of used space on the storage has in bytes.
      */
     public static long getSpaceUsed(Context context, StorageType storageType) {
         if(!isExist(context, storageType))
@@ -165,19 +173,21 @@ public class Storage {
     }
 
     /**
-     * @param sourcePath
-     * @param destinationPath
-     * @return
+     * Copies the files from the source path to the destination path.
+     * @param sourcePath File source to copy.
+     * @param destinationPath File source to copy to.
+     * @return Whether the operation was successful or not.
      */
     public static boolean copy(String sourcePath, String destinationPath) {
         return FileUtils.copyFile(sourcePath, destinationPath);
     }
 
     /**
-     * @param context
-     * @param assetFilePath
-     * @param destinationFilePath
-     * @return
+     * Copies a file from an asset to the destination path.
+     * @param context Android context.
+     * @param assetFilePath File path of the asset to copy.
+     * @param destinationFilePath File path to copy to.
+     * @return Whether the operation was successful or not.
      * @throws IOException
      */
     public static boolean copyFromAsset(Context context, String assetFilePath, String destinationFilePath) throws IOException {
@@ -195,35 +205,39 @@ public class Storage {
     }
 
     /**
-     * @param zipFilePath
-     * @param destDirPath
-     * @return
+     * Unzips a zip archive.
+     * @param zipFilePath File path to the zip file.
+     * @param destDirPath Destination directory.
+     * @return Whether the operation was successful or not.
      */
     public static boolean unzip(String zipFilePath, String destDirPath) {
         return ZipUtils.unzipFile(zipFilePath, destDirPath);
     }
 
     /**
-     * @param dirPath
-     * @return
+     * Deletes the given directory.
+     * @param dirPath Path to the directory to delete.
+     * @return Whether the operation was successful or not.
      */
     public static boolean deleteDir(String dirPath) {
         return FileUtils.deleteDir(dirPath);
     }
 
     /**
-     * @param filePath
-     * @return
+     * Deletes the given file.
+     * @param filePath Path to the file to delete.
+     * @return Whether the operation was successful or not.
      */
     public static boolean deleteFile(String filePath) {
         return FileUtils.deleteFile(filePath);
     }
 
     /**
-     * @param filePath
-     * @param classType
-     * @param <T>
-     * @return
+     * Reads a json file and returns the data.
+     * @param filePath Path to the json file.
+     * @param classType Class that defines the object or data contained in the json file.
+     * @param <T> Formal generic.
+     * @return The data or object from the json file.
      * @throws FileNotFoundException
      */
     public static <T> T readJson(String filePath, Class<T> classType) throws FileNotFoundException {
@@ -245,11 +259,12 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param assetFilePath
-     * @param classType
+     * Reads a json file and returns the data.
+     * @param context Android context.
+     * @param assetFilePath Path to the json file.
+     * @param classType Class that defines the object or data contained in the json file.
      * @param <T>
-     * @return
+     * @return The data or object from the json file.
      * @throws FileNotFoundException
      */
     public static <T> T readJsonFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
@@ -274,14 +289,16 @@ public class Storage {
     }
 
     /**
-     * @param context
-     * @param assetFilePath
-     * @param classType
+     * Reads a json file and returns the data in an arrayList.
+     * @param context Android context.
+     * @param assetFilePath Path to the json file.
+     * @param classType Class that defines the object or data contained in the json file.
      * @param <T>
-     * @return
+     * @return The data or object from the json file in an arrayList.
      * @throws FileNotFoundException
      */
-    public static <T> ArrayList<T> readJsonArrayFromAsset(Context context, String assetFilePath, Class<T> classType) throws FileNotFoundException {
+    public static <T> ArrayList<T> readJsonArrayFromAsset(Context context, String assetFilePath,
+                                                          Class<T> classType) throws FileNotFoundException {
         ArrayList<T> data = null;
         BufferedReader reader = null;
         try {
@@ -302,10 +319,11 @@ public class Storage {
     }
 
     /**
-     * @param filePath
-     * @param classType
+     * Reads a json file and returns the data in an arrayList.
+     * @param filePath Path to the json file.
+     * @param classType Class that defines the object or data contained in the json file.
      * @param <T>
-     * @return
+     * @return The data or object from the json file in an arrayList.
      * @throws FileNotFoundException
      */
     public static <T> ArrayList<T> readJsonArrayList(String filePath, Class<T> classType) throws FileNotFoundException {
@@ -327,8 +345,9 @@ public class Storage {
     }
 
     /**
-     * @param filePath
-     * @return
+     * Returns a <code>Drawable</code> object from it's file path.
+     * @param filePath Path to the file.
+     * @return A  <code>Drawable</code> object.
      */
     public static Drawable readDrawable(String filePath) {
         try {
@@ -339,35 +358,54 @@ public class Storage {
     }
 
     /**
-     * @param <X>
+     * Nested class for creating a list of class types and arguments.
+     * @param <X> Formal generic.
      */
     private static class ListOfSomething<X> implements ParameterizedType {
 
         private Class<?> wrapped;
 
         /**
-         * @param wrapped
+         * Constructor
+         * @param wrapped Class to list things about.
          */
         ListOfSomething(Class<X> wrapped) {
             this.wrapped = wrapped;
         }
 
         /**
-         * @return
+         * Returns the type arguments.
+         * @return An array of type arguments.
          */
         public java.lang.reflect.Type[] getActualTypeArguments() {
             return new java.lang.reflect.Type[]{wrapped};
         }
 
+        /**
+         * Returns the raw type.
+         * @return List.
+         */
         public java.lang.reflect.Type getRawType() {
             return List.class;
         }
 
+        /**
+         * Returns the owner type.
+         * @return Always returns null.
+         */
         public java.lang.reflect.Type getOwnerType() {
             return null;
         }
     }
 
+    /**
+     * Writes an object or data to a json file.
+     * @param filePath File path to the new json file.
+     * @param data Object or data to write.
+     * @param <T> Formal generic.
+     * @return Whether the operation was successful.
+     * @throws IOException
+     */
     public static <T> boolean writeJson(String filePath, T data) throws IOException {
         boolean result = true;
         FileWriter writer = null;
@@ -388,6 +426,14 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Writes an arrayList of data to a json file.
+     * @param filePath File path to the new json file.
+     * @param data ArrayList of data to write.
+     * @param <T> Formal generic.
+     * @return Whether the operation was successful.
+     * @throws IOException
+     */
     public static <T> boolean writeJsonArray(String filePath, ArrayList<T> data) throws IOException {
         boolean result = true;
         FileWriter writer = null;
@@ -407,5 +453,4 @@ public class Storage {
         }
         return result;
     }
-
 }
