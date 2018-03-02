@@ -56,7 +56,7 @@ public class ActivityYouTube extends YouTubeBaseActivity implements
     private String VIDEO_ID = null;
 
     /**
-     * Initializes the YouTube player. 
+     * Initializes the YouTube player.
      * @param savedInstanceState This activity's previous state, is null if this activity has never
      *                           existed.
      */
