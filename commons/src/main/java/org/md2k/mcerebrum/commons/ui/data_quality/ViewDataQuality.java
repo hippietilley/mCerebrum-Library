@@ -52,9 +52,13 @@ import mehdi.sakout.fancybuttons.FancyButton;
  */
 public class ViewDataQuality extends LinearLayout {
     /**
-     * @param context
-     * @param attrs
-     * @param cDataQualities
+     * Constructor
+     * <p>
+     *     Sets the orientation and gravity of the view.
+     * </p>
+     * @param context Android context.
+     * @param attrs The attributes to build the layout parameters from.
+     * @param cDataQualities Array of data quality content.
      */
     public ViewDataQuality(Context context, AttributeSet attrs, final CDataQuality[] cDataQualities) {
         super(context, attrs);
@@ -84,6 +88,10 @@ public class ViewDataQuality extends LinearLayout {
            ((TextView) findViewById(R.id.textview_data_quality_title_1)).setText(cDataQualities[0].title);
            FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_1);
            f.setOnClickListener(new OnClickListener() {
+               /**
+                * Starts the activity for the first index of <code>cDataQualities</code>.
+                * @param v Android view.
+                */
                @Override
                public void onClick(View v) {
                    startActivity(cDataQualities[0]);
@@ -94,6 +102,10 @@ public class ViewDataQuality extends LinearLayout {
             ((TextView) findViewById(R.id.textview_data_quality_title_2)).setText(cDataQualities[1].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_2);
             f.setOnClickListener(new OnClickListener() {
+                /**
+                 * Starts the activity for the second index of <code>cDataQualities</code>.
+                 * @param v Android view.
+                 */
                 @Override
                 public void onClick(View v) {
                     startActivity(cDataQualities[1]);
@@ -104,6 +116,10 @@ public class ViewDataQuality extends LinearLayout {
             ((TextView) findViewById(R.id.textview_data_quality_title_3)).setText(cDataQualities[2].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_3);
             f.setOnClickListener(new OnClickListener() {
+                /**
+                 * Starts the activity for the third index of <code>cDataQualities</code>.
+                 * @param v Android view.
+                 */
                 @Override
                 public void onClick(View v) {
                     startActivity(cDataQualities[2]);
@@ -114,6 +130,10 @@ public class ViewDataQuality extends LinearLayout {
             ((TextView) findViewById(R.id.textview_data_quality_title_4)).setText(cDataQualities[3].title);
             FancyButton f = (FancyButton) findViewById(R.id.button_data_quality_4);
             f.setOnClickListener(new OnClickListener() {
+                /**
+                 * Starts the activity for the fourth index of <code>cDataQualities</code>.
+                 * @param v Android view.
+                 */
                 @Override
                 public void onClick(View v) {
                     startActivity(cDataQualities[3]);
@@ -123,7 +143,8 @@ public class ViewDataQuality extends LinearLayout {
     }
 
     /**
-     * @param cDataQuality
+     * Starts the data quality activity.
+     * @param cDataQuality Data quality content.
      */
     void startActivity(CDataQuality cDataQuality){
         Intent intent = new Intent(getContext(), ActivityDataQuality.class);
@@ -137,15 +158,17 @@ public class ViewDataQuality extends LinearLayout {
     }
 
     /**
-     * @param context
-     * @param cDataQualities
+     * No attribute constructor
+     * @param context Android context.
+     * @param cDataQualities ArrayList of data quality values.
      */
     public ViewDataQuality(Context context, CDataQuality[] cDataQualities) {
         this(context, null, cDataQualities);
     }
 
     /**
-     * @param result
+     * Sets the <code>imageView</code> and <code>textView</code> values for data quality.
+     * @param result Data quality results.
      */
     public void setDataQuality(int[] result){
         ImageView imageView;
@@ -179,8 +202,9 @@ public class ViewDataQuality extends LinearLayout {
     }
 
     /**
-     * @param value
-     * @return
+     * Returns the data quality as a string.
+     * @param value Quality indicator.
+     * @return The data quality as a string.
      */
     String getDataQualityText(int value){
         switch(value){
@@ -196,8 +220,9 @@ public class ViewDataQuality extends LinearLayout {
     }
 
     /**
-     * @param value
-     * @return
+     * Returns the image for the given quality indicator.
+     * @param value Quality indicator.
+     * @return The image for the given quality indicator.
      */
     Drawable getDataQualityImage(int value){
         switch(value){
