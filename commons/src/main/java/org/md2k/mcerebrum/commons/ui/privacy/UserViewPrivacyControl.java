@@ -45,17 +45,19 @@ import java.util.Locale;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
- *
+ * Provides methods for creating a privacy control view for the user.
  */
 public class UserViewPrivacyControl {
-
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
     private static final String TAG = UserViewPrivacyControl.class.getSimpleName();
+
     private Handler handler;
     private PrivacyControlManager privacyControlManager;
     private ViewPrivacy viewPrivacy;
 
     /**
-     * @param viewPrivacy
+     * Constructor
+     * @param viewPrivacy View settings for privacy.
      */
     public UserViewPrivacyControl(ViewPrivacy viewPrivacy) {
         handler = new Handler();
@@ -64,11 +66,12 @@ public class UserViewPrivacyControl {
     }
 
     /**
-     *
+     * Runnable for creating a privacy control button.
      */
     private Runnable runnablePrivacy = new Runnable() {
         /**
-         *
+         * Creates a button that either shows the time remaining before data collection continues or
+         * shows that data collection is active.
          */
         @Override
         public void run() {
@@ -108,7 +111,7 @@ public class UserViewPrivacyControl {
     };
 
     /**
-     *
+     * Prepares a button to resume data collection.
      */
     private void prepareButton() {
         FancyButton button;
@@ -116,7 +119,8 @@ public class UserViewPrivacyControl {
         button = (FancyButton) viewPrivacy.findViewById(R.id.btn_pause_resume_data_collection);
         button.setOnClickListener(new View.OnClickListener() {
             /**
-             * @param v
+             * Starts <code>"org.md2k.datakit.ActivityPrivacy"</code>
+             * @param v Android view.
              */
             @Override
             public void onClick(View v) {
@@ -130,7 +134,8 @@ public class UserViewPrivacyControl {
     }
 
     /**
-     *
+     * Removes callbacks, calls <code>prepareButton()</code>, and posts new <code>runnablePrivacy</code>
+     * messages to the handler thread.
      */
     public void set() {
         handler.removeCallbacks(runnablePrivacy);
@@ -138,6 +143,9 @@ public class UserViewPrivacyControl {
         handler.post(runnablePrivacy);
     }
 
+    /**
+     * Clears <code>runnablePrivacy</code> messages from the handler.
+     */
     public void clear() {
         handler.removeCallbacks(runnablePrivacy);
     }
