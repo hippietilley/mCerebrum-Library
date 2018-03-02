@@ -39,13 +39,17 @@ import android.widget.TextView;
 import org.md2k.mcerebrum.commons.R;
 
 /**
- *
+ * Creates a linear layout for privacy
  */
 public class ViewPrivacy extends LinearLayout {
 
     /**
-     * @param context
-     * @param attrs
+     * Constructor
+     * <p>
+     *     Sets the orientation to horizontal and the gravity to center vertical.
+     * </p>
+     * @param context Android context.
+     * @param attrs The attributes to build the layout parameters from.
      */
     public ViewPrivacy(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -58,14 +62,16 @@ public class ViewPrivacy extends LinearLayout {
     }
 
     /**
-     * @param context
+     * No attribute constructor.
+     * @param context Android context.
      */
     public ViewPrivacy(Context context) {
         this(context, null);
     }
 
     /**
-     * @param visible
+     * Sets the image to be visible or not.
+     * @param visible Whether the image should be visible or not.
      */
     public void setImageVisible(boolean visible) {}
 
