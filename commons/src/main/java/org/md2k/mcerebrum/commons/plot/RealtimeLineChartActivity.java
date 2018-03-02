@@ -52,7 +52,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Provides methods for constructing and updating a realtime line chart.
  */
 public abstract class RealtimeLineChartActivity extends DemoBase implements
         OnChartValueSelectedListener {
@@ -69,6 +69,19 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
 
     /**
      * Draws the chart and handles touch input and screen orientation.
+     *
+     * <p>
+     *     Steps involved in drawing the chart are:
+     *     <uL>
+     *         <li>Enable description text</li>
+     *         <li>Enable touch gestures</li>
+     *         <li>Enable scaling and dragging</li>
+     *         <li>Setting pinch zoom</li>
+     *         <li>Set the background color</li>
+     *         <li>Add empty data</li>
+     *         <li>Get and modify the legend</li>
+     *     </uL>
+     * </p>
      * @param savedInstanceState This activity's previous state, is null if this activity has never
      *                           existed.
      */
@@ -133,6 +146,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
     /**
+     * Creates the options menu.
      * @param menu Menu to create.
      * @return Always returns true.
      */
@@ -142,6 +156,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
     }
 
     /**
+     * Runs when a menu item is selected on the options menu.
      * @param item Selected menu item.
      * @return Always returns true.
      */
@@ -152,7 +167,7 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
 
 
     /**
-     * Adds a data point to the chart.
+     * Adds a data point to the chart, notifies the chart, and updates the view of the chart.
      * @param value Array of values to add.
      * @param legend Array of value descriptors.
      * @param noPoints Used to limit the number of visible entries.
@@ -187,12 +202,16 @@ public abstract class RealtimeLineChartActivity extends DemoBase implements
         }
     }
 
+    /**
+     * Array of integer values denoting colors.
+     */
     int[] colors = new int[]{Color.GREEN, Color.RED, Color.BLUE, Color.YELLOW, Color.CYAN, Color.MAGENTA};
 
     /**
-     * @param i
-     * @param l
-     * @return
+     * Creates the data set for the line chart.
+     * @param i Integer value corresponding to a color in the color array.
+     * @param l Data set label.
+     * @return The <code>LineDataSet</code>.
      */
     private LineDataSet createSet(int i, String l) {
         LineDataSet set = new LineDataSet(null, l);
