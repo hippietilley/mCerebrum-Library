@@ -41,12 +41,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import java.util.ArrayList;
 
 /**
- *
+ * Provides methods for determining whether permissions have been granted or not.
  */
 public class PermissionInfo {
-    /**
-     *
-     */
+    /** Intent result constant. */
     public static final String INTENT_RESULT = "result";
 
     /**
