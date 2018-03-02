@@ -38,13 +38,14 @@ import org.md2k.mcerebrum.commons.R;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
- *
+ * Creates a linear layout of days
  */
 public class ViewDay extends LinearLayout {
 
     /**
-     * @param context
-     * @param attrs
+     * Constructor
+     * @param context Android context.
+     * @param attrs The attributes to build the layout parameters from.
      */
     public ViewDay(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -53,13 +54,16 @@ public class ViewDay extends LinearLayout {
     }
 
     /**
-     * @param context
+     * Null attributes constructor.
+     * @param context Android context.
      */
     public ViewDay(Context context) {
         this(context, null);
     }
 
     /**
+     * TODO: Monowar said this was going away and not to worry about it.
+     * Determines the boolean values passed to set.
      * @param w1
      * @param s1
      * @param w2
