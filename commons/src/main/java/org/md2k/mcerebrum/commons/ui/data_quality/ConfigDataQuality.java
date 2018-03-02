@@ -33,7 +33,7 @@ import android.os.Parcelable;
 import org.md2k.datakitapi.source.datasource.DataSource;
 
 /**
- * Data quality configuration object 
+ * Data quality configuration object
  */
 public class ConfigDataQuality implements Parcelable{
     String title;

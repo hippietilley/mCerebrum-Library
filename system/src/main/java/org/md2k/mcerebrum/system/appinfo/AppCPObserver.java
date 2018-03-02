@@ -38,7 +38,7 @@ import android.util.Log;
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 
 /**
- * Observes the application for changes.
+ * Observes the application content provider for changes.
  */
 public class AppCPObserver extends ContentObserver {
     /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */

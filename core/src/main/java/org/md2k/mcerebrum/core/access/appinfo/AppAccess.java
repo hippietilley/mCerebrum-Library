@@ -36,7 +36,7 @@ import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 import java.util.ArrayList;
 
 /**
- * Provides methods for making calls to <code>AppCP</code>.
+ * Provides methods for making calls to the application content provider (<code>AppCP</code>).
  */
 public class AppAccess {
 

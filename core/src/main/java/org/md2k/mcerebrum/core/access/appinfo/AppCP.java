@@ -41,7 +41,7 @@ import org.md2k.mcerebrum.core.access.appinfo.AppInfoSelection;
 import java.util.ArrayList;
 
 /**
- *
+ * Android application content provider.
  */
 public class AppCP {
 

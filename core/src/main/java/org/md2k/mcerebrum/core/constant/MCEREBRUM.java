@@ -41,7 +41,7 @@ public class MCEREBRUM {
         /** Operation. <p><code>"OP"</code>.</p> */
         public static String OP = "OP";
 
-        /** AppCP changed. <p><code>"appcp_changed"</code>.</p> */
+        /** Application content provider changed. <p><code>"appcp_changed"</code>.</p> */
         public static String APPCP_CHANGED = "appcp_changed";
     }
 

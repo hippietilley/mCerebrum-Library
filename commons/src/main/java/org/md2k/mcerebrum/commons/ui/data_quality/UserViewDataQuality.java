@@ -41,6 +41,7 @@ public class UserViewDataQuality {
     private ResultCallback resultCallback;
 
     /**
+     * Constructor
      * @param dataQualityManager
      */
     public UserViewDataQuality(DataQualityManager dataQualityManager) {
@@ -49,7 +50,8 @@ public class UserViewDataQuality {
     }
 
     /**
-     * @param resultCallback
+     * Sets the result callback and posts <code>runnableUpateView</code> messages to the handler.
+     * @param resultCallback Callback for results.
      */
     public void set(ResultCallback resultCallback) {
         this.resultCallback = resultCallback;
@@ -57,14 +59,14 @@ public class UserViewDataQuality {
     }
 
     /**
-     *
+     * Clears the callback thread.
      */
     public void clear() {
         handler.removeCallbacks(runnableUpdateView);
     }
 
     /**
-     *
+     * Updates the view if there are changes to <code>dataQualityManager</code>.
      */
     public void updateView(){
         try {
@@ -77,17 +79,15 @@ public class UserViewDataQuality {
                 result[i] = dataQualityInfos.get(i).getQuality();
             }
             resultCallback.onResult(result);
-        }catch (Exception e){
-
-        }
+        }catch (Exception e){}
     }
 
     /**
-     *
+     * Runnable for updating the view.
      */
     private Runnable runnableUpdateView = new Runnable() {
         /**
-         *
+         * Updates the view and posts a one seconds delayed <code>run()</code> message.
          */
         @Override
         public void run() {

@@ -44,12 +44,13 @@ import java.util.ArrayList;
  *
  */
 public class DataQualityManager {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
     private static final String TAG = DataQualityManager.class.getSimpleName();
     private ArrayList<DataQuality> dataQualities;
     public ArrayList<DataQualityInfo> dataQualityInfos;
 
     /**
-     *
+     * Constructor
      */
     public DataQualityManager(){
         dataQualities = new ArrayList<>();
@@ -57,8 +58,9 @@ public class DataQualityManager {
     }
 
     /**
-     * @param context
-     * @param dataSources
+     * Sets
+     * @param context Android context.
+     * @param dataSources ArrayList of data sources.
      */
     public void set(Context context, ArrayList<DataSource> dataSources) {
         if(dataQualityInfos.size()!= 0 || dataQualities.size()!= 0)
@@ -70,6 +72,9 @@ public class DataQualityManager {
         for (int i = 0; i < dataSources.size(); i++) {
             final int finalI = i;
             dataQualities.get(i).start(new ReceiveCallBack() {
+                /**
+                 * @param sample 
+                 */
                 @Override
                 public void onReceive(DataTypeInt sample) {
                     dataQualityInfos.get(finalI).set(sample);
