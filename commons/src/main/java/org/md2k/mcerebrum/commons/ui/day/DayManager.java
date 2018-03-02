@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- *
+ * Provides methods for reading day information from data sources.
  */
 class DayManager {
     private long dayStarted;
@@ -66,7 +66,9 @@ class DayManager {
     }
 
     /**
-     * @param context
+     * Sets the <code>sleepTime</code>, <code>dayStarted</code>, and <code>dayEnded</code> types to
+     * values detected by the appropriate data sources.
+     * @param context Android context
      */
     public void set(Context context) {
         sleepTime = readWS(context, new DataSourceBuilder().setType(DataSourceType.SLEEP));
@@ -75,22 +77,25 @@ class DayManager {
     }
 
     /**
-     * @return
+     * Returns the <code>dayStarted</code>.
+     * @return The <code>dayStarted</code>.
      */
     public long getDayStarted() {
         return dayStarted;
     }
 
     /**
-     * @return
+     * Returns the <code>dayEnded</code>.
+     * @return The <code>dayEnded</code>.
      */
     public long getDayEnded() {
         return dayEnded;
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the current wakeup time.
+     * @param context Android context
+     * @return The current wakeup time.
      */
     public long getWakeupTimeCurrent(Context context){
         long[] wakeupTime;
@@ -105,8 +110,9 @@ class DayManager {
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the next wakeup time.
+     * @param context Android context
+     * @return The next wakeup time.
      */
     public long getWakeupTimeNext(Context context){
         long[] wakeupTime;
@@ -121,8 +127,9 @@ class DayManager {
     }
 
     /**
-     * @param context
-     * @return
+     * Returns the current sleep time.
+     * @param context Android context
+     * @return The current sleep time.
      */
     public long getSleepTimeCurrent(Context context){
         long[] offset;
@@ -137,9 +144,10 @@ class DayManager {
     }
 
     /**
-     * @param time
-     * @param offsets
-     * @return
+     * Returns the local time in milliseconds.
+     * @param time Time in milliseconds.
+     * @param offsets Array of time offsets (Time zone)
+     * @return The time in milliseconds.
      */
     private long getTime(long time, long[] offsets){
         long offset;
@@ -155,28 +163,31 @@ class DayManager {
     }
 
     /**
-     * @return
+     * Returns the wakeup time.
+     * @return The wakeup time.
      */
     public long[] getWakeupTime() {
         return wakeupTime;
     }
 
     /**
-     * @return
+     * Returns the sleep time.
+     * @return The sleep time.
      */
     public long[] getSleepTime() {
         return sleepTime;
     }
 
     /**
-     *
+     * Empty method
      */
     public void clear() {}
 
     /**
-     * @param context
-     * @param dataSourceBuilder
-     * @return
+     * Reads the day a sample was taken from <code>DataKitAPI</code>.
+     * @param context Android context
+     * @param dataSourceBuilder Builder for the data source to read the day from.
+     * @return The day in milliseconds.
      */
     private long readDay(Context context, DataSourceBuilder dataSourceBuilder) {
         try {
@@ -188,8 +199,7 @@ class DayManager {
                     try {
                         DataTypeLong d = (DataTypeLong) dataTypes.get(0);
                         return d.getSample();
-                    } catch (Exception ignored) {
-                    }
+                    } catch (Exception ignored) {}
                 }
             }
         } catch (Exception ignored) {}
@@ -197,9 +207,10 @@ class DayManager {
     }
 
     /**
-     * @param context
-     * @param dataSourceBuilder
-     * @return
+     * Reads the wakeup and sleep times from a data source.
+     * @param context Android context
+     * @param dataSourceBuilder Builder for the data source to read the day from.
+     * @return An array of wakeup and sleep values.
      */
     private long[] readWS(Context context, DataSourceBuilder dataSourceBuilder) {
         try {
@@ -211,8 +222,7 @@ class DayManager {
                     try {
                         DataTypeLongArray d = (DataTypeLongArray) dataTypes.get(0);
                         return d.getSample();
-                    } catch (Exception ignored) {
-                    }
+                    } catch (Exception ignored) {}
                 }
             }
         } catch (Exception ignored) {}
