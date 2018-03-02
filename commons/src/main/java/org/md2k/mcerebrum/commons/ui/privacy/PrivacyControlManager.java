@@ -44,35 +44,37 @@ import org.md2k.mcerebrum.core.data_format.privacy.PrivacyData;
 import java.util.ArrayList;
 
 /**
- *
+ * Provides methods for getting privacy data from <code>DataKit</code>.
  */
 class PrivacyControlManager {
     private PrivacyData privacyData;
 
     /**
-     *
+     * Constructor
      */
     PrivacyControlManager() {
         privacyData = null;
     }
 
     /**
-     * @param context
+     * Sets the privacy data from <code>DataKit</code>.
+     * @param context Android context.
      */
     public void set(Context context) {
         privacyData = readFromDataKit(context);
     }
 
     /**
-     *
+     * Sets the privacy data to null.
      */
     public void clear() {
         privacyData = null;
     }
 
     /**
-     * @param context
-     * @return
+     * Reads the privacy data from <code>DataKit</code>.
+     * @param context Android context.
+     * @return The privacy data.
      */
     private PrivacyData readFromDataKit(Context context) {
         PrivacyData privacyData = null;
@@ -98,7 +100,8 @@ class PrivacyControlManager {
     }
 
     /**
-     * @return
+     * Returns the time remaining for the privacy window.
+     * @return The time remaining for the privacy window.
      */
     long getRemainingTime(){
         if (privacyData == null)
@@ -111,7 +114,8 @@ class PrivacyControlManager {
     }
 
     /**
-     * @return
+     * Creates a <code>DataSourceBuilder</code> for privacy.
+     * @return A <code>DataSourceBuilder</code>.
      */
     private DataSourceBuilder createDataSourceBuilder() {
         return new DataSourceBuilder().setType(DataSourceType.PRIVACY);
