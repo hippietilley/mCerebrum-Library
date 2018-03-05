@@ -32,7 +32,7 @@ import android.os.Handler;
 import java.util.ArrayList;
 
 /**
- *
+ * Provides methods for managing the user's view of the <code>DataQuality</code>.
  */
 public class UserViewDataQuality {
     private static final String TAG = UserViewDataQuality.class.getSimpleName();
