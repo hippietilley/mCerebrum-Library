@@ -41,12 +41,14 @@ import org.md2k.mcerebrum.commons.permission.ResultCallback;
 import java.util.ArrayList;
 
 /**
- *
+ * Manages a lists of <code>DataQuality</code> and <code>DataQualityInfo</code> objects.
  */
 public class DataQualityManager {
     /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
     private static final String TAG = DataQualityManager.class.getSimpleName();
     private ArrayList<DataQuality> dataQualities;
+
+    /** ArrayList of <code>DataQulityInfo</code> objects. */
     public ArrayList<DataQualityInfo> dataQualityInfos;
 
     /**
@@ -58,7 +60,7 @@ public class DataQualityManager {
     }
 
     /**
-     * Sets
+     * Sets the received sample for each <code>dataSource</code>.
      * @param context Android context.
      * @param dataSources ArrayList of data sources.
      */
@@ -73,7 +75,8 @@ public class DataQualityManager {
             final int finalI = i;
             dataQualities.get(i).start(new ReceiveCallBack() {
                 /**
-                 * @param sample 
+                 * Sets the sample for the current <code>DataQuality</code>.
+                 * @param sample Received sample.
                  */
                 @Override
                 public void onReceive(DataTypeInt sample) {
@@ -84,7 +87,7 @@ public class DataQualityManager {
     }
 
     /**
-     *
+     * Clears the <code>dataQualities</code> array and stops each <code>DataQuality</code>.
      */
     public void clear() {
         if (dataQualities != null && dataQualities.size() != 0) {
