@@ -45,7 +45,7 @@ import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 import java.util.ArrayList;
 
 /**
- *
+ * Provides methods for starting, stopping, and running the <code>DataQuality</code> service.
  */
 class DataQuality {
     /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
@@ -83,8 +83,8 @@ class DataQuality {
     }
 
     /**
-     *
-     * @param receiveCallBack
+     * Starts the <code>DataQuality</code> service.
+     * @param receiveCallBack Callback interface for sample receipt.
      */
     public void start(ReceiveCallBack receiveCallBack) {
         this.receiveCallBack = receiveCallBack;
@@ -95,11 +95,11 @@ class DataQuality {
     }
 
     /**
-     *
+     * Runnable for creating no data samples.
      */
     private Runnable runnableNoData = new Runnable() {
         /**
-         *
+         * Creates a new sample for timeframes with no data.
          */
         @Override
         public void run() {
@@ -110,11 +110,12 @@ class DataQuality {
     };
 
     /**
-     *
+     * Subscribing runnable.
      */
     private Runnable runnableSubscribe = new Runnable() {
         /**
-         *
+         * Subscribes a <code>dataSourceClient</code> if a <code>dataSource</code> is found with
+         * <code>DataKitAPI</code>.
          */
         @Override
         public void run() {
@@ -131,7 +132,8 @@ class DataQuality {
                         prepare(d.get(0));
                     DataKitAPI.getInstance(context).subscribe(dataSourceClient, new OnReceiveListener() {
                         /**
-                         * @param dataType
+                         * Prepares the given <code>dataType</code> when it is received.
+                         * @param dataType <code>DataType</code> to prepare.
                          */
                         @Override
                         public void onReceived(final DataType dataType) {
@@ -144,7 +146,9 @@ class DataQuality {
     };
 
     /**
-     * @param dataType
+     * Passes the given sample to the <code>receiveCallback</code> interface and posts a delayed
+     * <code>runnableNoData</code> message to <code>handlerNoData</code>.
+     * @param dataType <code>DataType</code> object containing the sample.
      */
     void prepare(DataType dataType){
         if(dataType instanceof DataTypeInt) {
@@ -156,13 +160,13 @@ class DataQuality {
     }
 
     /**
-     *
+     * Removes callbacks from <code>handlerSubscribe</code> and <code>handlerNoData</code> and
+     * unsubscribes <code>dataSourceClient</code>s from <code>DataKitAPI</code>.
      */
     void stop() {
         try {
             handlerSubscribe.removeCallbacks(runnableSubscribe);
             handlerNoData.removeCallbacks(runnableNoData);
-
             if (dataSourceClient != null && DataKitAPI.getInstance(context).isConnected()) {
                 DataKitAPI.getInstance(context).unsubscribe(dataSourceClient);
                 dataSourceClient = null;
