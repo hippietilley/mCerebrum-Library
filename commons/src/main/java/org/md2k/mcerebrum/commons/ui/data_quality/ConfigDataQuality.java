@@ -78,6 +78,7 @@ public class ConfigDataQuality implements Parcelable{
     };
 
     /**
+     * Returns 0 because this <code>Parcelable</code> does not contain a <code>FileDescriptor</code>.
      * @return Always returns 0.
      */
     @Override

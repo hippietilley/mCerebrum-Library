@@ -185,8 +185,8 @@ public class UserInfoBean implements UserInfoModel {
         }
 
         /**
-         * Sets the UID.
-         * @param id The UID (can be null).
+         * Sets the user id.
+         * @param uid The user id (can be null).
          * @return The modified builder.
          */
 
@@ -197,7 +197,7 @@ public class UserInfoBean implements UserInfoModel {
 
         /**
          * Sets the user type.
-         * @param id The user type (can be null).
+         * @param type The user type (can be null).
          * @return The modified builder.
          */
         public Builder type(@Nullable String type) {
@@ -207,7 +207,7 @@ public class UserInfoBean implements UserInfoModel {
 
         /**
          * Sets the username.
-         * @param id The username (can be null).
+         * @param username The username (can be null).
          * @return The modified builder.
          */
         public Builder username(@Nullable String username) {

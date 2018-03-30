@@ -6,13 +6,17 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.net.Uri;
 
+/**
+ *
+ * @param <T>
+ */
 @SuppressWarnings("unused")
 public abstract class AbstractContentValues<T extends AbstractContentValues<?>> {
     protected final ContentValues mContentValues = new ContentValues();
     private Boolean mNotify;
 
     /**
-     * Returns the {@code uri} argument to pass to the {@code ContentResolver} methods.
+     * Returns the {@code uri} argument to pass to the {@code ContentResolver} methods.\
      */
     protected abstract Uri baseUri();
 
@@ -21,10 +25,16 @@ public abstract class AbstractContentValues<T extends AbstractContentValues<?>> 
      */
     public Uri uri() {
         Uri uri = baseUri();
-        if (mNotify != null) uri = BaseContentProvider.notify(uri, mNotify);
+        if (mNotify != null)
+            uri = BaseContentProvider.notify(uri, mNotify);
         return uri;
     }
 
+    /**
+     * Sets the <code>mNotify</code> attribute and returns this context as a generic.
+     * @param notify Whether to notify or not.
+     * @return <code>this</code> as a generic.
+     */
     @SuppressWarnings("unchecked")
     public T notify(boolean notify) {
         mNotify = notify;

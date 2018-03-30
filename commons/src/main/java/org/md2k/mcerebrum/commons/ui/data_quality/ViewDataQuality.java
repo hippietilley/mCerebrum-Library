@@ -48,7 +48,7 @@ import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 /**
- *
+ * Defines a view for <code>DataQuality</code>
  */
 public class ViewDataQuality extends LinearLayout {
     /**

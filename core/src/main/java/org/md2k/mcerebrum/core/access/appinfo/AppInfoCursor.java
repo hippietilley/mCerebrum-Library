@@ -25,7 +25,8 @@ public class AppInfoCursor extends AbstractCursor implements AppInfoModel {
     public long getId() {
         Long res = getLongOrNull(AppInfoColumns._ID);
         if (res == null)
-            throw new NullPointerException("The value of '_id' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of '_id' in the database was null, " +
+                    "which is not allowed according to the model definition");
         return res;
     }
 

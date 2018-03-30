@@ -48,6 +48,10 @@ public enum StorageType {
 
     private String stringValue;
 
+    /**
+     * Constructor
+     * @param toString Storage type as a string.
+     */
     StorageType(String toString) {
         stringValue = toString;
     }

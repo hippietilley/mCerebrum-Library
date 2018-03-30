@@ -154,6 +154,11 @@ public class AppInfoColumns implements BaseColumns {
             DATAKIT_CONNECTED
     };
 
+    /**
+     * Returns whether the given columns are in the table.
+     * @param projection Array of columns to look for.
+     * @return Whether the given columns are in the table.
+     */
     public static boolean hasColumns(String[] projection) {
         if (projection == null)
             return true;

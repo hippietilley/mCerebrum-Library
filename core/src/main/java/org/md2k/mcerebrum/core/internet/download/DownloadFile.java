@@ -158,12 +158,12 @@ public class DownloadFile {
     }
 
     /**
-     * Creates an API implemenation for the given class and URL.
+     * Creates an API implementation for the given class and URL.
      *
-     * @param serviceClass
-     * @param baseUrl
-     * @param <T>
-     * @return
+     * @param serviceClass Class that defines the service
+     * @param baseUrl Base URL for the service
+     * @param <T> Generic parameter
+     * @return The created service.
      */
     private <T> T createService(Class<T> serviceClass, String baseUrl) {
         Retrofit retrofit = new Retrofit.Builder()

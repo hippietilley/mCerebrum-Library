@@ -78,7 +78,7 @@ public class AppInfo {
     /**
      * Determines if the service is running or not.
      * @param context Android context.
-     * @param packageName Name of the package.
+     * @param serviceName Name of the package.
      * @return Whether the service is running or not.
      */
     public static boolean isServiceRunning(Context context, String serviceName) {
@@ -94,7 +94,7 @@ public class AppInfo {
     /**
      * Returns the amount of time the service has been running in milliseconds.
      * @param context Android context.
-     * @param packageName Name of the package.
+     * @param serviceName Name of the package.
      * @return The amount of time the service has been running in milliseconds.
      */
     public static long serviceRunningTime(Context context, String serviceName) {
