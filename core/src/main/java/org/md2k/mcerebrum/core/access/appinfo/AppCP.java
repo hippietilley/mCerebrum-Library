@@ -424,9 +424,10 @@ public class AppCP {
     }
 
     /**
+     * Returns whether mCerebrum is supported by the given package.
      * @param context Android context
      * @param packageName Name of the package.
-     * @return
+     * @return Whether mCerebrum is supported by the given package.
      */
     //App Access
     public static boolean getMCerebrumSupported(Context context, String packageName) {
@@ -439,9 +440,10 @@ public class AppCP {
     }
 
     /**
+     * Sets whether mCerebrum is supported by the given package.
      * @param context Android context
      * @param packageName Name of the package.
-     * @param isSupported
+     * @param isSupported Whether mCerebrum is supported by the given package.
      */
     public static void setMCerebrumSupported(Context context, String packageName, boolean isSupported) {
         AppInfoBean appInfoBean=read(context, packageName);
@@ -453,9 +455,10 @@ public class AppCP {
     }
 
     /**
+     * Sets whether the given package is used in a study or not.
      * @param context Android context
      * @param packageName Name of the package.
-     * @param b
+     * @param b Whether the given package is used in a study or not.
      */
     public static void setUseInStudy(Context context, String packageName, boolean b) {
         AppInfoBean appInfoBean = read(context, packageName);

@@ -39,9 +39,6 @@ import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
  *
  */
 public class MCerebrum {
-    /**
-     *
-     */
     private MCerebrum(){
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
@@ -111,8 +108,9 @@ public class MCerebrum {
     }
 
     /**
+     * Sets whether the calling package is configured or not.
      * @param context Android context
-     * @param b
+     * @param b Whether the calling package is configured or not.
      */
     public static void setConfigured(Context context, boolean b){
         AppAccess.setConfigured(context, context.getPackageName(), b);

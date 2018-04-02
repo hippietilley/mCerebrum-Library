@@ -42,7 +42,6 @@ public class AppAccess {
 
     /**
      *
-     *
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -95,6 +94,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts an activity for the given package with permissions.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -106,6 +106,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts the given activity for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      * @param activityName Name of the activity.
@@ -118,6 +119,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts the named service for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      * @param serviceName Name of the service.
@@ -130,9 +132,10 @@ public class AppAccess {
     }
 
     /**
+     * Stops the given package's named service.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param serviceName
+     * @param serviceName Name of the service to stop.
      */
     public static void stopService(Context context, String packageName, String serviceName){
         if(!AppInfo.isServiceRunning(context, serviceName)) return;
@@ -142,6 +145,7 @@ public class AppAccess {
     }
 
     /**
+     * Launches an activity for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -151,6 +155,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts a background service for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -162,6 +167,7 @@ public class AppAccess {
     }
 
     /**
+     * Stops a background service from the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -173,27 +179,30 @@ public class AppAccess {
     }
 
     /**
-     * @param context Android context.
+     * Sets whether DataKit is connected by the given package.
+     * @param context Android context
      * @param packageName Name of the package.
-     * @param b
+     * @param b Whether DataKit is connected by the given package.
      */
     public static void setDataKitConnected(Context context, String packageName, boolean b) {
         AppCP.setDataKitConnected(context, packageName, b);
     }
 
     /**
-     * @param context Android context.
+     * Sets whether mCerebrum is supported by the given package.
+     * @param context Android context
      * @param packageName Name of the package.
-     * @param b
+     * @param b Whether mCerebrum is supported by the given package.
      */
     public static void setMCerebrumSupported(Context context, String packageName, boolean b) {
         AppCP.setMCerebrumSupported(context, packageName, b);
     }
 
     /**
-     * @param context Android context.
+     * Returns whether mCerebrum is supported by the given package.
+     * @param context Android context
      * @param packageName Name of the package.
-     * @return
+     * @return Whether mCerebrum is supported by the given package.
      */
     public static boolean getMCerebrumSupported(Context context, String packageName) {
         return AppCP.getMCerebrumSupported(context, packageName);
@@ -272,6 +281,7 @@ public class AppAccess {
     }
 
     /**
+     *
      * @param context Android context.
      * @param packageName Name of the package.
      * @param name
@@ -281,72 +291,80 @@ public class AppAccess {
     }
 
     /**
+     * Returns the permissions for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The permissions for the given package.
      */
     public static String getFuncPermission(Context context, String packageName) {
         return AppCP.getFuncPermission(context, packageName);
     }
 
     /**
+     * Sets the permissions for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name The permissions for the given package.
      */
     public static void setFuncPermission(Context context, String packageName, String name) {
         AppCP.setFuncPermission(context, packageName, name);
     }
 
     /**
+     * Returns whether the permissions are okay or not.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return Whether the permissions are okay or not.
      */
     public static boolean getPermissionOk(Context context, String packageName) {
         return AppCP.getPermissionOk(context, packageName);
     }
 
     /**
+     * Sets whether the permissions are okay or not.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param b
+     * @param b Whether the permissions are okay or not.
      */
     public static void setPermissionOk(Context context, String packageName, boolean b) {
         AppCP.setPermissionOk(context, packageName,b);
     }
 
     /**
+     * Sets the update info for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name The update info for the given package.
      */
     public static void setFuncUpdateInfo(Context context, String packageName, String name) {
         AppCP.setFuncUpdateInfo(context, packageName, name);
     }
 
     /**
+     * Returns the update info for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The update info for the given package.
      */
     public static String getFuncUpdateInfo(Context context, String packageName) {
         return AppCP.getFuncUpdateInfo(context, packageName);
     }
 
     /**
+     * Sets whether the given package is configured or not.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param isConfigured
+     * @param isConfigured Whether the given package is configured or not.
      */
     public static void setConfigured(Context context, String packageName, boolean isConfigured) {
         AppCP.setConfigured(context, packageName, isConfigured);
     }
 
     /**
+     * Returns whether the given package is configured or not.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return Whether the given package is configured or not.
      */
     public static boolean getConfigured(Context context, String packageName) {
         return AppCP.getConfigured(context, packageName);
@@ -364,9 +382,9 @@ public class AppAccess {
     }
 
     /**
-     * Returns the list of reqired apps that have not been configured.
+     * Returns the list of required apps that have not been configured.
      * @param context Android context.
-     * @return The list of reqired apps that have not been configured.
+     * @return The list of required apps that have not been configured.
      */
     public static ArrayList<String> getRequiredAppNotConfigured(Context context) {
         ArrayList<String> packageNames = AppBasicInfo.get(context);
@@ -386,9 +404,9 @@ public class AppAccess {
     }
 
     /**
-     * Returns the list of reqired apps that have been configured.
+     * Returns the list of required apps that have been configured.
      * @param context Android context
-     * @return The list of reqired apps that have been configured.
+     * @return The list of required apps that have been configured.
      */
     public static ArrayList<String> getRequiredAppConfigured(Context context) {
         ArrayList<String> packageNames = AppBasicInfo.get(context);

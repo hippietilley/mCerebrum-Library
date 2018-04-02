@@ -102,7 +102,7 @@ public class DataQualityInfo {
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
         for(Iterator<DataTypeInt> i = qualities.iterator(); i.hasNext(); ) {
             DataTypeInt dataTypeInt = i.next();
-            if(dataTypeInt.getDateTime() TIME_STORE < currentTime)
+            if(dataTypeInt.getDateTime() + TIME_STORE < currentTime)
                 i.remove();
         }
 

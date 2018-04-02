@@ -40,7 +40,7 @@ import java.util.ArrayList;
 
 
 /**
- *
+ * Provides methods for retrieving and setting basic application information with <code>AppCP</code>.
  */
 public class AppBasicInfo {
 
@@ -120,9 +120,9 @@ public class AppBasicInfo {
     }
 
     /**
-     *
+     * Returns an arraylist of package names.
      * @param context Android context.
-     * @return
+     * @return An arraylist of package names.
      */
     public static ArrayList<String> get(Context context){
         ArrayList<String> packageNames = AppCP.read(context);
@@ -139,69 +139,69 @@ public class AppBasicInfo {
     }
 
     /**
-     * Returns
+     * Returns the title of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The title of the given package.
      */
     public static String getTitle(Context context, String packageName) {
         return AppCP.getTitle(context, packageName);
     }
 
     /**
-     * Returns
+     * Returns the summary of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The summary of the given package.
      */
     public static String getSummary(Context context, String packageName) {
         return AppCP.getSummary(context, packageName);
     }
 
     /**
-     * Returns
+     * Returns the description of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The description of the given package.
      */
     public static String getDescription(Context context, String packageName) {
         return AppCP.getDescription(context, packageName);
     }
 
     /**
-     * Returns
+     * Returns whether the package is required, optional, or not in use.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return Whether the package is required, optional, or not in use.
      */
     public static String getUseAs(Context context, String packageName) {
         return AppCP.getUseAs(context, packageName);
     }
 
     /**
-     * Returns
+     * Returns the package type.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The package type.
      */
     public static String getType(Context context, String packageName) {
         return AppCP.getType(context, packageName);
     }
 
-
     /**
+     * Sets the parameterized fields to the passed values.
      * @param context Android context.
-     * @param packageName Name of the package.
-     * @param type
-     * @param title
-     * @param summary
-     * @param description
-     * @param use_as
-     * @param download_link
-     * @param update
-     * @param expected_version
-     * @param icon
-     * @param useInStudy
+     * @param package_name Name of the package.
+     * @param type Application type.
+     * @param title Application title.
+     * @param summary Application summary.
+     * @param description Application description.
+     * @param use_as Either required, optional, or not in use.
+     * @param download_link Link to download the application from.
+     * @param update Update information for the application.
+     * @param expected_version Expected version information
+     * @param icon Application icon.
+     * @param useInStudy Whether the application is being used in the study.
      */
     public static void set(Context context, String package_name, String type, String title,
                            String summary, String description, String use_as, String download_link,

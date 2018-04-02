@@ -33,8 +33,12 @@ import android.content.Context;
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
 
 /**
- *
+ * An object used to wrap an instance of another class for use with mCerebrum.
  */
 public class MCerebrumInfo {
+    /**
+     * Updates the class instance with the current context.
+     * @param context Android context.
+     */
     public void update(Context context){}
 }

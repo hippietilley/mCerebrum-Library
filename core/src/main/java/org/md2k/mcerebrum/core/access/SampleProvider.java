@@ -46,7 +46,7 @@ import org.md2k.mcerebrum.core.access.studyinfo.StudyInfoColumns;
 import org.md2k.mcerebrum.core.access.userinfo.UserInfoColumns;
 
 /**
- *
+ * Content provider for samples
  */
 public class SampleProvider extends BaseContentProvider {
     /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
@@ -109,8 +109,9 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @return
+     * Returns the type of the given content.
+     * @param uri Content to return the type of.
+     * @return The type of the passed content.
      */
     @Override
     public String getType(Uri uri) {
@@ -145,9 +146,10 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param values
-     * @return
+     * Inserts the given content to the database.
+     * @param uri Content to insert.
+     * @param values Content values to insert.
+     * @return A copy of the inserted URI with the rowId appended.
      */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
@@ -156,9 +158,10 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param values
-     * @return
+     * Inserts multiple rows into the database.
+     * @param uri Content to insert.
+     * @param values Content values to insert.
+     * @return The number of rows added.
      */
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
@@ -167,11 +170,12 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param values
-     * @param selection
-     * @param selectionArgs
-     * @return
+     * Updates the selected rows with the new content values.
+     * @param uri Content to update.
+     * @param values New content values.
+     * @param selection Selection to update.
+     * @param selectionArgs Arguments for the selection string.
+     * @return The number of rows updated.
      */
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
@@ -181,10 +185,11 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param selection
-     * @param selectionArgs
-     * @return
+     * Deletes the selected rows from the content database.
+     * @param uri Content to delete.
+     * @param selection Selection to delete.
+     * @param selectionArgs Arguments for the selection string.
+     * @return The number of rows deleted.
      */
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
@@ -194,12 +199,13 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param projection
-     * @param selection
-     * @param selectionArgs
-     * @param sortOrder
-     * @return
+     * Constructs a query for the database and returns a cursor over the result set.
+     * @param uri Content to query for.
+     * @param projection Attributes to query.
+     * @param selection Selection to query.
+     * @param selectionArgs Arguments for the selection string.
+     * @param sortOrder Order to sort the results in.
+     * @return A cursor over the result set.
      */
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
@@ -213,10 +219,12 @@ public class SampleProvider extends BaseContentProvider {
     }
 
     /**
-     * @param uri
-     * @param selection
-     * @param projection
-     * @return
+     * Returns an object containing parameter information for the query.
+     * @param uri Content to query for.
+     * @param projection Attributes to query.
+     * @param selection Selection to query.
+     * @return A <code>QueryParams</code> object containing the parameters of the query statement as
+     * strings.
      */
     @Override
     protected QueryParams getQueryParams(Uri uri, String selection, String[] projection) {

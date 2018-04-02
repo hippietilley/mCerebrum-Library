@@ -43,7 +43,8 @@ import org.md2k.mcerebrum.core.constant.MCEREBRUM;
  */
 public class MCerebrumReceiver extends BroadcastReceiver {
     /**
-     *
+     * Decodes the received message and either stops DataKit or casts an instance of a class invovled
+     * in a study as an <code>MCerebrumInfo</code> object.
      * @param context Android context
      * @param intent Android intent
      */
