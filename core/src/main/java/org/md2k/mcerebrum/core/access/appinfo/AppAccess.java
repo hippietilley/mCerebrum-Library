@@ -41,7 +41,7 @@ import java.util.ArrayList;
 public class AppAccess {
 
     /**
-     *
+     * Configures a package and starts it's activity.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -53,6 +53,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts the report activity for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -64,6 +65,7 @@ public class AppAccess {
     }
 
     /**
+     * Wrapper method for setting the access for apps.
      * @param context Android context.
      */
     public static void set(Context context) {
@@ -73,6 +75,7 @@ public class AppAccess {
     }
 
     /**
+     * Sets the given package's access.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -83,6 +86,7 @@ public class AppAccess {
     }
 
     /**
+     * Starts the given package's clear activity.
      * @param context Android context.
      * @param packageName Name of the package.
      */
@@ -209,82 +213,90 @@ public class AppAccess {
     }
 
     /**
+     * Sets the given package's report function.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name Name of the report activity.
      */
     public static void setFuncReport(Context context, String packageName, String name) {
         AppCP.setFuncReport(context, packageName, name);
     }
 
     /**
+     * Sets the given package's background activity name.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name Name of the background activity.
      */
     public static void setFuncBackground(Context context, String packageName, String name) {
         AppCP.setFuncBackground(context, packageName, name);
     }
 
     /**
+     * Sets the given package's clear function.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name Name of the clear activity.
      */
     public static void setFuncClear(Context context, String packageName, String name) {
         AppCP.setFuncClear(context, packageName, name);
     }
 
     /**
+     * Sets whether the configuration matches.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param b
+     * @param b Whether the configuration matches.
      */
     public static void setConfigureMatch(Context context, String packageName, boolean b) {
         AppCP.setConfigureMatch(context, packageName, b);
     }
 
     /**
+     * Returns whether the configuration matches.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return Whether the configuration matches.
      */
     public static boolean getConfigureMatch(Context context, String packageName) {
         return AppCP.getConfigureMatch(context, packageName);
     }
 
     /**
+     * Returns the clear function name of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The clear function name of the given package.
      */
     public static String getFuncClear(Context context, String packageName) {
         return AppCP.getFuncClear(context, packageName);
     }
 
     /**
+     * Sets the configure function name of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name Name of the configure activity.
      */
     public static void setFuncConfigure(Context context, String packageName, String name) {
         AppCP.setFuncConfigure(context, packageName, name);
     }
 
     /**
+     * Returns the configure function name of the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @return
+     * @return The configure function name of the given package.
      */
     public static String getFuncConfigure(Context context, String packageName) {
         return AppCP.getFuncConfigure(context, packageName);
     }
 
     /**
-     *
+     * Sets the initialize function for the given package.
      * @param context Android context.
      * @param packageName Name of the package.
-     * @param name
+     * @param name Name of the initialization activity.
      */
     public static void setFuncInitialize(Context context, String packageName, String name) {
         AppCP.setFuncInitialize(context, packageName, name);
