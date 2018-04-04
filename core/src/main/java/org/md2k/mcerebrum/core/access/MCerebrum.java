@@ -44,64 +44,72 @@ public class MCerebrum {
     }
 
     /**
-     * @param context Android context
-     * @param report
+     * Sets the report activity name.
+     * @param context Android context.
+     * @param report Report activity class.
      */
     public static void setReportActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncReport(context, context.getPackageName(), report.getName());
     }
 
     /**
+     * Sets the clear activity name.
      * @param context Android context
-     * @param report
+     * @param report Clear activity class.
      */
     public static void setClearActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncClear(context, context.getPackageName(), report.getName());
     }
 
     /**
+     * Sets the initialize activity name.
      * @param context Android context
-     * @param report
+     * @param report Initialize activity class.
      */
     public static void setInitializeActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncInitialize(context, context.getPackageName(), report.getName());
     }
 
     /**
+     * Sets the configure activity name.
      * @param context Android context
-     * @param report
+     * @param report Configure activity class.
      */
     public static void setConfigureActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncConfigure(context, context.getPackageName(), report.getName());
     }
 
     /**
+     * Sets the background service name.
      * @param context Android context
-     * @param s
+     * @param s Background service class.
      */
     public static void setBackgroundService(Context context, Class<? extends Service> s){
         AppAccess.setFuncBackground(context, context.getPackageName(), s.getName());
     }
 
     /**
+     * Sets the permission activity name.
      * @param context Android context
-     * @param report
+     * @param report Permission activity class.
      */
     public static void setPermissionActivity(Context context, Class<? extends Activity> report){
         AppAccess.setFuncPermission(context, context.getPackageName(), report.getName());
     }
 
     /**
+     * Sets whether the app has the proper permissions.
      * @param context Android context
-     * @param b
+     * @param b Whether the app has the proper permissions.
      */
     public static void setPermission(Context context, boolean b){
         AppAccess.setPermissionOk(context, context.getPackageName(), b);
     }
 
     /**
+     * Returns whether the app has the proper permissions.
      * @param context Android context
-     * @return
+     * @return Whether the app has the proper permissions.
      */
     public static boolean getPermission(Context context) {
         return AppAccess.getPermissionOk(context, context.getPackageName());
@@ -117,16 +125,18 @@ public class MCerebrum {
     }
 
     /**
+     * Sets whether the app is configured properly.
      * @param context Android context
-     * @param b
+     * @param b Whether the app is configured properly.
      */
     public static void setConfigureExact(Context context, boolean b){
         AppAccess.setConfigureMatch(context, context.getPackageName(), b);
     }
 
     /**
+     * Updates the <code>SharedPreferences</code> and updates the app content provider's information.
      * @param context Android context
-     * @param info
+     * @param info An instance of a class that extends <code>MCerebrumInfo</code>.
      */
     public static void init(Context context, Class<? extends MCerebrumInfo> info) {
         SharedPreferences sharedpreferences = context.getSharedPreferences("mcerebrum", Context.MODE_PRIVATE);
