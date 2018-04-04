@@ -40,7 +40,7 @@ import android.net.Uri;
 
 /**
  * Abstract class for creating SQLite selection strings.
- * @param <T>
+ * @param <T> Generic class.
  */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractSelection<T extends AbstractSelection<?>> {
@@ -263,9 +263,10 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * @param raw
-     * @param args
-     * @return
+     * Appends the value of one or more raw objects to the selection string.
+     * @param raw Name of raw object to add to the selection string.
+     * @param args Object(s) to add to the selection string.
+     * @return The updated selection string.
      */
     @SuppressWarnings("unchecked")
     public T addRaw(String raw, Object... args) {
@@ -279,8 +280,9 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * @param obj
-     * @return
+     * Returns the value of the object as a string.
+     * @param obj Object to get the value of.
+     * @return The value of the object as a string.
      */
     private String valueOf(Object obj) {
         if (obj instanceof Date) {
@@ -293,24 +295,40 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return String.valueOf(obj);
     }
 
+    /**
+     * Adds an opening parenthesis to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T openParen() {
         mSelection.append(PAREN_OPEN);
         return (T) this;
     }
 
+    /**
+     * Adds a closing parenthesis to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T closeParen() {
         mSelection.append(PAREN_CLOSE);
         return (T) this;
     }
 
+    /**
+     * Adds " AND " to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T and() {
         mSelection.append(AND);
         return (T) this;
     }
 
+    /**
+     * Adds " OR " to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T or() {
         mSelection.append(OR);
@@ -318,6 +336,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
 
+    /**
+     * Converts an integer array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(int... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -326,6 +349,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a long array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(long... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -334,6 +362,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a float array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(float... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -342,6 +375,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a double array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(double... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -350,6 +388,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a boolean value into an Object array.
+     * @param value Value to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(Boolean value) {
         return new Object[] {value};
     }
@@ -412,24 +455,44 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return context.getContentResolver().delete(uri(), sel(), args());
     }
 
+    /**
+     * Sets the notify variable for the selection string.
+     * @param notify Whether to notify or not.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T notify(boolean notify) {
         mNotify = notify;
         return (T) this;
     }
 
+    /**
+     * Sets the value of <code>mGroupBy</code>.
+     * @param groupBy String defining the group by clause.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T groupBy(String groupBy) {
         mGroupBy = groupBy;
         return (T) this;
     }
 
+    /**
+     * Sets the value of the having clause.
+     * @param having String defining the having clause.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T having(String having) {
         mHaving = having;
         return (T) this;
     }
 
+    /**
+     * Sets the maximum number of rows to select.
+     * @param limit Maximum number of rows to select.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T limit(int limit) {
         mLimit = limit;
@@ -437,9 +500,10 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * @param order
-     * @param desc
-     * @return
+     * Appends values to the order by clause.
+     * @param order What to order the selection by.
+     * @param desc Whether to sort in descending order.
+     * @return This class instance.
      */
     @SuppressWarnings("unchecked")
     public T orderBy(String order, boolean desc) {
@@ -450,13 +514,19 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * @param order
-     * @return
+     * Appends values to the order by clause.
+     * @param order What to order the selection by.
+     * @return This class instance.
      */
     public T orderBy(String order) {
         return orderBy(order, false);
     }
 
+    /**
+     * Appends values to the order by clause.
+     * @param orders What to order the selection by.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T orderBy(String... orders) {
         for (String order : orders) {
