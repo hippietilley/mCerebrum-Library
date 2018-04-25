@@ -37,6 +37,9 @@ import org.md2k.mcerebrum.commons.R;
 
 /**
  * Baseclass of all Activities of the Demo Application.
+ * 
+ * @author Philipp Jahoda 
+ * See <a href="https://github.com/PhilJay/MPAndroidChart/blob/a3c1fe6bbf7d48b79b42b3a447f946af850d86f0/MPChartExample/src/com/xxmassdeveloper/mpchartexample/notimportant/DemoBase.java">MPAndroidChart</a>
  */
 public abstract class DemoBase extends FragmentActivity {
 
