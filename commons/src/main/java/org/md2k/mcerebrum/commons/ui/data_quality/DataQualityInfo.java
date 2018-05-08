@@ -1,5 +1,7 @@
 package org.md2k.mcerebrum.commons.ui.data_quality;
 
+import android.util.Log;
+
 import org.md2k.datakitapi.datatype.DataTypeInt;
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
@@ -35,16 +37,21 @@ import java.util.Iterator;
  */
 public class DataQualityInfo {
     private static final String TAG = DataQualityInfo.class.getSimpleName();
-    private static final long TIME_STORE = 60*1000;
+    private static long TIME_STORE = 60*1000;
 
     private static final long TIME_LIMIT_NODATA = 10*1000;
-    private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12*1000;
-    private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6*1000;
+//    private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12*1000;
+//    private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6*1000;
     private ArrayList<DataTypeInt> qualities;
     private int quality;
 
     DataQualityInfo() {
         quality = -1;
+        qualities=new ArrayList<>();
+    }
+    DataQualityInfo(long time_store) {
+        quality = -1;
+        TIME_STORE = time_store;
         qualities=new ArrayList<>();
     }
 
@@ -70,6 +77,7 @@ public class DataQualityInfo {
 
 
     public void set(DataTypeInt value) {
+        Log.d("abc","dataqualityinfo newvalue="+value.getSample());
         long currentTime = DateTime.getDateTime();
         int lastSample=translate(value.getSample());
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
@@ -81,6 +89,7 @@ public class DataQualityInfo {
         if(quality==-1) quality=lastSample;
         else if(isBandOff()) quality=DATA_QUALITY.BAND_OFF;
         else quality=getWorn();
+        Log.d("abc","dataqualityinfo qualities size="+qualities.size()+" currentQuality="+quality);
 
 /*
         switch(quality){
@@ -101,6 +110,7 @@ public class DataQualityInfo {
         message = getTitle() + " - " + curStatus.getMessage();
 */
     }
+/*
     private int getQualityGoodTo(){
         int countNoData=0;
         int countGoodData=0;
@@ -116,7 +126,9 @@ public class DataQualityInfo {
         else if(countGoodData>0) return DATA_QUALITY.GOOD;
         else return DATA_QUALITY.NOT_WORN;
     }
+*/
 
+/*
     private int getQualityNotWornTo(){
         int countNoData=0;
         int countGoodData=0;
@@ -132,6 +144,7 @@ public class DataQualityInfo {
         else if(countGoodData>0) return DATA_QUALITY.GOOD;
         else return DATA_QUALITY.NOT_WORN;
     }
+*/
     private int translate(int value) {
         switch (value) {
             case DATA_QUALITY.GOOD:

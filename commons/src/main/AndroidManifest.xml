@@ -6,7 +6,9 @@
         android:allowBackup="true"
         android:label="@string/app_name"
         android:supportsRtl="true">
-        <activity android:name=".permission.ActivityPermission" />
+        <activity android:name=".permission.ActivityPermission"
+            android:exported="true"
+            android:enabled="true" />
         <activity
             android:name=".ui.data_quality.ActivityDataQuality"
             android:exported="true"

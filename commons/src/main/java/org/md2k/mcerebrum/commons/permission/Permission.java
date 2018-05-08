@@ -30,11 +30,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.content.PermissionChecker;
+import android.util.Log;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import rx.functions.Action1;
 
+import static android.Manifest.permission.ACCESS_CHECKIN_PROPERTIES;
+import static android.Manifest.permission.BATTERY_STATS;
+import static android.Manifest.permission.PACKAGE_USAGE_STATS;
+import static android.Manifest.permission.READ_LOGS;
+import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 public class Permission{
@@ -70,8 +77,15 @@ public class Permission{
         try {
             PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             for (int i = 0; i < info.requestedPermissions.length; i++) {
-                if(context.checkCallingOrSelfPermission(info.requestedPermissions[i])!=PERMISSION_GRANTED)
+                if(info.requestedPermissions[i].equals(READ_LOGS)) continue;
+                if(info.requestedPermissions[i].equals(BATTERY_STATS)) continue;
+                if(info.requestedPermissions[i].equals(ACCESS_CHECKIN_PROPERTIES)) continue;
+                if(info.requestedPermissions[i].equals(PACKAGE_USAGE_STATS)) continue;
+                if(info.requestedPermissions[i].equals(SYSTEM_ALERT_WINDOW)) continue;
+                if(context.checkCallingOrSelfPermission(info.requestedPermissions[i])!= PermissionChecker.PERMISSION_GRANTED) {
+                    Log.d("abc", "no permission = " + info.requestedPermissions[i]);
                     return false;
+                }
             }
             return true;
         } catch (PackageManager.NameNotFoundException e) {

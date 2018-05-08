@@ -1,14 +1,27 @@
 package org.md2k.mcerebrum.commons.ui.day;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.LinearLayout;
+
+import com.mikepenz.materialize.color.Material;
 
 import org.md2k.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
+import org.md2k.mcerebrum.commons.dialog.Dialog;
+import org.md2k.mcerebrum.commons.dialog.DialogCallback;
 
 import mehdi.sakout.fancybuttons.FancyButton;
+import rx.Observable;
+import rx.Observer;
+import rx.Subscription;
+import rx.functions.Func1;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center
@@ -38,46 +51,114 @@ import mehdi.sakout.fancybuttons.FancyButton;
  */
 
 public class ViewDay extends LinearLayout {
-    public ViewDay(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_day, this, true);
+    private Activity activity;
+    private CallbackDay callbackDay;
+    private boolean isStartActive = false;
+    private boolean isEndActive = false;
+    private Subscription subscription;
+    PhoneTone phoneTone;
+    PhoneDialog phoneDialog;
 
+    public ViewDay(Activity activity, AttributeSet attrs) {
+        super(activity, attrs);
+        LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.view_day, this, true);
+        LinearLayout.LayoutParams LLParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        setLayoutParams(LLParams);
+        this.activity = activity;
+        this.phoneTone = new PhoneTone(activity);
+        this.phoneDialog = new PhoneDialog(activity);
     }
-    public ViewDay(Context context) {
+
+    public void setCallbackDay(CallbackDay callbackDay) {
+        this.callbackDay = callbackDay;
+    }
+
+    public ViewDay(Activity context) {
         this(context, null);
     }
-    public void setButtons(long w1, long s1, long w2, long s2, long ds, long de){
-        long c = DateTime.getDateTime();
-        if(w1<0 || s1<0){
-            set(false, false);
-        }else if(ds<0 || ds<w1){
-            if(w1<c && c<s1){
-                set(true, false);
-            }else if(s1<c){
-                set(false, false);
+
+    public void setStartButton(boolean isActive, int color, String text) {
+        final FancyButton bs = (FancyButton) findViewById(R.id.button_start);
+//        bs.setEnabled(isActive);
+        bs.setText(text);
+        bs.setTextColor(color);
+        isStartActive = isActive;
+        bs.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isStartActive) return;
+                Dialog.simple(activity, "Start Day", "Start the day now?", "Yes", "Cancel", new DialogCallback() {
+                    @Override
+                    public void onSelected(String value) {
+                        if (value.equalsIgnoreCase("Yes")) {
+                            callbackDay.onReceive("START");
+                        }
+                    }
+                }).show();
             }
-        }else{
-            if(ds<0){
-                if(ds<s1){
-                    set(false, true);
-                }else{
-                    set(false, false);
-                }
-            }else if(ds<de){
-                set(false, false);
-            }
-            else if(ds>de){
-                set(false, true);
-            }
-        }
+        });
+
     }
-    private void set(boolean s1, boolean s2){
-/*
-        FancyButton bs = findViewById(R.id.button_start);
-        FancyButton be = findViewById(R.id.button_end);
-        bs.setEnabled(s1);
-        be.setEnabled(s2);
-*/
+
+    public void setEndButton(boolean isActive, int color, String text) {
+        FancyButton bs = (FancyButton) findViewById(R.id.button_end);
+//        bs.setEnabled(isActive);
+        bs.setText(text);
+        bs.setTextColor(color);
+        isEndActive = isActive;
+        bs.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isEndActive) return;
+                Dialog.simple(activity, "End Day", "End the day now?", "Yes", "Cancel", new DialogCallback() {
+                    @Override
+                    public void onSelected(String value) {
+                        if (value.equalsIgnoreCase("Yes")) {
+                            callbackDay.onReceive("END");
+                        }
+                    }
+                }).show();
+            }
+        });
+
+    }
+
+    public void removeNotify() {
+        Log.d("abc","Day: ViewDay -> removeNotify()");
+        if (subscription != null && !subscription.isUnsubscribed())
+            subscription.unsubscribe();
+        subscription = null;
+    }
+
+    public void setNotify(String format, long interval) {
+        Log.d("abc","Day: ViewDay -> setNotify()");
+
+        subscription = Observable.merge(phoneTone.getObservable(format, interval), phoneDialog.getObservable())
+                .takeWhile(new Func1<Boolean, Boolean>() {
+                    @Override
+                    public Boolean call(Boolean aBoolean) {
+                        if (aBoolean) {
+                            callbackDay.onReceive("START");
+                        }
+                        return !aBoolean;
+                    }
+                })
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Boolean integer) {
+
+                    }
+                });
     }
 }

@@ -54,9 +54,11 @@ public class MCerebrumReceiver extends BroadcastReceiver {
             try {
                 AppAccess.stopBackground(context, context.getPackageName());
             }catch (Exception e){}
+/*
             if(DataKitAPI.getInstance(context).isConnected()){
                 DataKitAPI.getInstance(context).disconnect();
             }
+*/
         }
         AppAccess.setMCerebrumSupported(context, context.getPackageName(), true);
         try{

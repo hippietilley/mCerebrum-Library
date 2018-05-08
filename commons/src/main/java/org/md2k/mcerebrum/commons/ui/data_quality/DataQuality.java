@@ -1,7 +1,9 @@
 package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.md2k.datakitapi.DataKitAPI;
@@ -90,7 +92,8 @@ class DataQuality {
 //                Log.d(TAG,"here");
 
             try {
-                ArrayList<DataSourceClient> dataSourceClientArrayList = DataKitAPI.getInstance(context).find(new DataSourceBuilder(createDataSource(dataSource)));
+                final ArrayList<DataSourceClient> dataSourceClientArrayList = DataKitAPI.getInstance(context).find(new DataSourceBuilder(createDataSource(dataSource)));
+                Log.d("abc","datasource length="+dataSourceClientArrayList.size()+" datasource="+dataSource.getType()+" "+dataSource.getId()+" "+dataSource.getPlatform().getType()+" "+dataSource.getPlatform().getId());
                 if (dataSourceClientArrayList.size() == 0)
                     handlerSubscribe.postDelayed(this, 1000);
                 else {
@@ -101,16 +104,18 @@ class DataQuality {
                     DataKitAPI.getInstance(context).subscribe(dataSourceClient, new OnReceiveListener() {
                         @Override
                         public void onReceived(final DataType dataType) {
+                            Log.d("abc","dataquality data received="+dataSourceClient.getDataSource().getPlatform().getType()+" datatype="+dataType);
                             prepare(dataType);
                         }
                     });
                 }
             } catch (DataKitException e) {
-//                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(AbstractActivityBasics.INTENT_RESTART));
+                Log.e("abc","dataquality -> datakitexception error");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(DataKitException.class.getSimpleName()));
             }
         }
     };
-    void prepare(DataType dataType){
+    private void prepare(DataType dataType){
         if(dataType instanceof DataTypeInt) {
             handlerNoData.removeCallbacks(runnableNoData);
             DataTypeInt sample = ((DataTypeInt) dataType);

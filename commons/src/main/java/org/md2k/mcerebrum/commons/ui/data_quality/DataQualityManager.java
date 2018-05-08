@@ -42,7 +42,7 @@ import java.util.ArrayList;
 public class DataQualityManager {
     private static final String TAG = DataQualityManager.class.getSimpleName();
     private ArrayList<DataQuality> dataQualities;
-    public ArrayList<DataQualityInfo> dataQualityInfos;
+    ArrayList<DataQualityInfo> dataQualityInfos;
 
     public DataQualityManager(){
         dataQualities=new ArrayList<>();
@@ -52,7 +52,10 @@ public class DataQualityManager {
         if(dataQualityInfos.size()!=0 || dataQualities.size()!=0) clear();
         for (int i = 0; i < dataSources.size(); i++) {
             dataQualities.add(new DataQuality(context, dataSources.get(i)));
-            dataQualityInfos.add(new DataQualityInfo());
+            if(dataSources.get(i).getId().equals(DataSourceType.RESPIRATION) || dataSources.get(i).getId().equals(DataSourceType.ECG) || dataSources.get(i).getId().equals(DataSourceType.ACCELEROMETER))
+                dataQualityInfos.add(new DataQualityInfo(30*1000));
+            else
+                dataQualityInfos.add(new DataQualityInfo());
         }
         for (int i = 0; i < dataSources.size(); i++) {
             final int finalI = i;
@@ -73,5 +76,7 @@ public class DataQualityManager {
                 }catch (Exception ignored){}
             }
         }
+        dataQualityInfos.clear();
+        dataQualities.clear();
     }
 }

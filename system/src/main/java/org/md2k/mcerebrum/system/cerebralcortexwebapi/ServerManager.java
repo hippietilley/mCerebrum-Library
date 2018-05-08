@@ -36,21 +36,23 @@ import java.util.List;
 
 public class ServerManager {
     public static AuthResponse authenticate(String serverName, String userName, String password){
-        CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
+        CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
         return ccWebAPICalls.authenticateUser(userName, password);
     }
-    public static List<MinioObjectStats> getConfigFiles(String serverName, String token){
-        CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
+    public static List<MinioObjectStats> getConfigFiles(String serverName, String userName, String password){
+        CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(authResponse.getAccessToken(), "configuration");
         if(objectList==null || objectList.size()==0) return new ArrayList<>();
         else return objectList;
     }
-    public static MinioObjectStats getConfigFile(String serverName, String token, String fileName){
+    public static MinioObjectStats getConfigFile(String serverName, String userName, String password, String fileName){
         CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(authResponse.getAccessToken(), "configuration");
         if(objectList==null || objectList.size()==0) return null;
         for(int i=0;i<objectList.size();i++){
             if(objectList.get(i).getObjectName().equals(fileName)) return objectList.get(i);
@@ -58,6 +60,7 @@ public class ServerManager {
         return null;
     }
 
+/*
     public static boolean hasUpdate(String serverName, String token, String fileName, String currentVersion){
         CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
@@ -70,6 +73,7 @@ public class ServerManager {
         }
         return false;
     }
+*/
     public static String getLastModified(String serverName, String userName, String password, String fileName){
         CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
@@ -83,9 +87,20 @@ public class ServerManager {
         }
         return null;
     }
+/*
     public static boolean download(String serverName, String token, String fileName){
         CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
         return ccWebAPICalls.downloadMinioObject(token, "configuration", fileName, "config.zip");
     }
+*/
+    public static boolean download(String serverName, String userName, String password, String fileName){
+        CerebralCortexWebApi ccService=ApiUtils.getCCService(serverName);
+        CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        if(authResponse==null) return false;
+
+        return ccWebAPICalls.downloadMinioObject(authResponse.getAccessToken(), "configuration", fileName, "config.zip");
+    }
+
 }
