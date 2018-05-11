@@ -36,7 +36,7 @@ import android.util.Log;
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
 
 /**
- *
+ * Provides methods for initializing the mCerebrum platform.
  */
 public class MCerebrum {
     private MCerebrum(){
