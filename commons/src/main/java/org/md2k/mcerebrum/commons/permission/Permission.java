@@ -74,12 +74,19 @@ public class Permission{
      * @return Whether the app has the needed permissions.
      */
     public static boolean hasPermission(Context context){
+
         try {
-            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(),
-                    PackageManager.GET_PERMISSIONS);
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_PERMISSIONS);
             for (int i = 0; i < info.requestedPermissions.length; i++) {
-                if(context.checkCallingOrSelfPermission(info.requestedPermissions[i]) != PERMISSION_GRANTED)
+                if(info.requestedPermissions[i].equals(READ_LOGS)) continue;
+                if(info.requestedPermissions[i].equals(BATTERY_STATS)) continue;
+                if(info.requestedPermissions[i].equals(ACCESS_CHECKIN_PROPERTIES)) continue;
+                if(info.requestedPermissions[i].equals(PACKAGE_USAGE_STATS)) continue;
+                if(info.requestedPermissions[i].equals(SYSTEM_ALERT_WINDOW)) continue;
+                if(context.checkCallingOrSelfPermission(info.requestedPermissions[i])!= PermissionChecker.PERMISSION_GRANTED) {
+                    Log.d("abc", "no permission = " + info.requestedPermissions[i]);
                     return false;
+                }
             }
             return true;
         } catch (PackageManager.NameNotFoundException e) {
