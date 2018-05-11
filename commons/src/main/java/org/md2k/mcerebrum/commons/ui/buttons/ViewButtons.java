@@ -48,8 +48,9 @@ public class ViewButtons extends LinearLayout {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_buttons, this, true);
-        for(int i = 1; i <= 6; i++){
+        for (int i = 1; i <= 6; i++) {
             FancyButton b = getButton(i);
+            b.setVisibility(INVISIBLE);
         }
     }
 
@@ -142,13 +143,18 @@ public class ViewButtons extends LinearLayout {
      * @param onClickListener Listens for a click on this button.
      */
     public void addButton(int index, String title, Drawable image, OnClickListener onClickListener) {
-        ImageView i = getImageView (index);
-        TextView t = getTextView (index);
-        i.setImageDrawable (image);
+        ImageView i = getImageView(index);
+        TextView t = getTextView(index);
+        if (image != null)
+            i.setImageDrawable(image);
+        else {
+            i.setVisibility(GONE);
+            t.setGravity(Gravity.CENTER);
+        }
         FancyButton b = getButton(index);
-            t.setText(title);
-            b.setVisibility(VISIBLE);
-                  i.setImageDrawable (image);
-            b.setOnClickListener(onClickListener);
+        t.setText(title);
+        b.setVisibility(VISIBLE);
+        b.setOnClickListener(onClickListener);
+
     }
 }
