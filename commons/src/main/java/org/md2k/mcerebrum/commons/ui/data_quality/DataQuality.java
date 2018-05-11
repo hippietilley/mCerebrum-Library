@@ -137,11 +137,17 @@ class DataQuality {
                          */
                         @Override
                         public void onReceived(final DataType dataType) {
+                            Log.d("abc", "dataquality data received=" +
+                                    dataSourceClient.getDataSource().getPlatform().getType() +
+                                    " datatype=" + dataType);
                             prepare(dataType);
                         }
                     });
                 }
-            } catch (DataKitException e) {}
+            } catch (DataKitException e) {
+                Log.e("abc","dataquality -> datakitexception error");
+                LocalBroadcastManager.getInstance(context).sendBroadcast(new Intent(DataKitException.class.getSimpleName()));
+            }
         }
     };
 
