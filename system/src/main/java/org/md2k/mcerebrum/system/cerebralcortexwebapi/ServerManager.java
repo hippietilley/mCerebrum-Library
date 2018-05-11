@@ -57,13 +57,15 @@ public class ServerManager {
      * Returns a list of <code>MinioObjectStats</code> that contain configuration information.
      *
      * @param serverName Name of the Cerebral Cortex server.
-     * @param token Authorization token.
+     * @param userName Name of the user.
+     * @param password Password of the user.
      * @return A list of <code>MinioObjectStats</code> that contain configuration information.
      */
-    public static List<MinioObjectStats> getConfigFiles(String serverName, String token){
+    public static List<MinioObjectStats> getConfigFiles(String serverName, String userName, String password){
         CerebralCortexWebApi ccService = ApiUtils.getCCService(serverName);
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(authResponse.getAccessToken(), "configuration");
         if(objectList == null || objectList.size() == 0)
             return new ArrayList<>();
         else
@@ -74,14 +76,16 @@ public class ServerManager {
      * Returns a <code>MinioObjectStats</code> object that contains configuration information.
      *
      * @param serverName Name of the Cerebral Cortex server.
-     * @param token Authorization token.
+     * @param userName Name of the user.
+     * @param password Password of the user.
      * @param fileName File name of the configuration file to return.
      * @return The specified <code>MinioObjectStats</code> object.
      */
-    public static MinioObjectStats getConfigFile(String serverName, String token, String fileName){
-        CerebralCortexWebApi ccService = ApiUtils.getCCService(serverName);
+    public static MinioObjectStats getConfigFile(String serverName, String userName, String password, String fileName){
+        CerebralCortexWebApi ccService = ApiUtils.getCCService(serverName);;
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(authResponse.getAccessToken(), "configuration");
         if(objectList == null || objectList.size() == 0)
             return null;
         for(int i = 0; i < objectList.size(); i++){
@@ -89,31 +93,6 @@ public class ServerManager {
                 return objectList.get(i);
         }
         return null;
-    }
-
-    /**
-     * Returns whether the given file has an update.
-     *
-     * @param serverName Name of the Cerebral Cortex server.
-     * @param token Authorization token.
-     * @param fileName File name to check for an update.
-     * @param currentVersion Current version of the given file.
-     * @return Whether the given file has an update or not.
-     */
-    public static boolean hasUpdate(String serverName, String token, String fileName, String currentVersion){
-        CerebralCortexWebApi ccService = ApiUtils.getCCService(serverName);
-        CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        final List<MinioObjectStats> objectList = ccWebAPICalls.getObjectsInBucket(token, "configuration");
-        if(objectList == null || objectList.size() == 0)
-            return false;
-        for(int i = 0; i < objectList.size(); i++){
-            if(!objectList.get(i).getObjectName().equals(fileName))
-                continue;
-            if(objectList.get(i).getLastModified().equals(currentVersion))
-                return false;
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -148,13 +127,17 @@ public class ServerManager {
      * Downloads the configuration file from the server.
      *
      * @param serverName Name of the Cerebral Cortex server.
-     * @param token Authorization token.
+     * @param userName Name of the user.
+     * @param password Password of the user.
      * @param fileName Name of the file to download.
      * @return Whether the download was successful or not.
      */
-    public static boolean download(String serverName, String token, String fileName){
+    public static boolean download(String serverName, String userName, String password, String fileName){
         CerebralCortexWebApi ccService = ApiUtils.getCCService(serverName);
         CCWebAPICalls ccWebAPICalls = new CCWebAPICalls(ccService);
-        return ccWebAPICalls.downloadMinioObject(token, "configuration", fileName, "config.zip");
+        AuthResponse authResponse = ccWebAPICalls.authenticateUser(userName, password);
+        if(authResponse == null)
+            return false;
+        return ccWebAPICalls.downloadMinioObject(authResponse.getAccessToken(), "configuration", fileName, "config.zip");
     }
 }
