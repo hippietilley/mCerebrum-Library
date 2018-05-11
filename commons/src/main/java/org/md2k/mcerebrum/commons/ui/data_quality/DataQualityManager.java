@@ -65,19 +65,19 @@ public class DataQualityManager {
      * @param dataSources ArrayList of data sources.
      */
     public void set(Context context, ArrayList<DataSource> dataSources) {
-        if(dataQualityInfos.size()!= 0 || dataQualities.size()!= 0)
-            clear();
+        if(dataQualityInfos.size()!=0 || dataQualities.size()!=0) clear();
         for (int i = 0; i < dataSources.size(); i++) {
             dataQualities.add(new DataQuality(context, dataSources.get(i)));
-            dataQualityInfos.add(new DataQualityInfo());
+            if(dataSources.get(i).getId().equals(DataSourceType.RESPIRATION) ||
+                    dataSources.get(i).getId().equals(DataSourceType.ECG) ||
+                    dataSources.get(i).getId().equals(DataSourceType.ACCELEROMETER))
+                dataQualityInfos.add(new DataQualityInfo(30*1000));
+            else
+                dataQualityInfos.add(new DataQualityInfo());
         }
         for (int i = 0; i < dataSources.size(); i++) {
             final int finalI = i;
             dataQualities.get(i).start(new ReceiveCallBack() {
-                /**
-                 * Sets the sample for the current <code>DataQuality</code>.
-                 * @param sample Received sample.
-                 */
                 @Override
                 public void onReceive(DataTypeInt sample) {
                     dataQualityInfos.get(finalI).set(sample);
@@ -90,12 +90,14 @@ public class DataQualityManager {
      * Clears the <code>dataQualities</code> array and stops each <code>DataQuality</code>.
      */
     public void clear() {
-        if (dataQualities != null && dataQualities.size() != 0) {
+        if (dataQualities != null && dataQualities.size()!=0) {
             for (int i = 0; i < dataQualities.size(); i++) {
                 try {
                     dataQualities.get(i).stop();
                 }catch (Exception ignored){}
             }
         }
+        dataQualityInfos.clear();
+        dataQualities.clear();
     }
 }
