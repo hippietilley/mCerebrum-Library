@@ -49,8 +49,8 @@ public class DataQualityManager {
     private ArrayList<DataQuality> dataQualities;
 
     /** ArrayList of <code>DataQulityInfo</code> objects. */
-    public ArrayList<DataQualityInfo> dataQualityInfos;
-
+    ArrayList<DataQualityInfo> dataQualityInfos;
+  
     /**
      * Constructor
      */

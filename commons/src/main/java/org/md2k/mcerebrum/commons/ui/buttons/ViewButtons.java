@@ -62,7 +62,6 @@ public class ViewButtons extends LinearLayout {
         this(context, null);
     }
 
-
     /**
      * Returns the button the corresponds to the index.
      * @param index Button index.
@@ -86,7 +85,7 @@ public class ViewButtons extends LinearLayout {
                 return (FancyButton) findViewById(R.id.button_1);
         }
     }
-
+  
     /**
      * Returns the button image the corresponds to the index.
      * @param index Button index.

@@ -52,6 +52,11 @@ public class DataQualityInfo {
         quality = -1;
         qualities = new ArrayList<>();
     }
+    DataQualityInfo(long time_store) {
+        quality = -1;
+        TIME_STORE = time_store;
+        qualities=new ArrayList<>();
+    }
 
     /**
      * Returns the quality.

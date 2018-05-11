@@ -31,11 +31,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v4.content.PermissionChecker;
+import android.util.Log;
 
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 import rx.functions.Action1;
 
+import static android.Manifest.permission.ACCESS_CHECKIN_PROPERTIES;
+import static android.Manifest.permission.BATTERY_STATS;
+import static android.Manifest.permission.PACKAGE_USAGE_STATS;
+import static android.Manifest.permission.READ_LOGS;
+import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 import static android.support.v4.content.PermissionChecker.PERMISSION_GRANTED;
 
 /**

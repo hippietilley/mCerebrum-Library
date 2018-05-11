@@ -28,7 +28,9 @@
 package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import org.md2k.datakitapi.DataKitAPI;
@@ -120,8 +122,11 @@ class DataQuality {
         @Override
         public void run() {
             try {
-                ArrayList<DataSourceClient> dataSourceClientArrayList = DataKitAPI.getInstance(context)
-                        .find(new DataSourceBuilder(createDataSource(dataSource)));
+                final ArrayList<DataSourceClient> dataSourceClientArrayList = 
+                  DataKitAPI.getInstance(context).find(new DataSourceBuilder(createDataSource(dataSource)));
+                Log.d("abc","datasource length=" + dataSourceClientArrayList.size() + " datasource=" + 
+                      dataSource.getType() + " " + dataSource.getId() + " " + dataSource.getPlatform().getType() + 
+                      " " + dataSource.getPlatform().getId());
                 if (dataSourceClientArrayList.size() == 0)
                     handlerSubscribe.postDelayed(this, 1000);
                 else {
@@ -156,7 +161,7 @@ class DataQuality {
      * <code>runnableNoData</code> message to <code>handlerNoData</code>.
      * @param dataType <code>DataType</code> object containing the sample.
      */
-    void prepare(DataType dataType){
+    private void prepare(DataType dataType){
         if(dataType instanceof DataTypeInt) {
             handlerNoData.removeCallbacks(runnableNoData);
             DataTypeInt sample = ((DataTypeInt) dataType);
