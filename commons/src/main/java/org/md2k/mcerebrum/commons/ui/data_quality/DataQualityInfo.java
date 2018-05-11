@@ -42,8 +42,6 @@ public class DataQualityInfo {
     private static final String TAG = DataQualityInfo.class.getSimpleName();
     private static final long TIME_STORE = 60 * 1000;
     private static final long TIME_LIMIT_NODATA = 10 * 1000;
-    private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12 * 1000;
-    private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6 * 1000;
     private ArrayList<DataTypeInt> qualities;
     private int quality;
 
@@ -97,75 +95,22 @@ public class DataQualityInfo {
      * @param value Quality to add to the list.
      */
     public void set(DataTypeInt value) {
+        Log.d("abc","dataqualityinfo newvalue="+value.getSample());
         long currentTime = DateTime.getDateTime();
         int lastSample = translate(value.getSample());
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
         for(Iterator<DataTypeInt> i = qualities.iterator(); i.hasNext(); ) {
             DataTypeInt dataTypeInt = i.next();
-            if(dataTypeInt.getDateTime() + TIME_STORE < currentTime)
+            if(dataTypeInt.getDateTime() + TIME_STORE <currentTime)
                 i.remove();
         }
-
         if(quality == -1)
             quality = lastSample;
         else if(isBandOff())
             quality = DATA_QUALITY.BAND_OFF;
         else
             quality = getWorn();
-    }
-
-    /**
-     * Returns whether the data is good.
-     * <p>
-     *     The data is considered good as long as the quality indicator is good and the sample was taken
-     *     less than 12 seconds ago.
-     * </p>
-     * @return The quality indicator.
-     */
-    private int getQualityGoodTo(){
-        int countNoData = 0;
-        int countGoodData = 0;
-        long currentTime = DateTime.getDateTime();
-        for(int i = 0; i < qualities.size(); i++) {
-            if (qualities.get(i).getSample() == DATA_QUALITY.BAND_OFF)
-                countNoData++;
-            else if(qualities.get(i).getSample() == DATA_QUALITY.GOOD && qualities.get(i).getDateTime()
-                    + TIME_LIMIT_GOOD_TO_NOTWORN >= currentTime)
-                countGoodData++;
-        }
-        if(qualities.size() == countNoData)
-            return DATA_QUALITY.BAND_OFF;
-        else if(countGoodData > 0)
-            return DATA_QUALITY.GOOD;
-        else
-            return DATA_QUALITY.NOT_WORN;
-    }
-
-    /**
-     * Returns whether the data is good.
-     * <p>
-     *     The data is considered good as long as the quality indicator is good and the sample was taken
-     *     less than 6 seconds ago.
-     * </p>
-     * @return The quality indicator.
-     */
-    private int getQualityNotWornTo(){
-        int countNoData = 0;
-        int countGoodData = 0;
-        long currentTime = DateTime.getDateTime();
-        for(int i = 0; i < qualities.size(); i++) {
-            if (qualities.get(i).getSample() == DATA_QUALITY.BAND_OFF)
-                countNoData++;
-            else if(qualities.get(i).getSample() == DATA_QUALITY.GOOD && qualities.get(i).getDateTime()
-                    + TIME_LIMIT_NOTWORN_TO_GOOD >= currentTime)
-                countGoodData++;
-        }
-        if(qualities.size() == countNoData)
-            return DATA_QUALITY.BAND_OFF;
-        else if(countGoodData > 0)
-            return DATA_QUALITY.GOOD;
-        else
-            return DATA_QUALITY.NOT_WORN;
+        Log.d("abc","dataqualityinfo qualities size=" + qualities.size() + " currentQuality=" + quality);
     }
 
     /**
