@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.github.model;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,11 @@ package org.md2k.mcerebrum.core.internet.github.model;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.github.model;
+
+/**
+ * <code>AssetInfo</code> object
+ */
 public class AssetInfo {
     private String browser_download_url;
     private String name;
@@ -36,34 +40,66 @@ public class AssetInfo {
     private String created_at;
     private String updated_at;
 
+    /**
+     * Returns the browser download URL.
+     * @return The browser download URL.
+     */
     public String getBrowser_download_url() {
         return browser_download_url;
     }
 
+    /**
+     * Returns the name.
+     * @return The name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the label.
+     * @return The label.
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Returns the content type.
+     * @return The content type.
+     */
     public String getContent_type() {
         return content_type;
     }
 
+    /**
+     * Returns the size of the asset.
+     * @return The size of the asset.
+     */
     public long getSize() {
         return size;
     }
 
+    /**
+     * Returns the download count.
+     * @return The download count.
+     */
     public int getDownload_count() {
         return download_count;
     }
 
+    /**
+     * Returns <code>created_at</code>.
+     * @return The <code>created_at</code> field.
+     */
     public String getCreated_at() {
         return created_at;
     }
 
+    /**
+     * Returns <code>updated_at</code>.
+     * @return The <code>updated_at</code> field.
+     */
     public String getUpdated_at() {
         return updated_at;
     }

@@ -1,17 +1,6 @@
-package org.md2k.mcerebrum.commons.ui.data_quality;
-
-import android.util.Log;
-
-import org.md2k.datakitapi.datatype.DataTypeInt;
-import org.md2k.datakitapi.time.DateTime;
-import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,19 +24,33 @@ import java.util.Iterator;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataQualityInfo {
-    private static final String TAG = DataQualityInfo.class.getSimpleName();
-    private static long TIME_STORE = 60*1000;
 
-    private static final long TIME_LIMIT_NODATA = 10*1000;
-//    private static final long TIME_LIMIT_GOOD_TO_NOTWORN = 12*1000;
-//    private static final long TIME_LIMIT_NOTWORN_TO_GOOD = 6*1000;
+package org.md2k.mcerebrum.commons.ui.data_quality;
+
+import org.md2k.datakitapi.datatype.DataTypeInt;
+import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+/**
+ * Provides information about the data quality.
+ */
+public class DataQualityInfo {
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
+    private static final String TAG = DataQualityInfo.class.getSimpleName();
+    private static final long TIME_STORE = 60 * 1000;
+    private static final long TIME_LIMIT_NODATA = 10 * 1000;
     private ArrayList<DataTypeInt> qualities;
     private int quality;
 
+    /**
+     * Constructor
+     */
     DataQualityInfo() {
         quality = -1;
-        qualities=new ArrayList<>();
+        qualities = new ArrayList<>();
     }
     DataQualityInfo(long time_store) {
         quality = -1;
@@ -55,96 +58,71 @@ public class DataQualityInfo {
         qualities=new ArrayList<>();
     }
 
+    /**
+     * Returns the quality.
+     * @return The quality.
+     */
     public int getQuality() {
         return quality;
     }
+
+    /**
+     * Returns whether the band is off or not.
+     * @return Whether the band is off or not.
+     */
     private boolean isBandOff(){
-        long curTime=DateTime.getDateTime();
-        for(int i=0;i<qualities.size();i++){
-            if(qualities.get(i).getSample()!=DATA_QUALITY.BAND_OFF && curTime - qualities.get(i).getDateTime()<TIME_LIMIT_NODATA)
+        long curTime = DateTime.getDateTime();
+        for(int i = 0; i < qualities.size(); i++){
+            if(qualities.get(i).getSample() != DATA_QUALITY.BAND_OFF && curTime -
+                    qualities.get(i).getDateTime() < TIME_LIMIT_NODATA)
                 return false;
         }
         return true;
     }
+
+    /**
+     * Determines the quality of data collected by the band.
+     * @return The quality indicator.
+     */
     private int getWorn(){
-        long curTime=DateTime.getDateTime();
-        for(int i=0;i<qualities.size();i++){
-            if(qualities.get(i).getSample()==DATA_QUALITY.GOOD && curTime - qualities.get(i).getDateTime()<TIME_STORE)
+        long curTime = DateTime.getDateTime();
+        for(int i = 0; i < qualities.size(); i++){
+            if(qualities.get(i).getSample() == DATA_QUALITY.GOOD && curTime -
+                    qualities.get(i).getDateTime() < TIME_STORE)
                 return DATA_QUALITY.GOOD;
         }
         return DATA_QUALITY.NOT_WORN;
     }
 
 
+    /**
+     * Sets the quality indictator.
+     * @param value Quality to add to the list.
+     */
     public void set(DataTypeInt value) {
         Log.d("abc","dataqualityinfo newvalue="+value.getSample());
         long currentTime = DateTime.getDateTime();
-        int lastSample=translate(value.getSample());
+        int lastSample = translate(value.getSample());
         qualities.add(new DataTypeInt(value.getDateTime(), lastSample));
-        for(Iterator<DataTypeInt> i=qualities.iterator();i.hasNext();) {
+        for(Iterator<DataTypeInt> i = qualities.iterator(); i.hasNext(); ) {
             DataTypeInt dataTypeInt = i.next();
-            if(dataTypeInt.getDateTime()+ TIME_STORE <currentTime)
+            if(dataTypeInt.getDateTime() + TIME_STORE <currentTime)
                 i.remove();
         }
-        if(quality==-1) quality=lastSample;
-        else if(isBandOff()) quality=DATA_QUALITY.BAND_OFF;
-        else quality=getWorn();
-        Log.d("abc","dataqualityinfo qualities size="+qualities.size()+" currentQuality="+quality);
+        if(quality == -1)
+            quality = lastSample;
+        else if(isBandOff())
+            quality = DATA_QUALITY.BAND_OFF;
+        else
+            quality = getWorn();
+        Log.d("abc","dataqualityinfo qualities size=" + qualities.size() + " currentQuality=" + quality);
+    }
 
-/*
-        switch(quality){
-            case -1: quality=lastSample;break;
-            case DATA_QUALITY.BAND_OFF:
-                quality=lastSample;
-                break;
-            case DATA_QUALITY.NOT_WORN:
-                quality=getQualityNotWornTo();
-                break;
-            case DATA_QUALITY.GOOD:
-                quality=getQualityGoodTo();
-                break;
-        }
-*/
-/*
-        Status curStatus = new Status(0, this.quality);
-        message = getTitle() + " - " + curStatus.getMessage();
-*/
-    }
-/*
-    private int getQualityGoodTo(){
-        int countNoData=0;
-        int countGoodData=0;
-        long currentTime=DateTime.getDateTime();
-        for(int i=0;i<qualities.size();i++) {
-            if (qualities.get(i).getSample() == DATA_QUALITY.BAND_OFF)
-                countNoData++;
-            else if(qualities.get(i).getSample()==DATA_QUALITY.GOOD && qualities.get(i).getDateTime()+ TIME_LIMIT_GOOD_TO_NOTWORN >=currentTime)
-                countGoodData++;
-        }
-        if(qualities.size()==countNoData)
-            return DATA_QUALITY.BAND_OFF;
-        else if(countGoodData>0) return DATA_QUALITY.GOOD;
-        else return DATA_QUALITY.NOT_WORN;
-    }
-*/
-
-/*
-    private int getQualityNotWornTo(){
-        int countNoData=0;
-        int countGoodData=0;
-        long currentTime=DateTime.getDateTime();
-        for(int i=0;i<qualities.size();i++) {
-            if (qualities.get(i).getSample() == DATA_QUALITY.BAND_OFF)
-                countNoData++;
-            else if(qualities.get(i).getSample()==DATA_QUALITY.GOOD && qualities.get(i).getDateTime()+ TIME_LIMIT_NOTWORN_TO_GOOD >=currentTime)
-                countGoodData++;
-        }
-        if(qualities.size()==countNoData)
-            return DATA_QUALITY.BAND_OFF;
-        else if(countGoodData>0) return DATA_QUALITY.GOOD;
-        else return DATA_QUALITY.NOT_WORN;
-    }
-*/
+    /**
+     * Translates the data quality value.
+     * @param value Value to translate.
+     * @return The translated data quality value.
+     */
     private int translate(int value) {
         switch (value) {
             case DATA_QUALITY.GOOD:

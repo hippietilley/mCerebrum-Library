@@ -1,43 +1,18 @@
-package org.md2k.mcerebrum.commons.ui.day;
-
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Color;
-import android.os.Handler;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-
-import com.mikepenz.materialize.color.Material;
-
-import org.md2k.datakitapi.time.DateTime;
-import org.md2k.mcerebrum.commons.R;
-import org.md2k.mcerebrum.commons.dialog.Dialog;
-import org.md2k.mcerebrum.commons.dialog.DialogCallback;
-
-import mehdi.sakout.fancybuttons.FancyButton;
-import rx.Observable;
-import rx.Observer;
-import rx.Subscription;
-import rx.functions.Func1;
-
-/**
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
- * <p>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -50,6 +25,21 @@ import rx.functions.Func1;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.ui.day;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+
+import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.commons.R;
+
+import mehdi.sakout.fancybuttons.FancyButton;
+
+/**
+ * Creates a linear layout of days
+ */
 public class ViewDay extends LinearLayout {
     private Activity activity;
     private CallbackDay callbackDay;
@@ -59,7 +49,12 @@ public class ViewDay extends LinearLayout {
     PhoneTone phoneTone;
     PhoneDialog phoneDialog;
 
-    public ViewDay(Activity activity, AttributeSet attrs) {
+    /**
+     * Constructor
+     * @param context Android context.
+     * @param attrs The attributes to build the layout parameters from.
+     */
+    public ViewDay(Context context, AttributeSet attrs) {
         super(activity, attrs);
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_day, this, true);
@@ -70,25 +65,46 @@ public class ViewDay extends LinearLayout {
         this.phoneDialog = new PhoneDialog(activity);
     }
 
+    /**
+     * Sets the callback interface for starting/ending the day.
+     * @param callbackDay Callback interface.
+     */
     public void setCallbackDay(CallbackDay callbackDay) {
         this.callbackDay = callbackDay;
     }
 
+    /**
+     * No <code>AttributeSet</code> constructor
+     * @param context Android context
+     */
     public ViewDay(Activity context) {
         this(context, null);
     }
 
+    /**
+     * Creates a button to start the day.
+     * @param isActive Whether the button is active or not.
+     * @param color Color of the button.
+     * @param text Text on the button.
+     */
     public void setStartButton(boolean isActive, int color, String text) {
         final FancyButton bs = (FancyButton) findViewById(R.id.button_start);
-//        bs.setEnabled(isActive);
         bs.setText(text);
         bs.setTextColor(color);
         isStartActive = isActive;
         bs.setOnClickListener(new OnClickListener() {
+            /**
+             * Prompts user to verify they want to start the day.
+             * @param v Button clicked.
+             */
             @Override
             public void onClick(View v) {
                 if (!isStartActive) return;
                 Dialog.simple(activity, "Start Day", "Start the day now?", "Yes", "Cancel", new DialogCallback() {
+                    /**
+                     * Starts the day if the selected string is "Yes"
+                     * @param value String the user selected.
+                     */
                     @Override
                     public void onSelected(String value) {
                         if (value.equalsIgnoreCase("Yes")) {
@@ -101,17 +117,30 @@ public class ViewDay extends LinearLayout {
 
     }
 
+    /**
+     * Creates a button to end the day.
+     * @param isActive Whether the button is active or not.
+     * @param color Color of the button.
+     * @param text Text on the button.
+     */
     public void setEndButton(boolean isActive, int color, String text) {
         FancyButton bs = (FancyButton) findViewById(R.id.button_end);
-//        bs.setEnabled(isActive);
         bs.setText(text);
         bs.setTextColor(color);
         isEndActive = isActive;
         bs.setOnClickListener(new OnClickListener() {
+            /**
+             * Prompts user to verify they want to end the day.
+             * @param v Button clicked.
+             */
             @Override
             public void onClick(View v) {
                 if (!isEndActive) return;
                 Dialog.simple(activity, "End Day", "End the day now?", "Yes", "Cancel", new DialogCallback() {
+                    /**
+                     * Ends the day if the selected string is "Yes"
+                     * @param value String the user selected.
+                     */
                     @Override
                     public void onSelected(String value) {
                         if (value.equalsIgnoreCase("Yes")) {
@@ -124,6 +153,9 @@ public class ViewDay extends LinearLayout {
 
     }
 
+    /**
+     * Removes the subscription.
+     */
     public void removeNotify() {
         Log.d("abc","Day: ViewDay -> removeNotify()");
         if (subscription != null && !subscription.isUnsubscribed())
@@ -131,11 +163,21 @@ public class ViewDay extends LinearLayout {
         subscription = null;
     }
 
+    /**
+     * Sets up a subscription with the given format and interval.
+     * @param format Format to observe
+     * @param interval Interval between observations.
+     */
     public void setNotify(String format, long interval) {
         Log.d("abc","Day: ViewDay -> setNotify()");
 
         subscription = Observable.merge(phoneTone.getObservable(format, interval), phoneDialog.getObservable())
                 .takeWhile(new Func1<Boolean, Boolean>() {
+                    /**
+                     * Starts the callback interface if the parameter is true.
+                     * @param aBoolean Whether to start the interface or not.
+                     * @return The opposite of the passed boolean value.
+                     */
                     @Override
                     public Boolean call(Boolean aBoolean) {
                         if (aBoolean) {
@@ -146,19 +188,13 @@ public class ViewDay extends LinearLayout {
                 })
                 .subscribe(new Observer<Boolean>() {
                     @Override
-                    public void onCompleted() {
-
-                    }
+                    public void onCompleted() {}
 
                     @Override
-                    public void onError(Throwable e) {
-
-                    }
+                    public void onError(Throwable e) {}
 
                     @Override
-                    public void onNext(Boolean integer) {
-
-                    }
+                    public void onNext(Boolean integer) {}
                 });
     }
 }

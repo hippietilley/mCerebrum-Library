@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.data_format;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,11 +25,27 @@ package org.md2k.mcerebrum.core.data_format;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.data_format;
+
+/**
+ * Defines fields for work annotations.
+ */
 public class WorkAnnotation {
+    /** Timestamp. */
     public long timestamp;
+
+    /** Operation defined as a string. */
     public String operation;
+
+    /** String array of work activities. */
     public String[] work_activity;
+
+    /** Other work activity defined as a string. */
     public String work_activity_other;
+
+    /** Array of work contexts. */
     public String[] work_context;
+
+    /** Other work context defined as a string. */
     public String work_context_other;
 }

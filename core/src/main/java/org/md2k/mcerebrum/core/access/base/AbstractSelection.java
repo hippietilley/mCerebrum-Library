@@ -1,3 +1,30 @@
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * * Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
 package org.md2k.mcerebrum.core.access.base;
 
 // @formatter:off
@@ -11,6 +38,10 @@ import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 
+/**
+ * Abstract class for creating SQLite selection strings.
+ * @param <T> Generic class.
+ */
 @SuppressWarnings({"WeakerAccess", "unused"})
 public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private static final String EQ = "=?";
@@ -45,6 +76,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     private String mHaving;
     private Integer mLimit;
 
+    /**
+     * Creates a selection string that selects attributes with the given values.
+     * @param column Attribute to look for.
+     * @param value Values to match.
+     */
     protected void addEquals(String column, Object[] value) {
         mSelection.append(column);
 
@@ -75,6 +111,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         }
     }
 
+    /**
+     * Creates a selection string that selects attributes without the given values.
+     * @param column Attribute to look for.
+     * @param value Values to exclude.
+     */
     protected void addNotEquals(String column, Object[] value) {
         mSelection.append(column);
 
@@ -105,6 +146,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         }
     }
 
+    /**
+     * Creates a selection string that selects attributes similar to the given values.
+     * @param column Attribute to look for.
+     * @param values Values to match.
+     */
     protected void addLike(String column, String[] values) {
         mSelection.append(PAREN_OPEN);
         for (int i = 0; i < values.length; i++) {
@@ -118,6 +164,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         mSelection.append(PAREN_CLOSE);
     }
 
+    /**
+     * Creates a selection string that selects attributes that contain the given values.
+     * @param column Attribute to look for.
+     * @param values Values to match.
+     */
     protected void addContains(String column, String[] values) {
         mSelection.append(PAREN_OPEN);
         for (int i = 0; i < values.length; i++) {
@@ -131,6 +182,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         mSelection.append(PAREN_CLOSE);
     }
 
+    /**
+     * Creates a selection string that selects attributes that start with the given values.
+     * @param column Attribute to look for.
+     * @param values Values to match.
+     */
     protected void addStartsWith(String column, String[] values) {
         mSelection.append(PAREN_OPEN);
         for (int i = 0; i < values.length; i++) {
@@ -144,6 +200,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         mSelection.append(PAREN_CLOSE);
     }
 
+    /**
+     * Creates a selection string that selects attributes that start with the given values.
+     * @param column Attribute to look for.
+     * @param values Values to match.
+     */
     protected void addEndsWith(String column, String[] values) {
         mSelection.append(PAREN_OPEN);
         for (int i = 0; i < values.length; i++) {
@@ -157,30 +218,56 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         mSelection.append(PAREN_CLOSE);
     }
 
+    /**
+     * Creates a selection string that selects attributes greater than the given value.
+     * @param column Attribute to look for.
+     * @param value Value to check against.
+     */
     protected void addGreaterThan(String column, Object value) {
         mSelection.append(column);
         mSelection.append(GT);
         mSelectionArgs.add(valueOf(value));
     }
 
+    /**
+     * Creates a selection string that selects attributes greater than or equal to the given value.
+     * @param column Attribute to look for.
+     * @param value Value to check against.
+     */
     protected void addGreaterThanOrEquals(String column, Object value) {
         mSelection.append(column);
         mSelection.append(GT_EQ);
         mSelectionArgs.add(valueOf(value));
     }
 
+    /**
+     * Creates a selection string that selects attributes less than the given value.
+     * @param column Attribute to look for.
+     * @param value Value to check against.
+     */
     protected void addLessThan(String column, Object value) {
         mSelection.append(column);
         mSelection.append(LT);
         mSelectionArgs.add(valueOf(value));
     }
 
+    /**
+     * Creates a selection string that selects attributes less than or equal to the given value.
+     * @param column Attribute to look for.
+     * @param value Value to check against.
+     */
     protected void addLessThanOrEquals(String column, Object value) {
         mSelection.append(column);
         mSelection.append(LT_EQ);
         mSelectionArgs.add(valueOf(value));
     }
 
+    /**
+     * Appends the value of one or more raw objects to the selection string.
+     * @param raw Name of raw object to add to the selection string.
+     * @param args Object(s) to add to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T addRaw(String raw, Object... args) {
         mSelection.append(" ");
@@ -192,6 +279,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return (T) this;
     }
 
+    /**
+     * Returns the value of the object as a string.
+     * @param obj Object to get the value of.
+     * @return The value of the object as a string.
+     */
     private String valueOf(Object obj) {
         if (obj instanceof Date) {
             return String.valueOf(((Date) obj).getTime());
@@ -203,24 +295,40 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return String.valueOf(obj);
     }
 
+    /**
+     * Adds an opening parenthesis to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T openParen() {
         mSelection.append(PAREN_OPEN);
         return (T) this;
     }
 
+    /**
+     * Adds a closing parenthesis to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T closeParen() {
         mSelection.append(PAREN_CLOSE);
         return (T) this;
     }
 
+    /**
+     * Adds " AND " to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T and() {
         mSelection.append(AND);
         return (T) this;
     }
 
+    /**
+     * Adds " OR " to the selection string.
+     * @return The updated selection string.
+     */
     @SuppressWarnings("unchecked")
     public T or() {
         mSelection.append(OR);
@@ -228,6 +336,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
 
+    /**
+     * Converts an integer array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(int... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -236,6 +349,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a long array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(long... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -244,6 +362,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a float array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(float... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -252,6 +375,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a double array into an Object array.
+     * @param array Array to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(double... array) {
         Object[] res = new Object[array.length];
         for (int i = 0; i < array.length; i++) {
@@ -260,6 +388,11 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return res;
     }
 
+    /**
+     * Converts a boolean value into an Object array.
+     * @param value Value to convert.
+     * @return The new Object array.
+     */
     protected Object[] toObjectArray(Boolean value) {
         return new Object[] {value};
     }
@@ -289,7 +422,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * Returns the {@code uri} argument to pass to the {@code ContentResolver} methods.
+     * Returns the <code>uri</code> argument to pass to the <code>ContentResolver</code> methods.
      */
     public Uri uri() {
         Uri uri = baseUri();
@@ -322,30 +455,56 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return context.getContentResolver().delete(uri(), sel(), args());
     }
 
+    /**
+     * Sets the notify variable for the selection string.
+     * @param notify Whether to notify or not.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T notify(boolean notify) {
         mNotify = notify;
         return (T) this;
     }
 
+    /**
+     * Sets the value of <code>mGroupBy</code>.
+     * @param groupBy String defining the group by clause.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T groupBy(String groupBy) {
         mGroupBy = groupBy;
         return (T) this;
     }
 
+    /**
+     * Sets the value of the having clause.
+     * @param having String defining the having clause.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T having(String having) {
         mHaving = having;
         return (T) this;
     }
 
+    /**
+     * Sets the maximum number of rows to select.
+     * @param limit Maximum number of rows to select.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T limit(int limit) {
         mLimit = limit;
         return (T) this;
     }
 
+    /**
+     * Appends values to the order by clause.
+     * @param order What to order the selection by.
+     * @param desc Whether to sort in descending order.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T orderBy(String order, boolean desc) {
         if (mOrderBy.length() > 0) mOrderBy.append(COMMA);
@@ -354,10 +513,20 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
         return (T) this;
     }
 
+    /**
+     * Appends values to the order by clause.
+     * @param order What to order the selection by.
+     * @return This class instance.
+     */
     public T orderBy(String order) {
         return orderBy(order, false);
     }
 
+    /**
+     * Appends values to the order by clause.
+     * @param orders What to order the selection by.
+     * @return This class instance.
+     */
     @SuppressWarnings("unchecked")
     public T orderBy(String... orders) {
         for (String order : orders) {
@@ -393,7 +562,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     }
 
     /**
-     * Returns a {@code CursorLoader} based on this selection.
+     * Returns a <code>CursorLoader</code> based on this selection.
      *
      * @param context The context to use.
      * @param projection The projection to use.
@@ -402,7 +571,7 @@ public abstract class AbstractSelection<T extends AbstractSelection<?>> {
     public abstract CursorLoader getCursorLoader(Context context, String[] projection);
 
     /**
-     * Returns a {@code CursorLoader} based on this selection, with a {@code null} (all columns) selection.
+     * Returns a <code>CursorLoader</code> based on this selection, with a <code>null</code> (all columns) selection.
      *
      * @param context The context to use.
      * @return The CursorLoader.

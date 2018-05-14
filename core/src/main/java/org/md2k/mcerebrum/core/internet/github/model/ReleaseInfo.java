@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.github.model;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,11 @@ package org.md2k.mcerebrum.core.internet.github.model;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.github.model;
+
+/**
+ * Holds the application's release information
+ */
 public class ReleaseInfo {
     private String tag_name;
     private String name;
@@ -35,30 +39,58 @@ public class ReleaseInfo {
     private String published_at;
     private AssetInfo[] assets;
 
+    /**
+     * Returns the tag name.
+     * @return The tag name.
+     */
     public String getTag_name() {
         return tag_name;
     }
 
+    /**
+     * Returns the release name.
+     * @return The release name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Returns the body.
+     * @return The body.
+     */
     public String getBody() {
         return body;
     }
 
+    /**
+     * Returns whether this is a prerelease or not.
+     * @return Whether this is a prerelease or not.
+     */
     public boolean isPrerelease() {
         return prerelease;
     }
 
+    /**
+     * Returns <code>created_at</code>.
+     * @return The <code>created_at</code> field.
+     */
     public String getCreated_at() {
         return created_at;
     }
 
+    /**
+     * Returns <code>published_at</code>.
+     * @return The <code>published_at</code> field.
+     */
     public String getPublished_at() {
         return published_at;
     }
 
+    /**
+     * Returns an array of <code>AssetInfo</code> objects.
+     * @return An array of <code>AssetInfo</code> objects.
+     */
     public AssetInfo[] getAssets() {
         return assets;
     }

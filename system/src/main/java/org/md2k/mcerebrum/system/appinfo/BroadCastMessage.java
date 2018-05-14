@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.appinfo;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,22 +25,43 @@ package org.md2k.mcerebrum.system.appinfo;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.appinfo;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;
 
+/**
+ * Sends broadcast messages with the intent <code>"org.md2k.mcerebrum.intent.action.RECEIVE"</code>.
+ */
 public class BroadCastMessage {
+
+    /** Constant used for logging. <p>Uses <code>class.getSimpleName()</code>.</p> */
+    private static final String TAG = BroadCastMessage.class.getSimpleName();
+
+    /**
+     * Sends a new broadcast with a receive intent.
+     *
+     * @param context Android context.
+     */
     public static void send(Context context){
         Intent i = new Intent("org.md2k.mcerebrum.intent.action.RECEIVE");
-        Log.d("abc","broadcast send...");
+        Log.d(TAG, "broadcast send...");
         context.sendBroadcast(i);
     }
+
+    /**
+     * Sends a new broadcast with a receive intent and an extra <code>operation</code>.
+     *
+     * @param context Android context.
+     * @param operation Operation to add to the intent.
+     */
     public static void send(Context context, String operation){
         Intent i = new Intent("org.md2k.mcerebrum.intent.action.RECEIVE");
         i.putExtra(MCEREBRUM.APP_ACCESS.OP, operation);
-        Log.d("abc","broadcast send...op="+operation);
+        Log.d(TAG, "broadcast send...op=" + operation);
         context.sendBroadcast(i);
     }
 }

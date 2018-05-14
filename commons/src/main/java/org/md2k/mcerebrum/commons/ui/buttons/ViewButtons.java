@@ -1,34 +1,18 @@
-package org.md2k.mcerebrum.commons.ui.buttons;
-
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.AttributeSet;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-
-import org.md2k.mcerebrum.commons.R;
-
-import mehdi.sakout.fancybuttons.FancyButton;
-
-/**
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
- * <p>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -41,6 +25,24 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.ui.buttons;
+
+import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+
+import org.md2k.mcerebrum.commons.R;
+
+import mehdi.sakout.fancybuttons.FancyButton;
+
+/**
+ * Provides methods for viewing and adding buttons.
+ */
 public class ViewButtons extends LinearLayout {
     public ViewButtons(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -52,13 +54,21 @@ public class ViewButtons extends LinearLayout {
         }
     }
 
+    /**
+     * Constructor
+     * @param context Android context
+     */
     public ViewButtons(Context context) {
         this(context, null);
     }
 
-
-    FancyButton getButton(int index) {
-        switch (index) {
+    /**
+     * Returns the button the corresponds to the index.
+     * @param index Button index.
+     * @return The button the corresponds to the index.
+     */
+    FancyButton getButton(int index){
+        switch(index){
             case 1:
                 return (FancyButton) findViewById(R.id.button_1);
             case 2:
@@ -75,12 +85,16 @@ public class ViewButtons extends LinearLayout {
                 return (FancyButton) findViewById(R.id.button_1);
         }
     }
-
-    ImageView getImageView(int index) {
-        switch (index) {
+  
+    /**
+     * Returns the button image the corresponds to the index.
+     * @param index Button index.
+     * @return The button image the corresponds to the index.
+     */
+    ImageView getImageView(int index){
+        switch(index){
             case 1:
                 return (ImageView) findViewById(R.id.imageview_button_1);
-
             case 2:
                 return (ImageView) findViewById(R.id.imageview_button_2);
             case 3:
@@ -91,17 +105,20 @@ public class ViewButtons extends LinearLayout {
                 return (ImageView) findViewById(R.id.imageview_button_5);
             case 6:
                 return (ImageView) findViewById(R.id.imageview_button_6);
-
             default:
                 return (ImageView) findViewById(R.id.imageview_button_1);
         }
     }
 
-    TextView getTextView(int index) {
-        switch (index) {
+    /**
+     * Returns the button text the corresponds to the index.
+     * @param index Button index.
+     * @return The button text the corresponds to the index.
+     */
+    TextView getTextView(int index){
+        switch(index){
             case 1:
                 return (TextView) findViewById(R.id.textview_button_1);
-
             case 2:
                 return (TextView) findViewById(R.id.textview_button_2);
             case 3:
@@ -112,12 +129,18 @@ public class ViewButtons extends LinearLayout {
                 return (TextView) findViewById(R.id.textview_button_5);
             case 6:
                 return (TextView) findViewById(R.id.textview_button_6);
-
             default:
                 return (TextView) findViewById(R.id.textview_button_1);
         }
     }
 
+    /**
+     * Adds the button to the view.
+     * @param index Button index.
+     * @param title Button text.
+     * @param image Button image.
+     * @param onClickListener Listens for a click on this button.
+     */
     public void addButton(int index, String title, Drawable image, OnClickListener onClickListener) {
         ImageView i = getImageView(index);
         TextView t = getTextView(index);
@@ -126,7 +149,6 @@ public class ViewButtons extends LinearLayout {
         else {
             i.setVisibility(GONE);
             t.setGravity(Gravity.CENTER);
-
         }
         FancyButton b = getButton(index);
         t.setText(title);

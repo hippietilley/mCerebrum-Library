@@ -1,14 +1,6 @@
-package org.md2k.mcerebrum.core.access.appinfo;
-
-import android.app.ActivityManager;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-
-import java.util.List;
 /*
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,8 +25,26 @@ import java.util.List;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.access.appinfo;
+
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
+import java.util.List;
+
+/**
+ * Provides methods for accessing version, installation, and running information about the app.
+ */
 public class AppInfo {
 
+    /**
+     * Determines if the given package is installed.
+     * @param context Android context.
+     * @param packageName Name of the package.
+     * @return Whether the given package is installed or not.
+     */
     public static boolean isPackageInstalled(Context context, String packageName) {
         PackageManager pm = context.getPackageManager();
         try {
@@ -45,17 +55,32 @@ public class AppInfo {
         }
     }
 
+    /**
+     * Determines if the app is running in the foreground.
+     * @param context Android context.
+     * @param packageName Name of the package.
+     * @return Whether the app is running in the foreground.
+     */
     public static boolean isAppOnForeground(Context context, String packageName) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
-        if (appProcesses == null) return false;
+        if (appProcesses == null)
+            return false;
         for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
-            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND && appProcess.processName.equals(packageName)) {
+            if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                    && appProcess.processName.equals(packageName)) {
                 return true;
             }
         }
         return false;
     }
+
+    /**
+     * Determines if the service is running or not.
+     * @param context Android context.
+     * @param serviceName Name of the package.
+     * @return Whether the service is running or not.
+     */
     public static boolean isServiceRunning(Context context, String serviceName) {
         ActivityManager manager = (ActivityManager) (context.getSystemService(Context.ACTIVITY_SERVICE));
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -65,16 +90,31 @@ public class AppInfo {
         }
         return false;
     }
+
+    /**
+     * Returns the amount of time the service has been running in milliseconds.
+     * @param context Android context.
+     * @param serviceName Name of the package.
+     * @return The amount of time the service has been running in milliseconds.
+     */
     public static long serviceRunningTime(Context context, String serviceName) {
         ActivityManager manager = (ActivityManager) (context.getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningServiceInfo> info = manager.getRunningServices(Integer.MAX_VALUE);
-        if (info == null || info.size() == 0) return -1;
+        if (info == null || info.size() == 0)
+            return -1;
         for (ActivityManager.RunningServiceInfo aInfo : info)
             if (serviceName.equals(aInfo.service.getClassName())) {
                 return android.os.SystemClock.elapsedRealtime() - aInfo.activeSince;
             }
         return -1;
     }
+
+    /**
+     * Returns the version code of the package.
+     * @param context Android context.
+     * @param packageName Name of the package.
+     * @return The version code of the package.
+     */
     public static int getVersionCode(Context context,String packageName){
         PackageManager pm = context.getPackageManager();
         try {
@@ -83,6 +123,13 @@ public class AppInfo {
         } catch (PackageManager.NameNotFoundException ignored) {}
         return 0;
     }
+
+    /**
+     * Returns the version name of the package.
+     * @param context Android context.
+     * @param packageName Name of the package.
+     * @return The version name of the package.
+     */
     public static String getVersionName(Context context,String packageName){
         PackageManager pm = context.getPackageManager();
         try {
@@ -91,5 +138,4 @@ public class AppInfo {
         } catch (PackageManager.NameNotFoundException ignored) {}
         return null;
     }
-
 }
