@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.core.access;
 
 // @formatter:off
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -10,14 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
 
-import org.md2k.mcerebrum.core.access.base.BaseSQLiteOpenHelperCallbacks;
-import org.md2k.mcerebrum.core.access.SampleSQLiteOpenHelperCallbacks;
-import org.md2k.mcerebrum.core.access.BuildConfig;
 import org.md2k.mcerebrum.core.access.appinfo.AppInfoColumns;
-import org.md2k.mcerebrum.core.access.configinfo.ConfigInfoColumns;
-import org.md2k.mcerebrum.core.access.serverinfo.ServerInfoColumns;
-import org.md2k.mcerebrum.core.access.studyinfo.StudyInfoColumns;
-import org.md2k.mcerebrum.core.access.userinfo.UserInfoColumns;
+import org.md2k.mcerebrum.core.access.base.BaseSQLiteOpenHelperCallbacks;
 
 public class SampleProviderSQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = SampleProviderSQLiteOpenHelper.class.getSimpleName();
@@ -61,62 +56,6 @@ public class SampleProviderSQLiteOpenHelper extends SQLiteOpenHelper {
             + AppInfoColumns.FUNC_CLEAR + " TEXT, "
             + AppInfoColumns.DATAKIT_CONNECTED + " INTEGER DEFAULT 0 "
             + ", CONSTRAINT unique_name UNIQUE (package_name) ON CONFLICT REPLACE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_CONFIG_INFO = "CREATE TABLE IF NOT EXISTS "
-            + ConfigInfoColumns.TABLE_NAME + " ( "
-            + ConfigInfoColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + ConfigInfoColumns.CID + " TEXT, "
-            + ConfigInfoColumns.TYPE + " TEXT, "
-            + ConfigInfoColumns.TITLE + " TEXT, "
-            + ConfigInfoColumns.SUMMARY + " TEXT, "
-            + ConfigInfoColumns.DESCRIPTION + " TEXT, "
-            + ConfigInfoColumns.VERSIONS + " TEXT, "
-            + ConfigInfoColumns.UPDATES + " TEXT DEFAULT 'manual', "
-            + ConfigInfoColumns.EXPECTED_VERSION + " TEXT, "
-            + ConfigInfoColumns.LATEST_VERSION + " TEXT, "
-            + ConfigInfoColumns.DOWNLOAD_FROM + " TEXT DEFAULT 'url', "
-            + ConfigInfoColumns.DOWNLOAD_LINK + " TEXT "
-            + ", CONSTRAINT unique_name UNIQUE (cid, type) ON CONFLICT REPLACE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_SERVER_INFO = "CREATE TABLE IF NOT EXISTS "
-            + ServerInfoColumns.TABLE_NAME + " ( "
-            + ServerInfoColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + ServerInfoColumns.SERVER_ADDRESS + " TEXT, "
-            + ServerInfoColumns.USERNAME + " TEXT, "
-            + ServerInfoColumns.UUID + " TEXT, "
-            + ServerInfoColumns.PASSWORD_HASH + " TEXT, "
-            + ServerInfoColumns.TOKEN + " TEXT, "
-            + ServerInfoColumns.FILE_NAME + " TEXT, "
-            + ServerInfoColumns.CURRENT_VERSION + " TEXT, "
-            + ServerInfoColumns.LATEST_VERSION + " TEXT "
-            + ", CONSTRAINT unique_name UNIQUE (username) ON CONFLICT REPLACE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_STUDY_INFO = "CREATE TABLE IF NOT EXISTS "
-            + StudyInfoColumns.TABLE_NAME + " ( "
-            + StudyInfoColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + StudyInfoColumns.SID + " TEXT, "
-            + StudyInfoColumns.TYPE + " TEXT DEFAULT 'FREEBIE', "
-            + StudyInfoColumns.TITLE + " TEXT, "
-            + StudyInfoColumns.SUMMARY + " TEXT, "
-            + StudyInfoColumns.DESCRIPTION + " TEXT, "
-            + StudyInfoColumns.VERSION + " TEXT, "
-            + StudyInfoColumns.ICON + " TEXT, "
-            + StudyInfoColumns.COVER_IMAGE + " TEXT, "
-            + StudyInfoColumns.START_AT_BOOT + " INTEGER, "
-            + StudyInfoColumns.STARTED + " INTEGER "
-            + ", CONSTRAINT unique_name UNIQUE (sid, type) ON CONFLICT REPLACE"
-            + " );";
-
-    public static final String SQL_CREATE_TABLE_USER_INFO = "CREATE TABLE IF NOT EXISTS "
-            + UserInfoColumns.TABLE_NAME + " ( "
-            + UserInfoColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + UserInfoColumns.UID + " TEXT, "
-            + UserInfoColumns.TYPE + " TEXT, "
-            + UserInfoColumns.USERNAME + " TEXT "
-            + ", CONSTRAINT unique_name UNIQUE (uid) ON CONFLICT REPLACE"
             + " );";
 
 
@@ -173,10 +112,6 @@ public class SampleProviderSQLiteOpenHelper extends SQLiteOpenHelper {
         if (BuildConfig.DEBUG) Log.d(TAG, "onCreate");
         mOpenHelperCallbacks.onPreCreate(mContext, db);
         db.execSQL(SQL_CREATE_TABLE_APP_INFO);
-        db.execSQL(SQL_CREATE_TABLE_CONFIG_INFO);
-        db.execSQL(SQL_CREATE_TABLE_SERVER_INFO);
-        db.execSQL(SQL_CREATE_TABLE_STUDY_INFO);
-        db.execSQL(SQL_CREATE_TABLE_USER_INFO);
         mOpenHelperCallbacks.onPostCreate(mContext, db);
     }
 

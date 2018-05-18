@@ -1,16 +1,11 @@
 package org.md2k.mcerebrum.core.access.appinfo;
 
 // @formatter:off
+
 import android.net.Uri;
 import android.provider.BaseColumns;
 
 import org.md2k.mcerebrum.core.access.SampleProvider;
-import org.md2k.mcerebrum.core.access.base.AbstractSelection;
-import org.md2k.mcerebrum.core.access.appinfo.AppInfoColumns;
-import org.md2k.mcerebrum.core.access.configinfo.ConfigInfoColumns;
-import org.md2k.mcerebrum.core.access.serverinfo.ServerInfoColumns;
-import org.md2k.mcerebrum.core.access.studyinfo.StudyInfoColumns;
-import org.md2k.mcerebrum.core.access.userinfo.UserInfoColumns;
 
 /**
  * Application Information

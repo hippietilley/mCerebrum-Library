@@ -1,7 +1,6 @@
 package org.md2k.mcerebrum.core.access;
 
 // @formatter:off
-import java.util.Arrays;
 
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -11,13 +10,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import org.md2k.mcerebrum.core.access.BuildConfig;
-import org.md2k.mcerebrum.core.access.base.BaseContentProvider;
 import org.md2k.mcerebrum.core.access.appinfo.AppInfoColumns;
-import org.md2k.mcerebrum.core.access.configinfo.ConfigInfoColumns;
-import org.md2k.mcerebrum.core.access.serverinfo.ServerInfoColumns;
-import org.md2k.mcerebrum.core.access.studyinfo.StudyInfoColumns;
-import org.md2k.mcerebrum.core.access.userinfo.UserInfoColumns;
+import org.md2k.mcerebrum.core.access.base.BaseContentProvider;
+
+import java.util.Arrays;
 
 public class SampleProvider extends BaseContentProvider {
     private static final String TAG = SampleProvider.class.getSimpleName();
@@ -52,14 +48,6 @@ public class SampleProvider extends BaseContentProvider {
     static {
         URI_MATCHER.addURI(AUTHORITY, AppInfoColumns.TABLE_NAME, URI_TYPE_APP_INFO);
         URI_MATCHER.addURI(AUTHORITY, AppInfoColumns.TABLE_NAME + "/#", URI_TYPE_APP_INFO_ID);
-        URI_MATCHER.addURI(AUTHORITY, ConfigInfoColumns.TABLE_NAME, URI_TYPE_CONFIG_INFO);
-        URI_MATCHER.addURI(AUTHORITY, ConfigInfoColumns.TABLE_NAME + "/#", URI_TYPE_CONFIG_INFO_ID);
-        URI_MATCHER.addURI(AUTHORITY, ServerInfoColumns.TABLE_NAME, URI_TYPE_SERVER_INFO);
-        URI_MATCHER.addURI(AUTHORITY, ServerInfoColumns.TABLE_NAME + "/#", URI_TYPE_SERVER_INFO_ID);
-        URI_MATCHER.addURI(AUTHORITY, StudyInfoColumns.TABLE_NAME, URI_TYPE_STUDY_INFO);
-        URI_MATCHER.addURI(AUTHORITY, StudyInfoColumns.TABLE_NAME + "/#", URI_TYPE_STUDY_INFO_ID);
-        URI_MATCHER.addURI(AUTHORITY, UserInfoColumns.TABLE_NAME, URI_TYPE_USER_INFO);
-        URI_MATCHER.addURI(AUTHORITY, UserInfoColumns.TABLE_NAME + "/#", URI_TYPE_USER_INFO_ID);
     }
 
     @Override
@@ -80,26 +68,6 @@ public class SampleProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + AppInfoColumns.TABLE_NAME;
             case URI_TYPE_APP_INFO_ID:
                 return TYPE_CURSOR_ITEM + AppInfoColumns.TABLE_NAME;
-
-            case URI_TYPE_CONFIG_INFO:
-                return TYPE_CURSOR_DIR + ConfigInfoColumns.TABLE_NAME;
-            case URI_TYPE_CONFIG_INFO_ID:
-                return TYPE_CURSOR_ITEM + ConfigInfoColumns.TABLE_NAME;
-
-            case URI_TYPE_SERVER_INFO:
-                return TYPE_CURSOR_DIR + ServerInfoColumns.TABLE_NAME;
-            case URI_TYPE_SERVER_INFO_ID:
-                return TYPE_CURSOR_ITEM + ServerInfoColumns.TABLE_NAME;
-
-            case URI_TYPE_STUDY_INFO:
-                return TYPE_CURSOR_DIR + StudyInfoColumns.TABLE_NAME;
-            case URI_TYPE_STUDY_INFO_ID:
-                return TYPE_CURSOR_ITEM + StudyInfoColumns.TABLE_NAME;
-
-            case URI_TYPE_USER_INFO:
-                return TYPE_CURSOR_DIR + UserInfoColumns.TABLE_NAME;
-            case URI_TYPE_USER_INFO_ID:
-                return TYPE_CURSOR_ITEM + UserInfoColumns.TABLE_NAME;
 
         }
         return null;
@@ -150,39 +118,6 @@ public class SampleProvider extends BaseContentProvider {
                 res.tablesWithJoins = AppInfoColumns.TABLE_NAME;
                 res.orderBy = AppInfoColumns.DEFAULT_ORDER;
                 break;
-
-            case URI_TYPE_CONFIG_INFO:
-            case URI_TYPE_CONFIG_INFO_ID:
-                res.table = ConfigInfoColumns.TABLE_NAME;
-                res.idColumn = ConfigInfoColumns._ID;
-                res.tablesWithJoins = ConfigInfoColumns.TABLE_NAME;
-                res.orderBy = ConfigInfoColumns.DEFAULT_ORDER;
-                break;
-
-            case URI_TYPE_SERVER_INFO:
-            case URI_TYPE_SERVER_INFO_ID:
-                res.table = ServerInfoColumns.TABLE_NAME;
-                res.idColumn = ServerInfoColumns._ID;
-                res.tablesWithJoins = ServerInfoColumns.TABLE_NAME;
-                res.orderBy = ServerInfoColumns.DEFAULT_ORDER;
-                break;
-
-            case URI_TYPE_STUDY_INFO:
-            case URI_TYPE_STUDY_INFO_ID:
-                res.table = StudyInfoColumns.TABLE_NAME;
-                res.idColumn = StudyInfoColumns._ID;
-                res.tablesWithJoins = StudyInfoColumns.TABLE_NAME;
-                res.orderBy = StudyInfoColumns.DEFAULT_ORDER;
-                break;
-
-            case URI_TYPE_USER_INFO:
-            case URI_TYPE_USER_INFO_ID:
-                res.table = UserInfoColumns.TABLE_NAME;
-                res.idColumn = UserInfoColumns._ID;
-                res.tablesWithJoins = UserInfoColumns.TABLE_NAME;
-                res.orderBy = UserInfoColumns.DEFAULT_ORDER;
-                break;
-
             default:
                 throw new IllegalArgumentException("The uri '" + uri + "' is not supported by this ContentProvider");
         }
