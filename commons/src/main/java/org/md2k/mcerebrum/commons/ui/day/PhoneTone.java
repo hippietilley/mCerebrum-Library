@@ -40,7 +40,7 @@ import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-public class PhoneTone{
+public class PhoneTone {
     private Context context;
     private MediaPlayer mPlayer;
 
@@ -48,14 +48,18 @@ public class PhoneTone{
         this.context = context;
     }
 
-    public Observable<Boolean> getObservable(String format, long interval) {
+    public Observable<Boolean> getObservable(final String format, final long interval) {
         Log.d("abc", "phoneTone Observable...interval=" + interval);
-        load(format);
-        return Observable.interval(0,interval, TimeUnit.MILLISECONDS)
+        return Observable.interval(0, interval, TimeUnit.MILLISECONDS)
                 .map(new Func1<Long, Boolean>() {
                     @Override
                     public Boolean call(Long aLong) {
-                        play();
+                        play(format);
+                        return false;
+                    }
+                }).filter(new Func1<Boolean, Boolean>() {
+                    @Override
+                    public Boolean call(Boolean aBoolean) {
                         return false;
                     }
                 }).doOnUnsubscribe(new Action0() {
@@ -84,7 +88,7 @@ public class PhoneTone{
         }
     }
 
-    private void load(String filename) {
+    private boolean load(String filename) {
         try {
             mPlayer = new MediaPlayer();
             Uri myUri = Uri.parse(filename);
@@ -101,11 +105,13 @@ public class PhoneTone{
                 Log.e("abc", "PhoneTone..play()..assetload()..failed");
             }
         }
+        return true;
     }
 
-    private void play() {
+    private void play(String fileName) {
         try {
             Log.d("abc", "phonetone play...");
+            if (mPlayer == null) load(fileName);
             mPlayer.start();
         } catch (Exception e) {
             Log.e("abc", "PhoneTone..play()..start()..failed");

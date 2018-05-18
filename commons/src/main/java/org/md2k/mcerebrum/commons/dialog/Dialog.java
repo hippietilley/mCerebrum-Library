@@ -40,10 +40,10 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.datatype.DataTypeLong;
-import org.md2k.datakitapi.exception.DataKitException;
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataTypeLong;
+import org.md2k.mcerebrum.core.datakitapi.exception.DataKitException;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
 
 import java.util.ArrayList;

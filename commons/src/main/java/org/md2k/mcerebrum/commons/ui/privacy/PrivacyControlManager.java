@@ -4,14 +4,14 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.datatype.DataType;
-import org.md2k.datakitapi.datatype.DataTypeJSONObject;
-import org.md2k.datakitapi.exception.DataKitException;
-import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
-import org.md2k.datakitapi.source.datasource.DataSourceClient;
-import org.md2k.datakitapi.source.datasource.DataSourceType;
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataTypeJSONObject;
+import org.md2k.mcerebrum.core.datakitapi.exception.DataKitException;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceBuilder;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceClient;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceType;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.core.data_format.privacy.PrivacyData;
 
 import java.util.ArrayList;

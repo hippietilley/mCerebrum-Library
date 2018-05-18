@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.source.datasource.DataSource;
-import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
-import org.md2k.datakitapi.source.datasource.DataSourceClient;
+import org.md2k.mcerebrum.core.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSource;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceBuilder;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceClient;
 import org.md2k.mcerebrum.commons.R;
 import org.md2k.mcerebrum.core.access.appinfo.AppCP;
 
@@ -58,7 +58,7 @@ public class ActivityDataQuality extends AppCompatActivity {
                         Toasty.error(ActivityDataQuality.this, "Device not registered with datakit", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    b.putParcelable(org.md2k.datakitapi.source.datasource.DataSource.class.getSimpleName(), ds.get(0).getDataSource());
+                    b.putParcelable(org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSource.class.getSimpleName(), ds.get(0).getDataSource());
                     intent.putExtra(DataSource.class.getSimpleName(), ds.get(0).getDataSource());
                     intent.putExtras(b);
                     String packageName = ds.get(0).getDataSource().getApplication().getId();

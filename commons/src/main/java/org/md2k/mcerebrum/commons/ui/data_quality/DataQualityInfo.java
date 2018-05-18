@@ -2,8 +2,8 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
 
 import android.util.Log;
 
-import org.md2k.datakitapi.datatype.DataTypeInt;
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataTypeInt;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.core.data_format.DATA_QUALITY;
 
 import java.util.ArrayList;

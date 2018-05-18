@@ -32,8 +32,8 @@ import android.graphics.Color;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import org.md2k.datakitapi.exception.DataKitException;
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.exception.DataKitException;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 
 import java.util.concurrent.TimeUnit;
 

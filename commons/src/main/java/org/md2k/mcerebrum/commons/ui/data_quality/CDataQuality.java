@@ -26,7 +26,7 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.md2k.datakitapi.source.datasource.DataSource;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSource;
 
 public class CDataQuality {
     public String title;

@@ -34,7 +34,6 @@ dependencies {
 //    compile 'com.android.support:appcompat-v7:25.3.1'
     // Utilities
     compile 'com.blankj:utilcode:1.8.1'
-    compile project(':datakitapi')
     compile project(':core')
 
     // Icons

@@ -1,6 +1,6 @@
 package org.md2k.mcerebrum.commons.ui.data_quality;
 
-import org.md2k.datakitapi.datatype.DataTypeInt;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataTypeInt;
 
 /**
  * Copyright (c) 2015, The University of Memphis, MD2K Center

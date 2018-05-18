@@ -3,14 +3,14 @@ package org.md2k.mcerebrum.commons.ui.day;
 import android.content.Context;
 import android.util.Log;
 
-import org.md2k.datakitapi.DataKitAPI;
-import org.md2k.datakitapi.datatype.DataType;
-import org.md2k.datakitapi.datatype.DataTypeLong;
-import org.md2k.datakitapi.exception.DataKitException;
-import org.md2k.datakitapi.source.datasource.DataSourceBuilder;
-import org.md2k.datakitapi.source.datasource.DataSourceClient;
-import org.md2k.datakitapi.source.datasource.DataSourceType;
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataType;
+import org.md2k.mcerebrum.core.datakitapi.datatype.DataTypeLong;
+import org.md2k.mcerebrum.core.datakitapi.exception.DataKitException;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceBuilder;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceClient;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSourceType;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;

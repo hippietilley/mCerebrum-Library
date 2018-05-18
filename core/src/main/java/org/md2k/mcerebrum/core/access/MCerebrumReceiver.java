@@ -32,7 +32,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.md2k.datakitapi.DataKitAPI;
+import org.md2k.mcerebrum.core.datakitapi.DataKitAPI;
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
 import org.md2k.mcerebrum.core.access.appinfo.AppCP;
 import org.md2k.mcerebrum.core.constant.MCEREBRUM;

@@ -70,8 +70,7 @@ public class MyLogger {
                     if(versionCode%100==0)
                         //Release version
                         return false;
-                    else if(priority>= Log.WARN) return true;
-                    else return false;
+                    return true;
                 } catch (PackageManager.NameNotFoundException e) {
                     return false;
                 }

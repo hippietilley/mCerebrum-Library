@@ -29,7 +29,7 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.md2k.datakitapi.source.datasource.DataSource;
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSource;
 
 public class ConfigDataQuality implements Parcelable{
     String title;

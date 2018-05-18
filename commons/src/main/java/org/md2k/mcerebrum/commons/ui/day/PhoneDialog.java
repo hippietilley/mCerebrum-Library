@@ -7,9 +7,12 @@ import android.util.Log;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.concurrent.TimeUnit;
+
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action0;
+import rx.functions.Func1;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -76,6 +79,13 @@ class PhoneDialog {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         Log.d("abc","Day: PhoneDialog notify: ok clicked");
                         subscriber.onNext(true);
+                        subscriber.onCompleted();
+                    }
+                }).negativeText("Delay 15 Minutes").onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Log.d("abc","Day: PhoneDialog notify: ok clicked");
+                        subscriber.onNext(false);
                         subscriber.onCompleted();
                     }
                 });

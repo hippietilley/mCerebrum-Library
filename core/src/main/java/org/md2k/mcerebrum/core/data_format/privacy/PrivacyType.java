@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.core.data_format.privacy;
 
-import org.md2k.datakitapi.source.datasource.DataSource;
+
+import org.md2k.mcerebrum.core.datakitapi.source.datasource.DataSource;
 
 import java.util.ArrayList;
 

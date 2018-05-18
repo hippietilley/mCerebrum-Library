@@ -132,10 +132,6 @@ public class Storage {
         return true;
     }
 
-    public static boolean unzip(String zipFilePath, String destDirPath) {
-        return ZipUtils.unzipFile(zipFilePath, destDirPath);
-    }
-
     public static boolean deleteDir(String dirPath) {
         return FileUtils.deleteDir(dirPath);
     }

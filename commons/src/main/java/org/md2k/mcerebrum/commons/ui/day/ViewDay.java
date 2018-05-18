@@ -12,15 +12,18 @@ import android.widget.LinearLayout;
 
 import com.mikepenz.materialize.color.Material;
 
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
 import org.md2k.mcerebrum.commons.dialog.Dialog;
 import org.md2k.mcerebrum.commons.dialog.DialogCallback;
+
+import java.util.concurrent.TimeUnit;
 
 import mehdi.sakout.fancybuttons.FancyButton;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 
 /**
@@ -88,7 +91,7 @@ public class ViewDay extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (!isStartActive) return;
-                Dialog.simple(activity, "Start Day", "Start the day now?", "Yes", "Cancel", new DialogCallback() {
+                Dialog.simple(activity, "Start Day", "Start the day now?", "Yes", "No", new DialogCallback() {
                     @Override
                     public void onSelected(String value) {
                         if (value.equalsIgnoreCase("Yes")) {
@@ -111,7 +114,7 @@ public class ViewDay extends LinearLayout {
             @Override
             public void onClick(View v) {
                 if (!isEndActive) return;
-                Dialog.simple(activity, "End Day", "End the day now?", "Yes", "Cancel", new DialogCallback() {
+                Dialog.simple(activity, "End Day", "End the day now?", "Yes", "No", new DialogCallback() {
                     @Override
                     public void onSelected(String value) {
                         if (value.equalsIgnoreCase("Yes")) {
@@ -134,16 +137,37 @@ public class ViewDay extends LinearLayout {
     public void setNotify(String format, long interval) {
         Log.d("abc","Day: ViewDay -> setNotify()");
 
-        subscription = Observable.merge(phoneTone.getObservable(format, interval), phoneDialog.getObservable())
-                .takeWhile(new Func1<Boolean, Boolean>() {
+        subscription = Observable.merge(phoneTone.getObservable(format, interval), phoneDialog.getObservable()).subscribeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<Boolean, Observable<Boolean>>() {
                     @Override
-                    public Boolean call(Boolean aBoolean) {
-                        if (aBoolean) {
+                    public Observable<Boolean> call(Boolean aBoolean) {
+                        if(aBoolean==false)
+                            return Observable.error(new DelayError());
+                        else
                             callbackDay.onReceive("START");
-                        }
-                        return !aBoolean;
+                        return Observable.just(!aBoolean);
+                    }
+                }).retryWhen(new Func1<Observable<? extends Throwable>, Observable<Throwable>>() {
+                    public Observable<Throwable> call(Observable<? extends Throwable> observable) {
+                        return observable.map(new Func1<Throwable, Throwable>() {
+                            @Override
+                            public Throwable call(Throwable throwable) {
+                                return throwable;
+                            }
+                        }).flatMap(new Func1<Throwable, Observable<Throwable>>() {
+                            @Override
+                            public Observable<Throwable> call(Throwable throwable) {
+                                return Observable.timer(15, TimeUnit.MINUTES).flatMap(new Func1<Long, Observable<Throwable>>() {
+                                    @Override
+                                    public Observable<Throwable> call(Long aLong) {
+                                        return Observable.just(null);
+                                    }
+                                });
+                            }
+                        });
                     }
                 })
+
                 .subscribe(new Observer<Boolean>() {
                     @Override
                     public void onCompleted() {
@@ -161,4 +185,27 @@ public class ViewDay extends LinearLayout {
                     }
                 });
     }
+/*
+.retryWhen(new Func1<Observable<? extends Throwable>, Observable<Throwable>>() {
+            @Override
+            public Observable<Throwable> call(Observable<? extends Throwable> observable) {
+                return observable.map(new Func1<Throwable, Throwable>() {
+                    @Override
+                    public Throwable call(Throwable throwable) {
+                        return throwable;
+                    }
+                }).flatMap(new Func1<Throwable, Observable<Throwable>>() {
+                    @Override
+                    public Observable<Throwable> call(Throwable throwable) {
+                        return Observable.timer(15, TimeUnit.SECONDS).flatMap(new Func1<Long, Observable<Throwable>>() {
+                            @Override
+                            public Observable<Throwable> call(Long aLong) {
+                                return Observable.just(null);
+                            }
+                        });
+                    }
+                });
+            }
+        })
+     */
 }

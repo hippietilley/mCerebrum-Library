@@ -10,7 +10,7 @@ import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 
-import org.md2k.datakitapi.time.DateTime;
+import org.md2k.mcerebrum.core.datakitapi.time.DateTime;
 import org.md2k.mcerebrum.commons.R;
 
 import java.util.Locale;
@@ -117,7 +117,7 @@ public class UserViewPrivacyControl {
             public void onClick(View v) {
                 if(DateTime.getDateTime()-lastTime<500) return;
                 Intent intent = new Intent();
-                intent.setClassName("org.md2k.datakit", "org.md2k.datakit.ActivityPrivacy");
+                intent.setClassName("org.md2k.mcerebrum", "org.md2k.mcerebrum.datakit.ActivityPrivacy");
                 viewPrivacy.getContext().startActivity(intent);
             }
         });
