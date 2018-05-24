@@ -200,18 +200,19 @@ public class Storage {
     }
 
     public static <T> ArrayList<T> readJsonArrayList(String filePath, Class<T> classType) throws FileNotFoundException {
-        ArrayList<T> data = null;
+        ArrayList<T> data = new ArrayList<>();
         BufferedReader reader = null;
         try {
             InputStream in = new FileInputStream(filePath);
             reader = new BufferedReader(new InputStreamReader(in));
             Gson gson = new Gson();
             data = gson.fromJson(reader, new ListOfSomething<>(classType));
-        } finally {
+        }catch(Exception e){}
+        finally {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException ignored) {
+                } catch (Exception ignored) {
                 }
             }
         }
