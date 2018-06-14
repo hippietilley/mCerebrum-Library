@@ -373,6 +373,8 @@ public class DataSourceType {
 
     /** Call duration <p><code>"CU_CALL_DURATION"</code></p><p> For data integration from Cornell </p> */
     public static final String CU_CALL_DURATION = "CU_CALL_DURATION";
+    public static final String CU_NOTIF_POST_PACKAGE = "CU_NOTIF_POST_PACKAGE";
+    public static final String CU_NOTIF_RM_PACKAGE = "CU_NOTIF_RM_PACKAGE";
 
     /** Label <p><code>"LABEL</code></p><p> For data integration from Cornell </p> */
     public static String LABEL = "LABEL";

@@ -39,6 +39,11 @@ public class DataTypeString extends DataType implements Parcelable{
      * The data point collected from the data source.
      */
     String sample;
+    @Override
+    public String toString(){
+        return super.toString()+","+sample;
+    }
+
 
     /**
      * Constructor

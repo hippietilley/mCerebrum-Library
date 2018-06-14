@@ -43,6 +43,11 @@ public class DataTypeJSONObject extends DataType implements Parcelable {
      */
     String sample;
 
+    @Override
+    public String toString(){
+        return super.toString()+","+sample;
+    }
+
     /**
      * Constructor
      */

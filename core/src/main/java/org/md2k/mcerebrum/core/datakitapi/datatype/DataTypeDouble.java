@@ -43,6 +43,11 @@ public class DataTypeDouble extends DataType implements Parcelable {
     /**
      * Constructor
      */
+    @Override
+    public String toString(){
+        return super.toString()+","+Double.toString(sample);
+    }
+
     public DataTypeDouble(){}
 
     /**

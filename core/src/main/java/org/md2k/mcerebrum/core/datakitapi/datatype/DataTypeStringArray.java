@@ -39,6 +39,14 @@ public class DataTypeStringArray extends DataType implements Parcelable {
      * The data point collected from the data source.
      */
     String[] sample;
+    @Override
+    public String toString(){
+        String s=super.toString();
+        for(int i=0;i<sample.length;i++){
+            s+=","+sample[i];
+        }
+        return s;
+    }
 
     /**
      * Constructor

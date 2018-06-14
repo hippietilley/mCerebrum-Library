@@ -40,6 +40,11 @@ public class DataTypeFloat extends DataType implements Parcelable{
      */
     float sample;
 
+    @Override
+    public String toString(){
+        return super.toString()+","+Float.toString(sample);
+    }
+
     /**
      * Constructor
      */

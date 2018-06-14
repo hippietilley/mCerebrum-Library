@@ -49,6 +49,9 @@ public class DataType implements Parcelable{
     /**
      * Constructor
      */
+    public String toString(){
+        return Long.toString(dateTime)+"," + String.valueOf(offset);
+    }
     public DataType(){}
 
     /**

@@ -39,6 +39,10 @@ public class DataTypeLong extends DataType implements Parcelable{
      * The data point collected from the data source.
      */
     long sample;
+    @Override
+    public String toString(){
+        return super.toString()+","+Long.toString(sample);
+    }
 
     /**
      * Constructor

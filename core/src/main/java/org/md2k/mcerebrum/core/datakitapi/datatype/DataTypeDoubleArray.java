@@ -41,6 +41,14 @@ public class DataTypeDoubleArray extends DataType implements Parcelable{
      * The data point collected from the data source.
      */
     double[] sample;
+    @Override
+    public String toString(){
+        String s=super.toString();
+        for(int i=0;i<sample.length;i++){
+            s+=","+Double.toString(sample[i]);
+        }
+        return s;
+    }
 
     /**
      * Constructor

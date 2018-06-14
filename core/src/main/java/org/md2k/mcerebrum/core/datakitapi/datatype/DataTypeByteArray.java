@@ -39,6 +39,14 @@ public class DataTypeByteArray extends DataType implements Parcelable{
      * The data point collected from the data source.
      */
     byte[] sample;
+    @Override
+    public String toString(){
+        String s=super.toString();
+        for(int i=0;i<sample.length;i++){
+            s+=","+Byte.toString(sample[i]);
+        }
+        return s;
+    }
 
     /**
      * Constructor

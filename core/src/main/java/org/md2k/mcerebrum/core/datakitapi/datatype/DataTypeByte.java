@@ -43,6 +43,11 @@ public class DataTypeByte extends DataType implements Parcelable {
     /**
      * Constructor
      */
+    @Override
+    public String toString(){
+        return super.toString()+","+Byte.toString(sample);
+    }
+
     public DataTypeByte(){}
 
     /**

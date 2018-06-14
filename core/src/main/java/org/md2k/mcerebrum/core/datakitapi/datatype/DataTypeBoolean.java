@@ -43,6 +43,10 @@ public class DataTypeBoolean extends DataType implements Parcelable{
     /**
      * Constructor
      */
+    @Override
+    public String toString(){
+        return super.toString()+","+Boolean.toString(sample);
+    }
     public DataTypeBoolean(){}
 
     /**

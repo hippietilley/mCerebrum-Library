@@ -54,7 +54,7 @@ import java.util.List;
 public abstract class RealtimeLineChartActivity extends DemoBase implements
         OnChartValueSelectedListener {
 
-    private LineChart mChart;
+    protected LineChart mChart;
 
     public LineChart getmChart() {
         return mChart;
