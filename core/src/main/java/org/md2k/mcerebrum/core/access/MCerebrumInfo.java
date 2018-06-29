@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.access;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +25,20 @@ package org.md2k.mcerebrum.core.access;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.access;
+
 import android.app.Activity;
 import android.content.Context;
 
 import org.md2k.mcerebrum.core.access.appinfo.AppAccess;
 
+/**
+ * An object used to wrap an instance of another class for use with mCerebrum.
+ */
 public class MCerebrumInfo {
-    public void update(Context context){
-    }
+    /**
+     * Updates the class instance with the current context.
+     * @param context Android context.
+     */
+    public void update(Context context){}
 }

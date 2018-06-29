@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.download;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,13 +25,28 @@ package org.md2k.mcerebrum.core.internet.download;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.download;
+
+/**
+ * Object for holding data about a download including total file size, current file size, and whether
+ * the download has been completed or not.
+ */
 public class DownloadInfo{
+    /**
+     * Constructor
+     *
+     * @param totalFileSize Size of the whole file.
+     * @param currentFileSize Size of the downloaded portion of the file.
+     * @param completed Whether the download has been completed or not.
+     */
     public DownloadInfo(long totalFileSize, long currentFileSize, boolean completed){
-        this.currentFileSize=currentFileSize;
-        this.totalFileSize=totalFileSize;
-        this.completed=completed;
-        if(currentFileSize==totalFileSize) progress=100;
-        else progress = (100.0*currentFileSize)/totalFileSize;
+        this.currentFileSize = currentFileSize;
+        this.totalFileSize = totalFileSize;
+        this.completed = completed;
+        if(currentFileSize == totalFileSize)
+            progress = 100;
+        else
+            progress = (100.0 * currentFileSize) / totalFileSize;
     }
 
     private double progress;
@@ -40,26 +54,50 @@ public class DownloadInfo{
     private long totalFileSize;
     private boolean completed;
 
+    /**
+     * Returns the download progress.
+     * @return The download progress.
+     */
     public double getProgress() {
         return progress;
     }
 
+    /**
+     * Sets the download progress.
+     * @param progress The download progress.
+     */
     public void setProgress(long progress) {
         this.progress = progress;
     }
 
+    /**
+     * Returns the current file size.
+     * @return The current file size.
+     */
     public long getCurrentFileSize() {
         return currentFileSize;
     }
 
+    /**
+     * Sets the current file size.
+     * @param currentFileSize The current file size.
+     */
     public void setCurrentFileSize(long currentFileSize) {
         this.currentFileSize = currentFileSize;
     }
 
+    /**
+     * Returns the total file size.
+     * @return The total file size.
+     */
     public long getTotalFileSize() {
         return totalFileSize;
     }
 
+    /**
+     * Returns whether the download has been completed or not.
+     * @return Whether the download has been completed or not.
+     */
     public boolean isCompleted() {
         return completed;
     }

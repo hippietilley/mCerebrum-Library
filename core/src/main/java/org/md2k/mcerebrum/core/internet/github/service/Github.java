@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.internet.github.service;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +25,8 @@ package org.md2k.mcerebrum.core.internet.github.service;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.internet.github.service;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,24 +38,39 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
+/**
+ * Provides methods for interacting with <code>GitHubAPI</code>.
+ */
 public class Github {
+    /**
+     * Fetches a list of releases for the given repository.
+     *
+     * @param owner Repository owner.
+     * @param repo Repository to fetch from.
+     * @return An array of <code>ReleaseInfo</code> objects.
+     */
     public Observable<ReleaseInfo[]> getReleases(String owner, String repo){
         GitHubAPI service = createRetrofitService(GitHubAPI.class);
         return service.getReleases(owner, repo);
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread());
-    }
-    public Observable<ReleaseInfo> getReleaseLatest(String owner, String repo){
-        GitHubAPI service = createRetrofitService(GitHubAPI.class);
-        return service.getReleaseLatest(owner, repo);
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread());
     }
 
     /**
-     * Creates a retrofit service from an arbitrary class (clazz)
-     * @param clazz Java interface of the retrofit service
-     * @return retrofit service with defined endpoint
+     * Fetches the <code>ReleaseInfo</code> of the latest release of the given repository.
+     *
+     * @param owner Repository owner.
+     * @param repo Repository to fetch from.
+     * @return The latest release of the repository.
+     */
+    public Observable<ReleaseInfo> getReleaseLatest(String owner, String repo){
+        GitHubAPI service = createRetrofitService(GitHubAPI.class);
+        return service.getReleaseLatest(owner, repo);
+    }
+
+    /**
+     * Creates a retrofit service from an arbitrary class.
+     *
+     * @param clazz Java interface of the retrofit service.
+     * @return A Retrofit service with defined endpoint.
      */
     private <T> T createRetrofitService(final Class<T> clazz) {
         Gson gson = new GsonBuilder()
@@ -67,12 +83,5 @@ public class Github {
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         return retrofit.create(clazz);
-/*
-        final RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(GitHubAPI.SERVICE_ENDPOINT)
-                .build();
-        return restAdapter.create(clazz);
-*/
     }
-
 }

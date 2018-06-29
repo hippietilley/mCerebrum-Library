@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.system.appinfo;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,11 +25,27 @@ package org.md2k.mcerebrum.system.appinfo;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.system.appinfo;
+
+/**
+ * Holds data refering to the version information of the applaction.
+ */
 public class VersionInfo {
+    /** Version name of the application. */
     public String versionName;
+
+    /** Version code of the application. */
     public long versionCode;
+
+    /** URL to find the application download. */
     public String downloadURL;
+
+    /** Where the application is/was created. */
     public String created_at;
+
+    /** Where the application is/was published. */
     public String published_at;
+
+    /** Release information of the application. */
     public String releaseInfo;
 }

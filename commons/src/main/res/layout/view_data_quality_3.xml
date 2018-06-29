@@ -75,8 +75,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
-                            android:layout_weight="0.33"
-                            android:src="@drawable/icon_data_quality_good" />
+                            android:layout_weight="0.33" />
 
                         <TextView
                             android:id="@+id/textview_data_quality_response_1"
@@ -85,7 +84,6 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
-                            android:text="Good"
                             android:textColor="@color/text_white"
                             android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>
@@ -134,8 +132,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
-                            android:layout_weight="0.33"
-                            android:src="@drawable/icon_data_quality_good" />
+                            android:layout_weight="0.33" />
 
                         <TextView
                             android:id="@+id/textview_data_quality_response_2"
@@ -144,7 +141,6 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
-                            android:text="Good"
                             android:textColor="@color/text_white"
                             android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>
@@ -193,8 +189,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
-                            android:layout_weight="0.33"
-                            android:src="@drawable/icon_data_quality_good" />
+                            android:layout_weight="0.33" />
 
                         <TextView
                             android:id="@+id/textview_data_quality_response_3"
@@ -203,7 +198,6 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="5dp"
                             android:layout_weight=".33"
-                            android:text="Good"
                             android:textColor="@color/text_white"
                             android:textSize="@dimen/text_button_caption" />
                     </LinearLayout>

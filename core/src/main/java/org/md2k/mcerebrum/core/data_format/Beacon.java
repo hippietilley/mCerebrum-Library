@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.core.data_format;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +25,25 @@ package org.md2k.mcerebrum.core.data_format;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.core.data_format;
+
+/**
+ * Constructs an object representing a proximity beacon.
+ */
 public class Beacon {
     private String mac_address;
     private double distance;
     private double rssi;
     private double tx;
 
+    /**
+     * Constructor
+     *
+     * @param mac_address MAC (Media Access Control) address for the beacon.
+     * @param distance Distance between the beacon and the device.
+     * @param rssi Recieved signal strength indication.
+     * @param tx Transmission power.
+     */
     public Beacon(String mac_address, double distance, double rssi, double tx) {
         this.mac_address = mac_address;
         this.distance = distance;

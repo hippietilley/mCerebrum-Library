@@ -1,7 +1,6 @@
-package org.md2k.mcerebrum.commons.ui.data_quality;
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,12 +25,26 @@ package org.md2k.mcerebrum.commons.ui.data_quality;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+package org.md2k.mcerebrum.commons.ui.data_quality;
+
 import org.md2k.datakitapi.source.datasource.DataSource;
 
+/**
+ * Content fields for data quality.
+ */
 public class CDataQuality {
+    /** Title */
     public String title;
+
+    /** <code>DataSource</code> to read */
     public DataSource read;
+
+    /** <code>DataSource</code> plot */
     public DataSource plot;
+
+    /** YouTube video link */
     public String video_link;
+
+    /** Message */
     public String message;
 }

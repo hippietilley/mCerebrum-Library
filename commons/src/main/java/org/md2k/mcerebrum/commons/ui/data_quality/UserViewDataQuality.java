@@ -1,25 +1,18 @@
-package org.md2k.mcerebrum.commons.ui.data_quality;
-
-import android.os.Handler;
-
-import java.util.ArrayList;
-
-
-/**
- * Copyright (c) 2015, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+/*
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
- * <p/>
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * <p/>
+ *
  * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
- * <p/>
+ *
  * * Redistributions in binary form must reproduce the above copyright notice,
  * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * <p/>
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -31,27 +24,54 @@ import java.util.ArrayList;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+package org.md2k.mcerebrum.commons.ui.data_quality;
+
+import android.os.Handler;
+
+import java.util.ArrayList;
+
+/**
+ * Provides methods for managing the user's view of the <code>DataQuality</code>.
+ */
 public class UserViewDataQuality {
     private static final String TAG = UserViewDataQuality.class.getSimpleName();
     private Handler handler;
     private DataQualityManager dataQualityManager;
     private ResultCallback resultCallback;
 
+    /**
+     * Constructor
+     * @param dataQualityManager
+     */
     public UserViewDataQuality(DataQualityManager dataQualityManager) {
-        handler=new Handler();
-        this.dataQualityManager=dataQualityManager;
+        handler = new Handler();
+        this.dataQualityManager = dataQualityManager;
     }
+
+    /**
+     * Sets the result callback and posts <code>runnableUpateView</code> messages to the handler.
+     * @param resultCallback Callback for results.
+     */
     public void set(ResultCallback resultCallback) {
         this.resultCallback = resultCallback;
         handler.post(runnableUpdateView);
     }
+
+    /**
+     * Clears the callback thread.
+     */
     public void clear() {
         handler.removeCallbacks(runnableUpdateView);
     }
 
+    /**
+     * Updates the view if there are changes to <code>dataQualityManager</code>.
+     */
     public void updateView(){
         try {
-            if (dataQualityManager == null || dataQualityManager.dataQualityInfos == null || dataQualityManager.dataQualityInfos.size() == 0)
+            if (dataQualityManager == null || dataQualityManager.dataQualityInfos == null
+                    || dataQualityManager.dataQualityInfos.size() == 0)
                 return;
             int[] result = new int[dataQualityManager.dataQualityInfos.size()];
             ArrayList<DataQualityInfo> dataQualityInfos = dataQualityManager.dataQualityInfos;
@@ -59,18 +79,20 @@ public class UserViewDataQuality {
                 result[i] = dataQualityInfos.get(i).getQuality();
             }
             resultCallback.onResult(result);
-        }catch (Exception e){
-
-        }
+        }catch (Exception e){}
     }
 
-
+    /**
+     * Runnable for updating the view.
+     */
     private Runnable runnableUpdateView = new Runnable() {
+        /**
+         * Updates the view and posts a one seconds delayed <code>run()</code> message.
+         */
         @Override
         public void run() {
             updateView();
             handler.postDelayed(this, 1000);
         }
     };
-
 }
