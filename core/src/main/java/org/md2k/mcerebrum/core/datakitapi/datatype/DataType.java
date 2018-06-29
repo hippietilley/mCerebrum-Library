@@ -46,12 +46,14 @@ public class DataType implements Parcelable{
     /** The amount of time in milliseconds to add to UTC to get standard time in this time zone. */
     long offset;
 
-    /**
-     * Constructor
-     */
+
     public String toString(){
         return Long.toString(dateTime)+"," + String.valueOf(offset);
     }
+
+    /**
+     * Constructor
+     */
     public DataType(){}
 
     /**
