@@ -45,15 +45,23 @@ public class DataDescriptor {
     @Expose
     private String type;
 
-    /**
-     *<p>
-     *     Serialized name: "unit"
-     *     Exposed to serialization.
-     * </p>
-     */
-    @SerializedName("unit")
+    @SerializedName("name")
     @Expose
-    private String unit;
+    private String name;
+
+    @SerializedName("dataAttributes")
+    @Expose
+    private DataAttributes dataAttributes;
+
+//    /**
+//     *<p>
+//     *     Serialized name: "unit"
+//     *     Exposed to serialization.
+//     * </p>
+//     */
+//    @SerializedName("unit")
+//    @Expose
+//    private String unit;
 
     /**
      * No arguments constructor for use in serialization
@@ -63,13 +71,13 @@ public class DataDescriptor {
     /**
      * Constructor
      *
-     * @param unit Unit of this <code>DataDescriptor</code>.
+     * @param name Name of this <code>DataDescriptor</code>.
      * @param type Type of this <code>DataDescriptor</code>.
      */
-    public DataDescriptor(String type, String unit) {
+    public DataDescriptor(String type, String name) {
         super();
         this.type = type;
-        this.unit = unit;
+        this.name = name;
     }
 
     /**
@@ -92,15 +100,23 @@ public class DataDescriptor {
      * Returns the unit of this <code>DataDescriptor</code>.
      * @return The unit of this <code>DataDescriptor</code>.
      */
-    public String getUnit() {
-        return unit;
+    public String getName() {
+        return name;
     }
 
     /**
      * Sets the unit of this <code>DataDescriptor</code>.
-     * @param unit The unit of this <code>DataDescriptor</code>.
+     * @param name The name of this <code>DataDescriptor</code>.
      */
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DataAttributes getDataAttributes() {
+        return dataAttributes;
+    }
+
+    public void setDataAttributes(DataAttributes dataAttributes) {
+        this.dataAttributes = dataAttributes;
     }
 }

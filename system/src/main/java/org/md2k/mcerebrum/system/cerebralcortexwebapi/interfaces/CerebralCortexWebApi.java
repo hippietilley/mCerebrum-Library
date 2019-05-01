@@ -32,10 +32,16 @@ import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.AuthRequest;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.AuthResponse;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioObjectStats;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioObjectsListInBucket;
-import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.DataStream;
 
-import okhttp3.MultipartBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
+
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.UserRegisterRequest;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.StreamMetadata;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.RegisterResponse;
+
+import java.io.File;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -57,8 +63,23 @@ public interface CerebralCortexWebApi {
      * @param accessToken Authorization access token
      * @return An <code>AuthResponse</code> call.
      */
-    @GET("/api/v1/auth/")
-    Call<AuthResponse> getAccessToken(@Header("Authorization") String accessToken);
+//    @GET("/api/v3/user/")
+//    Call<AuthResponse> getAccessToken(@Header("Authorization") String accessToken);
+
+    /**
+     * Checks if the user route of Cerebral Cortex is working properly.
+     * @return a <code>Response</code> object
+     */
+    @GET("/api/v3/user")
+    Call<ResponseBody> checkUserRoute();
+
+    /**
+     * Fetches the user's configuration from Cerebral Cortex
+     * @param accessToken Access token returned from Cerebral Cortex when a user logs in.
+     * @return
+     */
+    @GET("/api/v3/user/config")
+    Call<AuthResponse> getUserConfig(@Header("Authorization") String accessToken);
 
     /**
      * Authenticates the user.
@@ -66,8 +87,11 @@ public interface CerebralCortexWebApi {
      * @param authRequest Authorization request.
      * @return An <code>AuthResponse</code> call.
      */
-    @POST("/api/v1/auth/")
+    @POST("/api/v3/user/login")
     Call<AuthResponse> authenticateUser(@Body AuthRequest authRequest);
+
+    @POST("/api/v3/user/register")
+    Call<ResponseBody> registerUser(@Body UserRegisterRequest userRegisterRequest);
 
 
     /**
@@ -76,58 +100,61 @@ public interface CerebralCortexWebApi {
      * @param authorization Authorization header.
      * @return A <code>MinioBucketsList</code> call.
      */
-    @GET("/api/v1/object/")
-    Call<MinioBucketsList> bucketsList(@Header("Authorization") String authorization);
-
-    /**
-     * Gets the list of objects in the given Minio bucket.
-     *
-     * @param authorization Authorization header.
-     * @param bucket Bucket to list.
-     * @return A <code>MinioObjectsListInBucket</code> call.
-     */
-    @GET("/api/v1/object/{bucket}/")
-    Call<MinioObjectsListInBucket> objectsListInBucket(@Header("Authorization") String authorization,
-                                                       @Path("bucket") String bucket);
+    @GET("/api/v3/bucket/")
+    Call<MinioBucketsList> getBucketsList(@Header("Authorization") String authorization);
 
     /**
      * Gets a single Minio object from the given bucket.
      *
      * @param authorization Authorization header.
-     * @param bucket Bucket the objects are in.
-     * @param resource Object to return.
+     * @param objectName The Minio object.
+     * @param bucketName Bucket the object is in.
      * @return A <code>MinioObjectStats</code> call.
      */
-    @GET("/api/v1/object/stats/{bucket}/{resource}")
-    Call<MinioObjectStats> getMinioObjectStats(@Header("Authorization") String authorization,
-                                               @Path("bucket") String bucket,
-                                               @Path("resource") String resource);
+    @GET("/api/v3/object/stats/{bucket_name}/{object_name}")
+    Call<MinioObjectStats> getMinioObjectStats(@Path("bucket_name") String bucketName,
+                                               @Path("object_name") String objectName,
+                                               @Header("Authorization") String authorization);
+
+    /**
+     * Gets the list of objects in the given Minio bucket.
+     *
+     * @param authorization Authorization header.
+     * @param bucketName Bucket to list.
+     * @return A <code>MinioObjectsListInBucket</code> call.
+     */
+    @GET("/api/v3/bucket/{bucket_name}/")
+    Call<MinioObjectsListInBucket> objectsListInBucket(@Path("bucket_name") String bucketName,
+                                                       @Header("Authorization") String authorization);
 
     /**
      * Downloads a Minio object via a <code>ResponseBody</code>.
      *
      * @param authorization Authorization header.
-     * @param bucket Bucket the object is in.
-     * @param resource The Minio object.
+     * @param objectName The Minio object.
+     * @param bucketName Bucket the object is in.
      * @return A <code>ResponseBody</code> call.
      */
-    @GET("/api/v1/object/{bucket}/{resource}")
-    Call<ResponseBody> downloadMinioObject(@Header("Authorization") String authorization,
-                                           @Path("bucket") String bucket,
-                                           @Path("resource") String resource);
+    @GET("/api/v3/bucket/{bucket_name}/{object_name}")
+    Call<ResponseBody> downloadMinioObject(@Path("object_name") String objectName,
+                                           @Path("bucket_name") String bucketName,
+                                           @Header("Authorization") String authorization);
 
-    /**
-     * Puts the archived data Stream with the appropriate metadata.
-     *
-     * @param authorization Authorization header.
-     * @param jsonMetadata Metadata of the data stream.
-     * @param file MultipartBody.Part
-     * @return A <code>ResponseBody</code> call.
-     */
+    @GET("/api/v3/stream/data/{stream_name}")
+    Call<ResponseBody> getStreamData(@Path("stream_name") String streamName,
+                                     @Header("Authorization") String authorization);
+
+    @GET("api/v3/stream/metadata/{stream_name}")
+    Call<StreamMetadata> getStreamMetadata(@Path("stream_name") String streamName,
+                                           @Header("Authorization") String authorization);
+
+    @POST("/api/v3/stream/register")
+    Call<RegisterResponse> registerDataStream(@Header("Authorization") String authorization,
+                                              @Body StreamMetadata streamMetadata);
+
     @Multipart
-    @PUT("/api/v1/stream/zip/")
-    Call<ResponseBody> putArchiveDataStreamWithMetadata(
-            @Header("Authorization") String authorization,
-            @Part("metadata") DataStream jsonMetadata,
-            @Part MultipartBody.Part file);
+    @PUT("/api/v3/stream/{metadata_hash}")
+    Call<ResponseBody> putDataStream(@Path("metadata_hash") String metadataHash,
+                                     @Part("file") File fileToUpload,
+                                     @Header("Authorization") String authorization);
 }

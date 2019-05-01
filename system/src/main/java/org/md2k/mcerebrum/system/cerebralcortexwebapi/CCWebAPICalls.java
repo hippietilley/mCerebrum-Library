@@ -39,10 +39,18 @@ import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioBucket;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioBucketsList;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioObjectStats;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.MinioObjectsListInBucket;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.UserMetadata;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.UserRegisterRequest;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.UserSettings;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.DataStream;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.RegisterResponse;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.StreamMetadata;
+import org.md2k.mcerebrum.system.cerebralcortexwebapi.models.stream.UploadMetadata;
 import org.md2k.mcerebrum.system.cerebralcortexwebapi.utils.ApiUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -67,6 +75,35 @@ public class CCWebAPICalls {
      */
     public CCWebAPICalls(CerebralCortexWebApi ccService) {
         this.ccService = ccService;
+    }
+
+    public ResponseBody registerUser(String userName, String userPassword, String userRole,
+                                     ArrayList<UserMetadata> userMetadata, ArrayList<UserSettings> userSettings) {
+        AuthRequest authRequest = new AuthRequest(userName, userPassword);
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest(authRequest, userRole,
+                userMetadata, userSettings);
+        Call<ResponseBody> call = ccService.registerUser(userRegisterRequest);
+
+        try {
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                return (ResponseBody) response.body();
+            } else {
+                Gson gson = new Gson();
+                try {
+                    CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(),
+                            CCApiErrorMessage.class);
+                    Log.e("CCWebAPI", "Not successful " + errorBody.getMessage());
+                } catch (Exception e) {
+                    Log.e("CCWebAPI", "Server URL is not like a Cerebral Cortex instance");
+                }
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CCWebAPICalls", e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -125,8 +162,8 @@ public class CCWebAPICalls {
      * @param accessToken Authenticated access token.
      * @return A list of Minio buckets.
      */
-    public List<MinioBucket> getMinioBuckets(String accessToken) {
-        Call<MinioBucketsList> call = ccService.bucketsList(accessToken);
+    public List<MinioBucket> getBucketsList(String accessToken) {
+        Call<MinioBucketsList> call = ccService.getBucketsList(accessToken);
         try {
             Response response = call.execute();
             if (response.isSuccessful()) {
@@ -160,7 +197,7 @@ public class CCWebAPICalls {
      * @return List of Minio objects.
      */
     public List<MinioObjectStats> getObjectsInBucket(String accessToken, String bucketName) {
-        Call<MinioObjectsListInBucket> call = ccService.objectsListInBucket(accessToken, bucketName);
+        Call<MinioObjectsListInBucket> call = ccService.objectsListInBucket(bucketName, accessToken);
         try {
             Response response = call.execute();
             if (response.isSuccessful()) {
@@ -200,7 +237,7 @@ public class CCWebAPICalls {
      * @return The given Minio object.
      */
     public MinioObjectStats getObjectStats(String accessToken, String bucketName, String objectName) {
-        Call<MinioObjectStats> call = ccService.getMinioObjectStats(accessToken, bucketName, objectName);
+        Call<MinioObjectStats> call = ccService.getMinioObjectStats(bucketName, objectName, accessToken);
         try {
             Response response = call.execute();
             if (response.isSuccessful()) {
@@ -238,7 +275,7 @@ public class CCWebAPICalls {
      */
     public Boolean downloadMinioObject(String accessToken, String bucketName, String objectName,
                                        String outputFileName) {
-        Call<ResponseBody> call = ccService.downloadMinioObject(accessToken, bucketName, objectName);
+        Call<ResponseBody> call = ccService.downloadMinioObject(objectName, bucketName, accessToken);
         try {
             Response response = call.execute();
             if (response.isSuccessful()) {
@@ -257,6 +294,66 @@ public class CCWebAPICalls {
         }
     }
 
+    public Boolean getStreamData(String streamName, String accessToken) {
+        Call<ResponseBody> call = ccService.getStreamData(streamName, accessToken);
+        try {
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                // TODO: figure out what should happen when the response is successful
+                return true;
+            } else {
+                Gson gson = new Gson();
+                CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(),
+                        CCApiErrorMessage.class);
+                Log.e("CCWebAPI", "Not successful " + errorBody.getMessage());
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CCWebAPICalls", e.getMessage());
+            return false;
+        }
+    }
+
+    public StreamMetadata getStreamMetadata(String streamName, String accessToken) {
+        Call<StreamMetadata> call = ccService.getStreamMetadata(streamName, accessToken);
+        try {
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                return (StreamMetadata) response.body();
+            } else {
+                Gson gson = new Gson();
+                CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(),
+                        CCApiErrorMessage.class);
+                Log.e("CCWebAPI", "not successful " + errorBody.getMessage());
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CCWebAPICalls", e.getMessage());
+            return null;
+        }
+    }
+
+    public RegisterResponse registerDataStream(String accessToken, StreamMetadata streamMetadata) {
+        Call<RegisterResponse> call = ccService.registerDataStream(accessToken, streamMetadata);
+        try {
+            Response response = call.execute();
+            if (response.isSuccessful()) {
+                return (RegisterResponse) response.body();
+            } else {
+                Gson gson = new Gson();
+                CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(),
+                        CCApiErrorMessage.class);
+                Log.e("CCWebAPI", "not successful " + errorBody.getMessage());
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("CCWebAPICalls", e.getMessage());
+            return null;
+        }
+    }
 
     /**
      * Uploads metadata and puts it with the archive data.
@@ -278,10 +375,32 @@ public class CCWebAPICalls {
      * @param filePath of the Multipart request.
      * @return Whether the upload was successful or not.
      */
-    public Boolean putArchiveDataAndMetadata(String accessToken, DataStream metadata, String filePath) {
-        MultipartBody.Part fileMultiBodyPart = ApiUtils.getUploadFileMultipart(filePath);
-        Call<ResponseBody> call = ccService.putArchiveDataStreamWithMetadata(accessToken, metadata,
-                fileMultiBodyPart);
+//    public Boolean putArchiveDataAndMetadata(String accessToken, DataStream metadata, String filePath, UploadMetadata uploadMetadata) {
+//        MultipartBody.Part fileMultiBodyPart = ApiUtils.getUploadFileMultipart(filePath);
+//        Call<ResponseBody> call = ccService.putArchiveDataStreamWithMetadata(accessToken, metadata, uploadMetadata,
+//                fileMultiBodyPart);
+//        try {
+//            Response response = call.execute();
+//            if (response.isSuccessful()) {
+//                Log.d("CCWebAPI", "Successfully uploaded: " + filePath);
+//                return true;
+//            } else {
+//                Gson gson = new Gson();
+//                CCApiErrorMessage errorBody = gson.fromJson(response.errorBody().charStream(),
+//                        CCApiErrorMessage.class);
+//                Log.e("CCWebAPI", "Not successful " + errorBody.getMessage());
+//                return false;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("CCWebAPICalls", e.getMessage());
+//            return false;
+//        }
+//    }
+
+    public Boolean putDataStream(String hashId, String filePath, String accessToken) {
+        File uploadFile = new File(filePath);
+        Call<ResponseBody> call = ccService.putDataStream(hashId, uploadFile, accessToken);
         try {
             Response response = call.execute();
             if (response.isSuccessful()) {
